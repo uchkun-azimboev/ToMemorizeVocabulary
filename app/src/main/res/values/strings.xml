@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">MeVo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="str_hello">Hello Full Name</string>
+    <string name="str_username">Username</string>
+    <string name="str_zero">0</string>
+    <string name="str_all_lessons">All lessons</string>
+    <string name="str_completed">Completed</string>
+    <string name="str_to_complete">To complete</string>
+    <string name="str_search">Search</string>
+    <string name="str_create">Create</string>
+    <string name="str_play">Play</string>
+    <string name="str_game">Game</string>
+    <string name="str_none_lessons_info">You have no lessons yet. Click the Create button to add a new lesson. </string>
+    <string name="str_none_words_info">You have no new words yet. Click the Add word button to add a new word.</string>
+    <string name="str_lessons">Lessons</string>
+    <string name="str_count_words">20 words</string>
+    <string name="str_date">29.12.2022</string>
+    <string name="str_categories">Categories</string>
+    <string name="str_title">Title</string>
+    <string name="str_description">Description</string>
+    <string name="str_choose_color">Choose color (Default color is pure gray)</string>
+    <string name="str_title_hint">What is name of this category ?</string>
+    <string name="str_description_hint">What about is this category ?</string>
+    <string name="str_cancel">Cancel</string>
+    <string name="str_edit">Edit</string>
+    <string name="str_add_word">Add</string>
+    <string name="letter_c">C</string>
+    <string name="str_cancel_trans">Bekor qilish</string>
+    <string name="str_stats">16/20</string>
+    <string name="str_terms_count">20 Terms</string>
+</resources>
