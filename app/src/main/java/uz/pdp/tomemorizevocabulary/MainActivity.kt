@@ -2,6 +2,7 @@ package uz.pdp.tomemorizevocabulary
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  *
@@ -10,6 +11,7 @@ import android.os.Bundle
  * https://github.com/LittleMango/StackLayoutManager
  * */
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

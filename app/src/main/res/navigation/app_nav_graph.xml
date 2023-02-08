@@ -20,12 +20,21 @@
 
     <fragment
         android:id="@+id/lessonCreateFragment"
-        android:name="uz.pdp.tomemorizevocabulary.ui.LessonCreateFragment"
+        android:name="uz.pdp.tomemorizevocabulary.ui.lesson.LessonCreateFragment"
         android:label="fragment_lesson_create"
         tools:layout="@layout/fragment_lesson_create" />
     <fragment
         android:id="@+id/lessonFragment"
         android:name="uz.pdp.tomemorizevocabulary.ui.lesson.LessonFragment"
         android:label="fragment_lesson"
-        tools:layout="@layout/fragment_lesson" />
+        tools:layout="@layout/fragment_lesson" >
+        <action
+            android:id="@+id/action_lessonFragment_to_addWordFragment"
+            app:destination="@id/addWordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addWordFragment"
+        android:name="uz.pdp.tomemorizevocabulary.ui.word.AddWordFragment"
+        android:label="fragment_add_word"
+        tools:layout="@layout/fragment_add_word" />
 </navigation>

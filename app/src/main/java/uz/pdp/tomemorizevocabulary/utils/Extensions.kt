@@ -1,7 +1,7 @@
 package uz.pdp.tomemorizevocabulary.utils
 
 import android.view.View
-import androidx.fragment.app.Fragment
+
 
 object Extensions {
 

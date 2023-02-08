@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.databinding.FragmentLessonBinding
 import uz.pdp.tomemorizevocabulary.model.Word
@@ -35,6 +36,10 @@ class LessonFragment : Fragment() {
         rvWords.adapter = WordAdapter().apply {
             submitList(getWords())
         }
+
+        frameCreate click {
+            findNavController().navigate(R.id.action_lessonFragment_to_addWordFragment)
+        }
     }
 
     fun getWords(): MutableList<Word> {
@@ -42,7 +47,16 @@ class LessonFragment : Fragment() {
         for (i in 1..5) {
             list.add(Word("Description", "Tarif, u haqida ma'lumot", null, 10, 13, R.color.blue))
             list.add(Word("Iron man", "Temir odam", R.drawable.image_man, 7, 9, R.color.blue))
-            list.add(Word("Hi brother", "Qalesan ahvollaring yaxshimi yaxshi yutibsanmi ishlaring joyidami bola chaqa tinchmi o'qish bo'p turibdimi",null, 7, 9, R.color.blue))
+            list.add(
+                Word(
+                    "Hi brother",
+                    "Qalesan ahvollaring yaxshimi yaxshi yutibsanmi ishlaring joyidami bola chaqa tinchmi o'qish bo'p turibdimi",
+                    null,
+                    7,
+                    9,
+                    R.color.blue
+                )
+            )
         }
         return list
     }

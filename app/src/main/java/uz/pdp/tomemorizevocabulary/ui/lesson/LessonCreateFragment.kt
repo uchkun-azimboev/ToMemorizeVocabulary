@@ -1,20 +1,13 @@
-package uz.pdp.tomemorizevocabulary.ui
+package uz.pdp.tomemorizevocabulary.ui.lesson
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.core.graphics.green
-import androidx.core.graphics.toColor
-import androidx.core.view.setPadding
 import com.google.android.material.imageview.ShapeableImageView
-import com.google.android.material.snackbar.Snackbar
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.databinding.FragmentLessonCreateBinding
-import uz.pdp.tomemorizevocabulary.databinding.FragmentMainBinding
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 
 class LessonCreateFragment : Fragment() {
