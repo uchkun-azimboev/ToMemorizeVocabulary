@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/dark"
     android:paddingHorizontal="15dp"
-    tools:context=".ui.main.MainFragment">
+    tools:context=".ui.MainFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,9 +40,9 @@
 
                 <TextView
                     android:id="@+id/tv_hello"
+                    style="@style/BoldText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/public_sans_black"
                     android:maxLines="1"
                     android:text="@string/str_hello"
                     android:textColor="@color/yellow"
@@ -50,9 +50,9 @@
 
                 <TextView
                     android:id="@+id/tv_nickname"
+                    style="@style/NormalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/public_sans_extralight"
                     android:text="@string/str_username"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
@@ -78,18 +78,18 @@
 
                 <TextView
                     android:id="@+id/tv_num_all"
+                    style="@style/MediumText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/public_sans"
                     android:text="@string/str_zero"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
                 <TextView
+                    style="@style/NormalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:fontFamily="@font/public_sans_extralight"
                     android:text="@string/str_lessons"
                     android:textColor="@color/gray"
                     android:textSize="14sp" />
@@ -110,18 +110,18 @@
 
                 <TextView
                     android:id="@+id/tv_num_completed"
+                    style="@style/MediumText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/public_sans"
                     android:text="@string/str_zero"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
                 <TextView
+                    style="@style/NormalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:fontFamily="@font/public_sans_extralight"
                     android:text="@string/str_completed"
                     android:textColor="@color/gray"
                     android:textSize="14sp" />
@@ -142,18 +142,18 @@
 
                 <TextView
                     android:id="@+id/tv_num_to_do"
+                    style="@style/MediumText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/public_sans"
                     android:text="@string/str_zero"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
                 <TextView
+                    style="@style/NormalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:fontFamily="@font/public_sans_extralight"
                     android:text="@string/str_to_complete"
                     android:textColor="@color/gray"
                     android:textSize="14sp" />
@@ -186,12 +186,12 @@
                     app:tint="@color/dark" />
 
                 <TextView
+                    style="@style/BoldText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|start"
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/public_sans_black"
                     android:text="@string/str_search"
                     android:textColor="@color/dark"
                     android:textSize="17sp" />
@@ -220,12 +220,12 @@
                     app:tint="@color/dark" />
 
                 <TextView
+                    style="@style/BoldText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|start"
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/public_sans_black"
                     android:text="@string/str_create"
                     android:textColor="@color/dark"
                     android:textSize="17sp" />
@@ -256,12 +256,12 @@
                     app:tint="@color/dark" />
 
                 <TextView
+                    style="@style/BoldText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|start"
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/public_sans_black"
                     android:text="@string/str_game"
                     android:textColor="@color/dark"
                     android:textSize="17sp" />
@@ -277,10 +277,10 @@
 
             <TextView
                 android:id="@+id/tv_none_info"
+                style="@style/NormalText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="80dp"
-                android:fontFamily="@font/public_sans_extralight"
                 android:gravity="center"
                 android:paddingHorizontal="20dp"
                 android:text="@string/str_none_lessons_info"
@@ -310,7 +310,7 @@
                     android:layout_height="wrap_content"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="10"
-                    tools:listitem="@layout/lesson_item_view" />
+                    tools:listitem="@layout/item_view_category" />
 
             </LinearLayout>
 

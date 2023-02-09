@@ -1,6 +1,6 @@
 package uz.pdp.tomemorizevocabulary.model
 
-data class Lesson(
+data class Category(
     var title: String,
     var description: String,
     var wordCount: Int,

@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.databinding.FragmentAddWordBinding
+import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Resource
 
 
@@ -22,6 +23,8 @@ class AddWordFragment : Fragment() {
     private val bn get() = _bn!!
 
     private val viewModel: AddWordViewModel by viewModels()
+
+    private val rvAdapter = PhotoAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,9 +42,11 @@ class AddWordFragment : Fragment() {
     }
 
     private fun initViews() = bn.apply {
+        rvPhotos.adapter = rvAdapter
 
-        viewModel.getPhotos(1, "cloud")
-
+        btnCreate click {
+            viewModel.getPhotos(1, etTitle.text.toString())
+        }
     }
 
     private fun observer() {
@@ -52,6 +57,7 @@ class AddWordFragment : Fragment() {
                 }
                 Resource.Status.SUCCESS -> {
                     Log.d(tag, "${it.data}")
+                    rvAdapter.submitList(it.data?.photos)
                 }
                 Resource.Status.ERROR -> {
                     Log.d(tag, "${it.message}")

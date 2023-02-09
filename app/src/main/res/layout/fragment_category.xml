@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark"
-    tools:context=".ui.lesson.LessonFragment">
+    tools:context=".ui.category.CategoryFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:ellipsize="end"
-                android:fontFamily="@font/public_sans_black"
+                android:fontFamily="@font/poppins_bold"
                 android:maxLines="1"
                 android:paddingHorizontal="30dp"
                 android:text="@string/str_lessons"
@@ -79,12 +79,12 @@
                         app:tint="@color/dark" />
 
                     <TextView
+                        style="@style/BoldText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|start"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="5dp"
-                        android:fontFamily="@font/public_sans_black"
                         android:text="@string/str_edit"
                         android:textColor="@color/dark"
                         android:textSize="17sp" />
@@ -113,12 +113,12 @@
                         app:tint="@color/dark" />
 
                     <TextView
+                        style="@style/BoldText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|start"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="5dp"
-                        android:fontFamily="@font/public_sans_black"
                         android:text="@string/str_add_word"
                         android:textColor="@color/dark"
                         android:textSize="17sp" />
@@ -149,12 +149,12 @@
                         app:tint="@color/dark" />
 
                     <TextView
+                        style="@style/BoldText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|start"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="5dp"
-                        android:fontFamily="@font/public_sans_black"
                         android:text="@string/str_play"
                         android:textColor="@color/dark"
                         android:textSize="17sp" />
@@ -170,10 +170,10 @@
 
                 <TextView
                     android:id="@+id/tv_none_info"
+                    style="@style/NormalText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="80dp"
-                    android:fontFamily="@font/public_sans_extralight"
                     android:gravity="center"
                     android:paddingHorizontal="20dp"
                     android:text="@string/str_none_words_info"
@@ -191,10 +191,10 @@
 
                     <TextView
                         android:id="@+id/tv_word_count"
+                        style="@style/BoldText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
-                        android:fontFamily="@font/public_sans_black"
                         android:text="@string/str_terms_count"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
@@ -206,7 +206,7 @@
                         android:orientation="vertical"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="10"
-                        tools:listitem="@layout/word_item_view" />
+                        tools:listitem="@layout/item_view_word" />
 
                 </LinearLayout>
 

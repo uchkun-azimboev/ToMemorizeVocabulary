@@ -17,10 +17,10 @@
 
         <TextView
             android:id="@+id/tv_title"
+            style="@style/BoldText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:fontFamily="@font/public_sans_black"
             android:maxLines="1"
             android:text="@string/str_lessons"
             android:textColor="@color/white"
@@ -28,10 +28,10 @@
 
         <TextView
             android:id="@+id/tv_description"
+            style="@style/MediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:fontFamily="@font/public_sans"
             android:maxLines="1"
             android:text="@string/str_none_lessons_info"
             android:textColor="@color/white"
@@ -44,20 +44,20 @@
 
             <TextView
                 android:id="@+id/tv_word_count"
+                style="@style/BoldText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|start"
-                android:fontFamily="@font/public_sans_black"
                 android:text="@string/str_count_words"
                 android:textColor="@color/yellow"
                 android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_create_date"
+                style="@style/MediumText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
-                android:fontFamily="@font/public_sans"
                 android:text="@string/str_date"
                 android:textColor="@color/yellow"
                 android:textSize="12sp" />

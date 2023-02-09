@@ -13,8 +13,7 @@ interface ApiService {
     @GET("search")
     suspend fun getPhotos(
         @Query("page") page: Int = 1,
-        @Query("per_page") per_page: Int = 15,
-        @Query("orientation") orientation: String = "square",
+        @Query("per_page") per_page: Int = 50,
         @Query("query") query: String
     ): Response<ResponsePhotos>
 

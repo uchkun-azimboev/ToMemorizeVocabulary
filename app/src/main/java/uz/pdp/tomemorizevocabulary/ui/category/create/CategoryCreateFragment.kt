@@ -1,4 +1,4 @@
-package uz.pdp.tomemorizevocabulary.ui.lesson
+package uz.pdp.tomemorizevocabulary.ui.category.create
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.imageview.ShapeableImageView
 import uz.pdp.tomemorizevocabulary.R
-import uz.pdp.tomemorizevocabulary.databinding.FragmentLessonCreateBinding
+import uz.pdp.tomemorizevocabulary.databinding.FragmentCategoryCreateBinding
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 
-class LessonCreateFragment : Fragment() {
+class CategoryCreateFragment : Fragment() {
 
-    private var _bn: FragmentLessonCreateBinding? = null
+    private var _bn: FragmentCategoryCreateBinding? = null
     private val binding get() = _bn!!
     private lateinit var colorList: ArrayList<ShapeableImageView>
     private var pickColor: Int = R.color.pure_gray
@@ -20,7 +20,7 @@ class LessonCreateFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _bn = FragmentLessonCreateBinding.inflate(inflater, container, false)
+        _bn = FragmentCategoryCreateBinding.inflate(inflater, container, false)
         return binding.root
     }
 

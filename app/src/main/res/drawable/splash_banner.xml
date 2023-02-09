@@ -9,6 +9,6 @@
     </item>
 
     <item
-        android:drawable="@drawable/memorize_vocabulary_app_logo"
+        android:drawable="@drawable/img_app_logo"
         android:gravity="center" />
 </layer-list>

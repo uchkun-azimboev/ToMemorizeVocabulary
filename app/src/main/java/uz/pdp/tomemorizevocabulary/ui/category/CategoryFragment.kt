@@ -1,4 +1,4 @@
-package uz.pdp.tomemorizevocabulary.ui.lesson
+package uz.pdp.tomemorizevocabulary.ui.category
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import uz.pdp.tomemorizevocabulary.R
-import uz.pdp.tomemorizevocabulary.databinding.FragmentLessonBinding
+import uz.pdp.tomemorizevocabulary.databinding.FragmentCategoryBinding
 import uz.pdp.tomemorizevocabulary.model.Word
-import uz.pdp.tomemorizevocabulary.ui.main.LessonAdapter
+import uz.pdp.tomemorizevocabulary.ui.word.WordAdapter
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 
-class LessonFragment : Fragment() {
+class CategoryFragment : Fragment() {
 
-    private var _bn: FragmentLessonBinding? = null
+    private var _bn: FragmentCategoryBinding? = null
     private val binding get() = _bn!!
 
     override fun onCreateView(
@@ -22,7 +22,7 @@ class LessonFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _bn = FragmentLessonBinding.inflate(inflater, container, false)
+        _bn = FragmentCategoryBinding.inflate(inflater, container, false)
         return binding.root
     }
 

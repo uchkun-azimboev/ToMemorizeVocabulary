@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark"
-    tools:context=".ui.lesson.LessonCreateFragment">
+    tools:context=".ui.category.create.CategoryCreateFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -28,10 +28,10 @@
                 app:tint="@color/white" />
 
             <TextView
+                style="@style/BoldText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/public_sans_black"
                 android:text="@string/str_create"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -57,9 +57,9 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/MediumText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/public_sans"
                     android:gravity="center"
                     android:paddingVertical="10dp"
                     android:text="@string/str_title"
@@ -74,9 +74,9 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_title"
+                        style="@style/MediumText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/public_sans"
                         android:hint="@string/str_title_hint"
                         android:textColor="@color/white"
                         android:textColorHint="@color/gray"
@@ -85,10 +85,10 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
+                    style="@style/MediumText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:fontFamily="@font/public_sans"
                     android:gravity="center"
                     android:paddingVertical="10dp"
                     android:text="@string/str_description"
@@ -104,9 +104,9 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_description"
+                        style="@style/MediumText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/public_sans"
                         android:hint="@string/str_description_hint"
                         android:textColor="@color/white"
                         android:textColorHint="@color/gray"
@@ -118,10 +118,10 @@
             </LinearLayout>
 
             <TextView
+                style="@style/MediumText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:fontFamily="@font/public_sans"
                 android:gravity="center"
                 android:paddingVertical="10dp"
                 android:text="@string/str_choose_color"
@@ -216,12 +216,12 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_cancel"
+                    style="@style/MediumText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/pure_gray"
-                    android:fontFamily="@font/public_sans"
                     android:text="@string/str_cancel"
                     android:textAllCaps="false"
                     android:textSize="16sp"
@@ -229,12 +229,12 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_create"
+                    style="@style/MediumText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/blue"
-                    android:fontFamily="@font/public_sans"
                     android:text="@string/str_create"
                     android:textAllCaps="false"
                     android:textSize="16sp"

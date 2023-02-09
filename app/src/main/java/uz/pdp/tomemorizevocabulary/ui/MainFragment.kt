@@ -1,4 +1,4 @@
-package uz.pdp.tomemorizevocabulary.ui.main
+package uz.pdp.tomemorizevocabulary.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.databinding.FragmentMainBinding
-import uz.pdp.tomemorizevocabulary.model.Lesson
+import uz.pdp.tomemorizevocabulary.model.Category
+import uz.pdp.tomemorizevocabulary.ui.category.CategoryAdapter
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import java.util.Random
 
@@ -30,7 +31,7 @@ class MainFragment : Fragment() {
     }
 
     private fun initViews() = binding.apply {
-        rvLessons.adapter = LessonAdapter {
+        rvLessons.adapter = CategoryAdapter {
             findNavController().navigate(R.id.action_mainFragment_to_lessonFragment)
         }.apply {
             submitList(getLessons())
@@ -41,11 +42,11 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun getLessons(): MutableList<Lesson> {
-        val lessons = ArrayList<Lesson>()
+    private fun getLessons(): MutableList<Category> {
+        val categories = ArrayList<Category>()
         for (i in 1..20) {
-            lessons.add(
-                Lesson(
+            categories.add(
+                Category(
                     title = "Lesson $i",
                     description = getString(R.string.str_none_lessons_info),
                     wordCount = 20,
@@ -59,7 +60,7 @@ class MainFragment : Fragment() {
                 )
             )
         }
-        return lessons
+        return categories
     }
 
     override fun onDestroyView() {

@@ -1,29 +1,25 @@
-package uz.pdp.tomemorizevocabulary.ui.main
+package uz.pdp.tomemorizevocabulary.ui.category
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import uz.pdp.tomemorizevocabulary.databinding.LessonItemViewBinding
-import uz.pdp.tomemorizevocabulary.model.Lesson
+import uz.pdp.tomemorizevocabulary.databinding.ItemViewCategoryBinding
+import uz.pdp.tomemorizevocabulary.model.Category
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 
-class LessonAdapter(var itemClick: (Lesson) -> Unit) :
-    ListAdapter<Lesson, LessonAdapter.LessonViewHolder>(LessonDiffCallBack()) {
+class CategoryAdapter(var itemClick: (Category) -> Unit) :
+    ListAdapter<Category, CategoryAdapter.LessonViewHolder>(LessonDiffCallBack()) {
 
-    inner class LessonViewHolder(private val binding: LessonItemViewBinding) :
+    inner class LessonViewHolder(private val binding: ItemViewCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(lesson: Lesson) = binding.apply {
-            lesson.apply {
+        fun bind(category: Category) = binding.apply {
+            category.apply {
                 backCard.setCardBackgroundColor(ContextCompat.getColor(root.context, color))
                 tvTitle.text = title
                 tvCreateDate.text = createDate
@@ -31,19 +27,19 @@ class LessonAdapter(var itemClick: (Lesson) -> Unit) :
                 tvWordCount.text = "$wordCount words"
             }
 
-            root click { itemClick.invoke(lesson) }
+            root click { itemClick.invoke(category) }
         }
     }
 
-    private class LessonDiffCallBack : DiffUtil.ItemCallback<Lesson>() {
-        override fun areItemsTheSame(oldItem: Lesson, newItem: Lesson): Boolean = oldItem == newItem
-        override fun areContentsTheSame(oldItem: Lesson, newItem: Lesson): Boolean =
+    private class LessonDiffCallBack : DiffUtil.ItemCallback<Category>() {
+        override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean = oldItem == newItem
+        override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean =
             oldItem == newItem
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonViewHolder =
         LessonViewHolder(
-            LessonItemViewBinding.inflate(
+            ItemViewCategoryBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
