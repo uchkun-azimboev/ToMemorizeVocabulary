@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark"
-    tools:context=".ui.word.AddWordFragment">
+    tools:context=".ui.category.add.AddWordFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingVertical="10dp"
-                    android:text="@string/str_title"
+                    android:text="@string/str_enter_word"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
@@ -77,7 +77,7 @@
                         style="@style/MediumText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="@string/str_title_hint"
+                        android:hint="@string/str_enter_english"
                         android:textColor="@color/white"
                         android:textColorHint="@color/gray"
                         android:textCursorDrawable="@drawable/shape_cursor" />
@@ -85,26 +85,41 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_photos"
+                <TextView
+                    style="@style/MediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingVertical="10dp"
+                    android:text="@string/str_enter_part_of_speech"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/textInputStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:contentDescription="this is check photo"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="3"
-                    tools:itemCount="9"
-                    tools:listitem="@layout/item_view_photo" />
+                    app:boxStrokeColor="@color/yellow">
 
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_type"
+                        style="@style/MediumText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/str_hint_part"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/gray"
+                        android:textCursorDrawable="@drawable/shape_cursor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     style="@style/MediumText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
                     android:gravity="center"
                     android:paddingVertical="10dp"
-                    android:text="@string/str_description"
+                    android:text="@string/str_enter_meaning"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
@@ -120,13 +135,105 @@
                         style="@style/MediumText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="@string/str_description_hint"
+                        android:hint="@string/str_what_mean"
                         android:textColor="@color/white"
                         android:textColorHint="@color/gray"
                         android:textCursorDrawable="@drawable/shape_cursor" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <TextView
+                    style="@style/MediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:paddingVertical="10dp"
+                    android:text="@string/str_select_image"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/iv_photo"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/img_placeholder"
+                        app:shapeAppearanceOverlay="@style/rounded_corner" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:gravity="start"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_local"
+                            style="@style/MediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/orange"
+                            android:drawableLeft="@drawable/ic_folder_24"
+                            android:text="@string/str_local"
+                            android:textAllCaps="false"
+                            android:textSize="16sp"
+                            app:cornerRadius="10dp"
+                            tools:ignore="RtlHardcoded" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_search"
+                            style="@style/MediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/green"
+                            android:drawableLeft="@drawable/ic_search_24"
+                            android:text="@string/str_search"
+                            android:textAllCaps="false"
+                            android:textSize="16sp"
+                            app:cornerRadius="10dp"
+                            tools:ignore="RtlHardcoded" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ProgressBar
+                        android:id="@+id/progressbar"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center"
+                        android:layout_marginVertical="20dp"
+                        android:indeterminate="true"
+                        android:indeterminateTint="@color/blue"
+                        android:visibility="gone" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_photos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:contentDescription="@string/desc_rv"
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_view_photo" />
+
+                </FrameLayout>
 
             </LinearLayout>
 

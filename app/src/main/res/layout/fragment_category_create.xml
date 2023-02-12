@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark"
-    tools:context=".ui.category.create.CategoryCreateFragment">
+    tools:context=".ui.main.create.CategoryCreateFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

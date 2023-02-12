@@ -1,4 +1,4 @@
-package uz.pdp.tomemorizevocabulary.ui.category
+package uz.pdp.tomemorizevocabulary.ui.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,30 +9,30 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import uz.pdp.tomemorizevocabulary.R
-import uz.pdp.tomemorizevocabulary.databinding.FragmentCategoryBinding
+import uz.pdp.tomemorizevocabulary.databinding.FragmentMainBinding
+import uz.pdp.tomemorizevocabulary.model.Category
 import uz.pdp.tomemorizevocabulary.model.Word
-import uz.pdp.tomemorizevocabulary.viewmodel.WordViewModel
 import uz.pdp.tomemorizevocabulary.utils.Constants
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
-import uz.pdp.tomemorizevocabulary.utils.Resource.Status
+import uz.pdp.tomemorizevocabulary.utils.Resource
+import uz.pdp.tomemorizevocabulary.viewmodel.CategoryViewModel
+import java.util.Random
 
 @AndroidEntryPoint
-class CategoryFragment : Fragment() {
+class MainFragment : Fragment() {
 
-    private var _bn: FragmentCategoryBinding? = null
+    private var _bn: FragmentMainBinding? = null
     private val binding get() = _bn!!
 
-    private val wordViewModel: WordViewModel by viewModels()
-    private val wordAdapter = WordAdapter()
+    private val categoryViewModel: CategoryViewModel by viewModels()
+    private val categoryAdapter = CategoryAdapter()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _bn = FragmentCategoryBinding.inflate(inflater, container, false)
+        _bn = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -44,53 +44,59 @@ class CategoryFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        wordViewModel.getWords(arguments?.getString(Constants.CATEGORY) ?: "")
+        categoryViewModel.getAllCategory()
     }
 
     private fun initViews() = binding.apply {
 
-        rvWords.adapter = wordAdapter
+        rvLessons.adapter = categoryAdapter.apply {
+            itemClick = {
+                openAddWordFragment(it)
+            }
+        }
 
-        ivBack click { requireActivity().onBackPressed() }
-
-        frameCreate click {
-            findNavController().navigate(R.id.action_lessonFragment_to_addWordFragment, arguments)
+        frameCreate.click {
+            findNavController().navigate(R.id.action_mainFragment_to_lessonCreateFragment)
         }
     }
 
-    private fun setUpRv(list: List<Word>?) {
+    private fun setUpRv(list: List<Category>?) {
         binding.apply {
             progressbar.gone()
             if (list.isNullOrEmpty()) {
                 tvNoneInfo.visible()
-                wordsLine.gone()
+                lessonsLine.gone()
                 return
 
             } else {
-                wordsLine.visible()
+                lessonsLine.visible()
                 tvNoneInfo.gone()
             }
 
-            tvWordCount.text =
-                list.size.toString().plus(" ").plus(getString(R.string.str_count_words))
-            wordAdapter.submitList(list)
+            categoryAdapter.submitList(list)
         }
     }
 
     private fun observer() {
-        wordViewModel.words.observe(viewLifecycleOwner) {
+        categoryViewModel.categories.observe(viewLifecycleOwner) {
             when (it.status) {
-                Status.LOADING -> {
+                Resource.Status.LOADING -> {
                     binding.progressbar.visible()
                 }
-                Status.SUCCESS -> {
+                Resource.Status.SUCCESS -> {
                     setUpRv(it.data)
                 }
-                Status.ERROR -> {
+                Resource.Status.ERROR -> {
                     setUpRv(null)
                 }
             }
         }
+    }
+
+    private fun openAddWordFragment(it: Category) {
+        val args = Bundle()
+        args.putString(Constants.CATEGORY, it.title)
+        findNavController().navigate(R.id.action_mainFragment_to_lessonFragment, args)
     }
 
     override fun onDestroyView() {

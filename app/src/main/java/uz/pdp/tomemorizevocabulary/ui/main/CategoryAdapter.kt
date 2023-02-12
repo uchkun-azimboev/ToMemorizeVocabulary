@@ -1,4 +1,4 @@
-package uz.pdp.tomemorizevocabulary.ui.category
+package uz.pdp.tomemorizevocabulary.ui.main
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -11,8 +11,10 @@ import uz.pdp.tomemorizevocabulary.databinding.ItemViewCategoryBinding
 import uz.pdp.tomemorizevocabulary.model.Category
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 
-class CategoryAdapter(var itemClick: (Category) -> Unit) :
+class CategoryAdapter :
     ListAdapter<Category, CategoryAdapter.LessonViewHolder>(LessonDiffCallBack()) {
+
+    var itemClick: ((Category) -> Unit)? = null
 
     inner class LessonViewHolder(private val binding: ItemViewCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -27,12 +29,14 @@ class CategoryAdapter(var itemClick: (Category) -> Unit) :
                 tvWordCount.text = "$wordCount words"
             }
 
-            root click { itemClick.invoke(category) }
+            root click { itemClick?.invoke(category) }
         }
     }
 
     private class LessonDiffCallBack : DiffUtil.ItemCallback<Category>() {
-        override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean = oldItem == newItem
+        override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean =
+            oldItem == newItem
+
         override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean =
             oldItem == newItem
     }

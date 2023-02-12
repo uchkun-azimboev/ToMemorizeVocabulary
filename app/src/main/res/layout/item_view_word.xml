@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:layout_marginBottom="15dp"
     android:background="@color/dark"
     android:gravity="top"
     android:orientation="horizontal">
@@ -27,7 +27,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/letter_c"
             android:textColor="@color/white"
             android:textSize="35sp" />
 
@@ -46,19 +45,27 @@
             style="@style/BoldText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/str_cancel"
+            android:text="@string/str_none_lessons_info"
             android:textColor="@color/white"
             android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_type"
+            style="@style/MediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_noun"
+            android:textColor="@color/green"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_trans"
             style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/str_cancel_trans"
+            android:text="@string/str_none_words_info"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -69,6 +76,7 @@
         android:layout_height="70dp"
         android:gravity="center"
         android:text="@string/str_stats"
-        android:textColor="@color/yellow" />
+        android:textColor="@color/yellow"
+        android:textSize="14sp" />
 
 </LinearLayout>

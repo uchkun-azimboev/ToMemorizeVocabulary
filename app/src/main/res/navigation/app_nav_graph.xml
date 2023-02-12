@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="uz.pdp.tomemorizevocabulary.ui.MainFragment"
+        android:name="uz.pdp.tomemorizevocabulary.ui.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
         <action
@@ -20,21 +20,33 @@
 
     <fragment
         android:id="@+id/lessonCreateFragment"
-        android:name="uz.pdp.tomemorizevocabulary.ui.category.create.CategoryCreateFragment"
+        android:name="uz.pdp.tomemorizevocabulary.ui.main.create.CategoryCreateFragment"
         android:label="fragment_lesson_create"
-        tools:layout="@layout/fragment_category_create" />
+        tools:layout="@layout/fragment_category_create">
+        <action
+            android:id="@+id/action_lessonCreateFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/lessonFragment"
         android:name="uz.pdp.tomemorizevocabulary.ui.category.CategoryFragment"
         android:label="fragment_lesson"
-        tools:layout="@layout/fragment_category" >
+        tools:layout="@layout/fragment_category">
         <action
             android:id="@+id/action_lessonFragment_to_addWordFragment"
             app:destination="@id/addWordFragment" />
     </fragment>
     <fragment
         android:id="@+id/addWordFragment"
-        android:name="uz.pdp.tomemorizevocabulary.ui.word.AddWordFragment"
+        android:name="uz.pdp.tomemorizevocabulary.ui.category.add.AddWordFragment"
         android:label="fragment_add_word"
-        tools:layout="@layout/fragment_add_word" />
+        tools:layout="@layout/fragment_add_word">
+        <action
+            android:id="@+id/action_addWordFragment_to_lessonFragment"
+            app:destination="@id/lessonFragment"
+            app:popUpTo="@id/lessonFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

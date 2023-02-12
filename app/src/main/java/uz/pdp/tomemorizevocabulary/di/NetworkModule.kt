@@ -9,6 +9,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import uz.pdp.tomemorizevocabulary.data.remote.ApiService
 import uz.pdp.tomemorizevocabulary.data.remote.AuthInterceptor
+import uz.pdp.tomemorizevocabulary.repository.PhotoRepository
+import uz.pdp.tomemorizevocabulary.repository.PhotoRepositoryImp
 import uz.pdp.tomemorizevocabulary.utils.Constants
 import javax.inject.Singleton
 
@@ -51,4 +53,9 @@ object NetworkModule {
         return retrofit.create(ApiService::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun providePhotoRepository(apiService: ApiService): PhotoRepository {
+        return PhotoRepositoryImp(apiService)
+    }
 }

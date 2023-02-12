@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MeVo</string>
+    <string name="app_name">Memorize Vocabulary</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="str_hello">Hello Full Name</string>
@@ -15,7 +15,7 @@
     <string name="str_none_lessons_info">You have no lessons yet. Click the Create button to add a new lesson. </string>
     <string name="str_none_words_info">You have no new words yet. Click the Add word button to add a new word.</string>
     <string name="str_lessons">Lessons</string>
-    <string name="str_count_words">20 words</string>
+    <string name="str_count_words">words</string>
     <string name="str_date">29.12.2022</string>
     <string name="str_categories">Categories</string>
     <string name="str_title">Title</string>
@@ -28,6 +28,17 @@
     <string name="str_add_word">Add</string>
     <string name="letter_c">C</string>
     <string name="str_cancel_trans">Bekor qilish</string>
-    <string name="str_stats">16/20</string>
+    <string name="str_stats">0/0</string>
     <string name="str_terms_count">20 Terms</string>
+    <string name="desc_rv">this is select photo</string>
+    <string name="str_enter_word">Enter word</string>
+    <string name="str_enter_english">Try to enter an English word</string>
+    <string name="str_what_mean">What does this word mean?</string>
+    <string name="str_enter_meaning">Enter the meaning</string>
+    <string name="str_select_image">Select image for the word ( Optional )</string>
+    <string name="str_local">Local</string>
+    <string name="str_noun">noun</string>
+    <string name="str_enter_part_of_speech">Enter part of speech</string>
+    <string name="str_hint_part">noun, verb, adjective and etc.</string>
+    <string name="str_make_sure">Make sure all fields are complete!</string>
 </resources>
