@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SplashScreen" parent="Theme.ToMemorizeVocabulary">
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/img_app_logo_v31</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/img_app_title</item>
+        <item name="android:windowBackground">@color/dark</item>
+    </style>
+
+</resources>
