@@ -1,4 +1,4 @@
-package uz.pdp.tomemorizevocabulary.model
+package uz.pdp.tomemorizevocabulary.data.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -13,5 +13,6 @@ data class Word(
     @ColumnInfo(name = "success_count") var successCount: Int = 0,
     @ColumnInfo(name = "all_count") var allCount: Int = 0,
     var part: String? = null,
-    var category: String? = null
+    @ColumnInfo(name = "category_title")
+    var categoryTitle: String
 )

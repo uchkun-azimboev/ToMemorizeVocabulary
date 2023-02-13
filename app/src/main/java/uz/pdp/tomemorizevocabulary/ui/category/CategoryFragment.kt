@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.databinding.FragmentCategoryBinding
-import uz.pdp.tomemorizevocabulary.model.Word
+import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 import uz.pdp.tomemorizevocabulary.viewmodel.WordViewModel
 import uz.pdp.tomemorizevocabulary.utils.Constants
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click

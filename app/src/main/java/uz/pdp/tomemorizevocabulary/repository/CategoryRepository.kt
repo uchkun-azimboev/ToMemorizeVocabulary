@@ -1,6 +1,6 @@
 package uz.pdp.tomemorizevocabulary.repository
 
-import uz.pdp.tomemorizevocabulary.model.Category
+import uz.pdp.tomemorizevocabulary.data.local.entity.Category
 
 interface CategoryRepository {
     suspend fun insert(category: Category)

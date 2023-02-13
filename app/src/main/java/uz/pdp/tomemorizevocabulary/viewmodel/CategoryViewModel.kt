@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import uz.pdp.tomemorizevocabulary.model.Category
+import uz.pdp.tomemorizevocabulary.data.local.entity.Category
 import uz.pdp.tomemorizevocabulary.repository.CategoryRepository
 import uz.pdp.tomemorizevocabulary.utils.Resource
 import javax.inject.Inject

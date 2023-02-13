@@ -10,15 +10,13 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.databinding.FragmentMainBinding
-import uz.pdp.tomemorizevocabulary.model.Category
-import uz.pdp.tomemorizevocabulary.model.Word
+import uz.pdp.tomemorizevocabulary.data.local.entity.Category
 import uz.pdp.tomemorizevocabulary.utils.Constants
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource
 import uz.pdp.tomemorizevocabulary.viewmodel.CategoryViewModel
-import java.util.Random
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {

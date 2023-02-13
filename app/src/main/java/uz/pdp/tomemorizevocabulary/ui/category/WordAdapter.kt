@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import uz.pdp.tomemorizevocabulary.databinding.ItemViewWordBinding
-import uz.pdp.tomemorizevocabulary.model.Word
+import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 
 class WordAdapter : ListAdapter<Word, WordAdapter.WordViewHolder>(WordDiffCallBack()) {
@@ -31,6 +31,7 @@ class WordAdapter : ListAdapter<Word, WordAdapter.WordViewHolder>(WordDiffCallBa
                 tvWord.text = phrase
                 tvTrans.text = meaning
                 tvStats.text = "$successCount/$allCount"
+                tvType.text = part
             }
         }
     }

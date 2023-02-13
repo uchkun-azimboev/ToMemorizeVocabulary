@@ -9,7 +9,6 @@ import dagger.hilt.components.SingletonComponent
 import uz.pdp.tomemorizevocabulary.data.local.dao.WordDao
 import uz.pdp.tomemorizevocabulary.data.local.AppDatabase
 import uz.pdp.tomemorizevocabulary.data.local.dao.CategoryDao
-import uz.pdp.tomemorizevocabulary.model.Category
 import uz.pdp.tomemorizevocabulary.repository.CategoryRepository
 import uz.pdp.tomemorizevocabulary.repository.CategoryRepositoryImp
 import uz.pdp.tomemorizevocabulary.repository.WordRepository

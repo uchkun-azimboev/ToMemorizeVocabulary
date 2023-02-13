@@ -6,11 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import uz.pdp.tomemorizevocabulary.data.local.dao.CategoryDao
 import uz.pdp.tomemorizevocabulary.data.local.dao.WordDao
-import uz.pdp.tomemorizevocabulary.model.Category
-import uz.pdp.tomemorizevocabulary.model.Word
+import uz.pdp.tomemorizevocabulary.data.local.entity.Category
+import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 import uz.pdp.tomemorizevocabulary.utils.Constants
 
-@Database(entities = [Word::class, Category::class], version = 1, exportSchema = false)
+@Database(entities = [Word::class, Category::class], version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun wordDao(): WordDao

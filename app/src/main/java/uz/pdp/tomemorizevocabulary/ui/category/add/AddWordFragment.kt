@@ -2,12 +2,14 @@ package uz.pdp.tomemorizevocabulary.ui.category.add
 
 import android.app.Activity.RESULT_OK
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,7 +19,7 @@ import com.sangcomz.fishbun.adapter.image.impl.GlideAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.databinding.FragmentAddWordBinding
-import uz.pdp.tomemorizevocabulary.model.Word
+import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 import uz.pdp.tomemorizevocabulary.model.photos.Photo
 import uz.pdp.tomemorizevocabulary.model.photos.ThreePhoto
 import uz.pdp.tomemorizevocabulary.utils.Constants
@@ -30,6 +32,7 @@ import uz.pdp.tomemorizevocabulary.viewmodel.WordViewModel
 
 
 @AndroidEntryPoint
+@RequiresApi(Build.VERSION_CODES.M)
 class AddWordFragment : Fragment() {
 
     private val tag = "AddWordFragment"
@@ -56,6 +59,7 @@ class AddWordFragment : Fragment() {
         observer()
     }
 
+
     private fun initViews() = bn.apply {
 
         rvPhotos.adapter = rvAdapter.apply {
@@ -71,7 +75,7 @@ class AddWordFragment : Fragment() {
         }
 
         btnLocal click {
-            pickUserPhoto()
+            pickPhoto()
         }
 
         btnCancel click {
@@ -97,15 +101,19 @@ class AddWordFragment : Fragment() {
     private fun createWord() {
         if (isValidWord()) {
 
+            val title = arguments?.getString(Constants.CATEGORY)!!
+
             viewModel.insertWordToRoom(
                 Word(
                     phrase = bn.etTitle.text.toString(),
                     meaning = bn.etDescription.text.toString(),
                     part = bn.etType.text.toString(),
                     image = pickedImage,
-                    category = arguments?.getString(Constants.CATEGORY)
+                    categoryTitle = title
                 )
             )
+
+            viewModel.incrementWordCount(title)
 
             findNavController().navigate(R.id.action_addWordFragment_to_lessonFragment, arguments)
 
@@ -114,11 +122,16 @@ class AddWordFragment : Fragment() {
         }
     }
 
-    private fun pickUserPhoto() {
+
+    private fun pickPhoto() {
         FishBun.with(this)
             .setImageAdapter(GlideAdapter())
             .setMaxCount(1)
             .setMinCount(1)
+            .setActionBarColor(
+                requireActivity().getColor(R.color.dark),
+                requireActivity().getColor(R.color.dark)
+            )
             .hasCameraInPickerPage(true)
             .startAlbumWithActivityResultCallback(photoLauncher)
     }

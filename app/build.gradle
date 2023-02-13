@@ -90,5 +90,8 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
     // FishBun for pick image
-    implementation 'io.github.sangcomz:fishbun:1.0.0-beta01'
+    implementation 'io.github.sangcomz:fishbun:1.1.1'
+
+    // Kotlin Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 }

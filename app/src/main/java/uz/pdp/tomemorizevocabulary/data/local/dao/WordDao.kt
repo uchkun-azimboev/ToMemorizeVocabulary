@@ -3,14 +3,16 @@ package uz.pdp.tomemorizevocabulary.data.local.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import uz.pdp.tomemorizevocabulary.model.Category
-import uz.pdp.tomemorizevocabulary.model.Word
+import androidx.room.Transaction
+import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 
 @Dao
 interface WordDao {
+
     @Insert
     suspend fun insert(word: Word)
-
-    @Query("select * from word where category = :category")
-    suspend fun getWords(category: String): List<Word>
+    @Query("select * from word where category_title = :title")
+    suspend fun getWords(title: String): List<Word>
+    @Query("update category set word_count = word_count + 1 where title = :title")
+    suspend fun incrementWordCount(title: String)
 }

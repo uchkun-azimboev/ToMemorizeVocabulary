@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import uz.pdp.tomemorizevocabulary.model.Word
+import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 import uz.pdp.tomemorizevocabulary.model.photos.ResponsePhotos
 import uz.pdp.tomemorizevocabulary.repository.PhotoRepository
 import uz.pdp.tomemorizevocabulary.repository.WordRepository
@@ -29,6 +29,10 @@ class WordViewModel @Inject constructor(
 
     fun insertWordToRoom(word: Word) = viewModelScope.launch {
         wordRepository.insert(word)
+    }
+
+    fun incrementWordCount(title: String) = viewModelScope.launch {
+        wordRepository.incrementWordCount(title)
     }
 
     fun getWords(category: String) {

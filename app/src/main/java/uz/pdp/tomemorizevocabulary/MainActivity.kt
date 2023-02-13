@@ -9,6 +9,8 @@ import dagger.hilt.android.AndroidEntryPoint
  * https://www.behance.net/gallery/103934771/English-Learning-App-redesign?tracking_source=search_projects%7Cvocabulary+app
  *
  * https://github.com/LittleMango/StackLayoutManager
+ *
+ * Flip Card Animation in Android
  * */
 
 @AndroidEntryPoint

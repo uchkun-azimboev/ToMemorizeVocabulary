@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import uz.pdp.tomemorizevocabulary.databinding.ItemViewCategoryBinding
-import uz.pdp.tomemorizevocabulary.model.Category
+import uz.pdp.tomemorizevocabulary.data.local.entity.Category
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 
 class CategoryAdapter :
