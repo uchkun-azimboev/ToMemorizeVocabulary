@@ -41,4 +41,5 @@
     <string name="str_enter_part_of_speech">Enter part of speech</string>
     <string name="str_hint_part">noun, verb, adjective and etc.</string>
     <string name="str_make_sure">Make sure all fields are complete!</string>
+    <string name="str_no_information">There is no information</string>
 </resources>

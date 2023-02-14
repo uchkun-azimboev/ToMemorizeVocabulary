@@ -28,6 +28,7 @@ import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
 import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource
+import uz.pdp.tomemorizevocabulary.viewmodel.PhotoViewModel
 import uz.pdp.tomemorizevocabulary.viewmodel.WordViewModel
 
 
@@ -41,6 +42,7 @@ class AddWordFragment : Fragment() {
     private val bn get() = _bn!!
 
     private val viewModel: WordViewModel by viewModels()
+    private val photoViewModel: PhotoViewModel by viewModels()
 
     private val rvAdapter = PhotoAdapter()
 
@@ -71,7 +73,7 @@ class AddWordFragment : Fragment() {
         }
 
         btnSearch click {
-            viewModel.getPhotos(1, etTitle.text.toString())
+            photoViewModel.getPhotos(1, etTitle.text.toString())
         }
 
         btnLocal click {
@@ -105,9 +107,9 @@ class AddWordFragment : Fragment() {
 
             viewModel.insertWordToRoom(
                 Word(
-                    phrase = bn.etTitle.text.toString(),
-                    meaning = bn.etDescription.text.toString(),
-                    part = bn.etType.text.toString(),
+                    phrase = bn.etTitle.text.toString().lowercase(),
+                    meaning = bn.etDescription.text.toString().lowercase(),
+                    part = bn.etType.text.toString().lowercase(),
                     image = pickedImage,
                     categoryTitle = title
                 )
@@ -148,7 +150,7 @@ class AddWordFragment : Fragment() {
 
 
     private fun observer() {
-        viewModel.photos.observe(viewLifecycleOwner) {
+        photoViewModel.photos.observe(viewLifecycleOwner) {
             when (it.status) {
                 Resource.Status.LOADING -> {
                     bn.progressbar.visible()

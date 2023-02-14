@@ -16,4 +16,8 @@ class WordRepositoryImp(private val wordDao: WordDao) : WordRepository {
     override suspend fun getWords(category: String): List<Word> {
         return wordDao.getWords(category)
     }
+
+    override suspend fun getSearchWord(text: String): List<Word> {
+        return wordDao.getSearchWord(text)
+    }
 }

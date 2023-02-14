@@ -53,8 +53,12 @@ class MainFragment : Fragment() {
             }
         }
 
-        frameCreate.click {
+        frameCreate click {
             findNavController().navigate(R.id.action_mainFragment_to_lessonCreateFragment)
+        }
+
+        frameSearch click {
+            findNavController().navigate(R.id.action_mainFragment_to_searchFragment)
         }
     }
 

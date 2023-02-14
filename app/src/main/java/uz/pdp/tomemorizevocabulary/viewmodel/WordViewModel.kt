@@ -16,16 +16,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WordViewModel @Inject constructor(
-    private val photoRepository: PhotoRepository,
     private val wordRepository: WordRepository
 ) : ViewModel() {
 
-    private var _photos = MutableLiveData<Resource<ResponsePhotos>>()
-    val photos: LiveData<Resource<ResponsePhotos>> get() = _photos
 
     private var _words = MutableLiveData<Resource<List<Word>>>()
     val words: LiveData<Resource<List<Word>>> get() = _words
 
+    private var _searchWords = MutableLiveData<Resource<List<Word>>>()
+    val searchWords: LiveData<Resource<List<Word>>> get() = _searchWords
 
     fun insertWordToRoom(word: Word) = viewModelScope.launch {
         wordRepository.insert(word)
@@ -47,19 +46,16 @@ class WordViewModel @Inject constructor(
         }
     }
 
-    fun getPhotos(page: Int, query: String) {
+    fun getSearchWords(text: String) {
         viewModelScope.launch(Dispatchers.IO) {
+            _searchWords.postValue(Resource.loading())
+
             try {
-                _photos.postValue(Resource.loading())
-                photoRepository.getPhotos(page, query).let {
-                    if (it.isSuccessful) {
-                        _photos.postValue(Resource.success(it.body()!!))
-                    } else {
-                        _photos.postValue(Resource.error(it.errorBody().toString()))
-                    }
-                }
+                val response = wordRepository.getSearchWord(text)
+                _searchWords.postValue(Resource.success(response))
+
             } catch (e: Exception) {
-                _photos.postValue(Resource.error(e.localizedMessage ?: "Error"))
+                _searchWords.postValue(Resource.error(e.localizedMessage))
             }
         }
     }

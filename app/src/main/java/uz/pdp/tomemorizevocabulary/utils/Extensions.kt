@@ -5,8 +5,10 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
@@ -38,6 +40,17 @@ object Extensions {
         Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
     }
 
+    fun Fragment.hideSoftKeyboard(
+        view: View? = requireActivity().currentFocus
+    ) {
+        view?.let {
+            val inputMethodManager =
+                ContextCompat.getSystemService(requireActivity(), InputMethodManager::class.java)!!
+            inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
+        }
+
+        view?.clearFocus()
+    }
 
     fun View.gone() {
         visibility = View.GONE
