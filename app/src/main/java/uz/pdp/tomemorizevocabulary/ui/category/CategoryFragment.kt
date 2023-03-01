@@ -1,22 +1,22 @@
 package uz.pdp.tomemorizevocabulary.ui.category
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import uz.pdp.tomemorizevocabulary.R
-import uz.pdp.tomemorizevocabulary.databinding.FragmentCategoryBinding
 import uz.pdp.tomemorizevocabulary.data.local.entity.Word
-import uz.pdp.tomemorizevocabulary.viewmodel.WordViewModel
+import uz.pdp.tomemorizevocabulary.databinding.FragmentCategoryBinding
 import uz.pdp.tomemorizevocabulary.utils.Constants
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource.Status
+import uz.pdp.tomemorizevocabulary.viewmodel.WordViewModel
 
 @AndroidEntryPoint
 class CategoryFragment : Fragment() {
@@ -49,12 +49,17 @@ class CategoryFragment : Fragment() {
 
     private fun initViews() = binding.apply {
 
+
         rvWords.adapter = wordAdapter
 
         ivBack click { requireActivity().onBackPressed() }
 
         frameCreate click {
             findNavController().navigate(R.id.action_lessonFragment_to_addWordFragment, arguments)
+        }
+
+        frameGame click {
+            findNavController().navigate(R.id.action_lessonFragment_to_playFragment, arguments)
         }
     }
 

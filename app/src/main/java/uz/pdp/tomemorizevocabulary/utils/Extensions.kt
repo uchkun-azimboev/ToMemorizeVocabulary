@@ -1,6 +1,6 @@
 package uz.pdp.tomemorizevocabulary.utils
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
@@ -10,8 +10,8 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.google.android.material.snackbar.Snackbar
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.model.photos.Photo
 
@@ -31,13 +31,17 @@ object Extensions {
 
     infix fun View.animatedClick(click: () -> Unit) {
         setOnClickListener {
-            startAnimation(AnimationUtils.loadAnimation(context, R.anim.item_click))
+            startAnimation(AnimationUtils.loadAnimation(context, R.anim.photo_item_click))
             click()
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     fun Fragment.toast(msg: String) {
-        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+        Snackbar.make(requireView(), msg, Snackbar.LENGTH_SHORT).apply {
+//            setBackgroundTint(R.color.yellow)
+        }.show()
+//        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
     }
 
     fun Fragment.hideSoftKeyboard(

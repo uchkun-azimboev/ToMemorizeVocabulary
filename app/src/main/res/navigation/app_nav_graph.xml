@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_lessonFragment_to_addWordFragment"
             app:destination="@id/addWordFragment" />
+        <action
+            android:id="@+id/action_lessonFragment_to_playFragment"
+            app:destination="@id/playFragment" />
     </fragment>
     <fragment
         android:id="@+id/addWordFragment"
@@ -57,4 +60,9 @@
         android:name="uz.pdp.tomemorizevocabulary.ui.main.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/playFragment"
+        android:name="uz.pdp.tomemorizevocabulary.ui.category.play.PlayFragment"
+        android:label="fragment_play"
+        tools:layout="@layout/fragment_play" />
 </navigation>

@@ -42,4 +42,11 @@
     <string name="str_hint_part">noun, verb, adjective and etc.</string>
     <string name="str_make_sure">Make sure all fields are complete!</string>
     <string name="str_no_information">There is no information</string>
+    <string name="str_answer">Answer</string>
+    <string name="str_wrong">Wrong</string>
+    <string name="str_correct">Correct</string>
+    <string name="str_question_title">Do you know this word ?</string>
+    <string name="str_drag">Drag left or right.</string>
+    <string name="str_question_title_picture">Do you know what is in the picture?</string>
+    <string name="str_that_s_all">That\'s all</string>
 </resources>
