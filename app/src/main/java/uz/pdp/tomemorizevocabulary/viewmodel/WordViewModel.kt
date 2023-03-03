@@ -23,6 +23,9 @@ class WordViewModel @Inject constructor(
     private var _words = MutableLiveData<Resource<List<Word>>>()
     val words: LiveData<Resource<List<Word>>> get() = _words
 
+    private var _randomWords = MutableLiveData<Resource<List<Word>>>()
+    val randomWords: LiveData<Resource<List<Word>>> get() = _randomWords
+
     private var _searchWords = MutableLiveData<Resource<List<Word>>>()
     val searchWords: LiveData<Resource<List<Word>>> get() = _searchWords
 
@@ -56,6 +59,18 @@ class WordViewModel @Inject constructor(
 
             } catch (e: Exception) {
                 _searchWords.postValue(Resource.error(e.localizedMessage))
+            }
+        }
+    }
+
+    fun getRandomWords(category: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _randomWords.postValue(Resource.loading())
+            try {
+                val response = wordRepository.getWords(category)
+                _randomWords.postValue(Resource.success(response.shuffled()))
+            } catch (e: Exception) {
+                _randomWords.postValue(Resource.error(e.localizedMessage))
             }
         }
     }

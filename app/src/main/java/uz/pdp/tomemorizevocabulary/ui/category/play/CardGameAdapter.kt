@@ -58,7 +58,7 @@ class CardGameAdapter :
     }
 
     override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
+        return position
     }
 
     override fun onBindViewHolder(holder: CardGameViewHolder, position: Int) {

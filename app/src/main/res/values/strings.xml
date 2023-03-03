@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Memorize Vocabulary</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="str_hello">Hello Full Name</string>
     <string name="str_username">Username</string>
@@ -49,4 +48,18 @@
     <string name="str_drag">Drag left or right.</string>
     <string name="str_question_title_picture">Do you know what is in the picture?</string>
     <string name="str_that_s_all">That\'s all</string>
+
+    <string-array name="part_of_speech">
+
+        <item>noun</item>
+        <item>pronoun</item>
+        <item>verb</item>
+        <item>adjective</item>
+        <item>adverb</item>
+        <item>preposition</item>
+        <item>conjunction</item>
+        <item>interjection</item>
+
+    </string-array>
+
 </resources>

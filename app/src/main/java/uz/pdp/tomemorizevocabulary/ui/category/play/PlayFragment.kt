@@ -56,7 +56,7 @@ class PlayFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        wordViewModel.getWords(arguments?.getString(Constants.CATEGORY) ?: "")
+        wordViewModel.getRandomWords(arguments?.getString(Constants.CATEGORY) ?: "")
     }
 
     private fun initViews() = bn.apply {
@@ -121,7 +121,7 @@ class PlayFragment : Fragment() {
     }
 
     private fun observer() {
-        wordViewModel.words.observe(viewLifecycleOwner) {
+        wordViewModel.randomWords.observe(viewLifecycleOwner) {
             when (it.status) {
                 Resource.Status.LOADING -> {
                     bn.progressbar.visible()
@@ -137,7 +137,7 @@ class PlayFragment : Fragment() {
         }
     }
 
-    private fun getStats(a: Int = 0, b: Int): String {
+    private fun getStats(a: Int = 1, b: Int): String {
         return "$a/$b"
     }
 

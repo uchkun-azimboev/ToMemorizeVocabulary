@@ -78,6 +78,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/str_enter_english"
+                        android:inputType="text"
                         android:textColor="@color/white"
                         android:textColorHint="@color/gray"
                         android:textCursorDrawable="@drawable/shape_cursor" />
@@ -96,20 +97,21 @@
                     android:textSize="16sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/textInputStyle"
+                    style="@style/textInputStyleMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:boxStrokeColor="@color/yellow">
+                    app:boxStrokeColor="@color/yellow"
+                    app:endIconTint="@color/yellow">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                         android:id="@+id/et_type"
                         style="@style/MediumText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/str_hint_part"
+                        android:inputType="none"
                         android:textColor="@color/white"
-                        android:textColorHint="@color/gray"
-                        android:textCursorDrawable="@drawable/shape_cursor" />
+                        android:textColorHint="@color/gray" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,6 +138,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/str_what_mean"
+                        android:inputType="text"
                         android:textColor="@color/white"
                         android:textColorHint="@color/gray"
                         android:textCursorDrawable="@drawable/shape_cursor" />

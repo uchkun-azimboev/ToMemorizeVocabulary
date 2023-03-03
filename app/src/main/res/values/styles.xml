@@ -33,6 +33,17 @@
         <item name="boxBackgroundColor">@color/pure_gray</item>
     </style>
 
+    <style name="textInputStyleMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="hintEnabled">false</item>
+        <item name="boxBackgroundColor">@color/pure_gray</item>
+    </style>
+
     <style name="MediumText">
         <item name="fontFamily">@font/poppins</item>
         <item name="android:textStyle">bold</item>

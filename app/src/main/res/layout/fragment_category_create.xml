@@ -78,6 +78,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/str_title_hint"
+                        android:inputType="text"
                         android:textColor="@color/white"
                         android:textColorHint="@color/gray"
                         android:textCursorDrawable="@drawable/shape_cursor" />
@@ -108,6 +109,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/str_description_hint"
+                        android:inputType="text"
                         android:textColor="@color/white"
                         android:textColorHint="@color/gray"
                         android:textCursorDrawable="@drawable/shape_cursor" />

@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -90,6 +91,17 @@ class AddWordFragment : Fragment() {
 
         btnCreate click {
             createWord()
+        }
+
+        etType.apply {
+            setAdapter(
+                ArrayAdapter(
+                    requireContext(),
+                    R.layout.item_dropdown_menu,
+                    resources.getStringArray(R.array.part_of_speech)
+                )
+            )
+            setDropDownBackgroundResource(R.color.pure_gray)
         }
     }
 
