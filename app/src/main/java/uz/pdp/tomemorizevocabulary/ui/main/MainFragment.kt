@@ -12,11 +12,14 @@ import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.databinding.FragmentMainBinding
 import uz.pdp.tomemorizevocabulary.data.local.entity.Category
 import uz.pdp.tomemorizevocabulary.utils.Constants
+import uz.pdp.tomemorizevocabulary.utils.Constants.USERNAME
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
+import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource
 import uz.pdp.tomemorizevocabulary.viewmodel.CategoryViewModel
+import uz.pdp.tomemorizevocabulary.viewmodel.UserViewModel
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -25,6 +28,7 @@ class MainFragment : Fragment() {
     private val binding get() = _bn!!
 
     private val categoryViewModel: CategoryViewModel by viewModels()
+    private val userViewModel: UserViewModel by viewModels()
     private val categoryAdapter = CategoryAdapter()
 
     override fun onCreateView(
@@ -43,6 +47,9 @@ class MainFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         categoryViewModel.getAllCategory()
+        if (arguments != null) {
+            userViewModel.getUser(arguments?.getString(USERNAME)!!)
+        }
     }
 
     private fun initViews() = binding.apply {
@@ -90,6 +97,26 @@ class MainFragment : Fragment() {
                 }
                 Resource.Status.ERROR -> {
                     setUpRv(null)
+                }
+            }
+        }
+
+        userViewModel.user.observe(viewLifecycleOwner) {
+            when (it.status) {
+                Resource.Status.LOADING -> {}
+                Resource.Status.SUCCESS -> {
+                    val user = it.data!!
+                    binding.apply {
+                        tvHello.text =
+                            getString(R.string.str_hello).plus(" ").plus(user.name).plus(" !")
+                        tvNickname.text = user.username
+                        tvNumAll.text = user.allCategories.toString()
+                        tvNumCompleted.text = user.completed.toString()
+                        tvNumToDo.text = (user.allCategories - user.completed).toString()
+                    }
+                }
+                Resource.Status.ERROR -> {
+                    toast(it.message!!)
                 }
             }
         }

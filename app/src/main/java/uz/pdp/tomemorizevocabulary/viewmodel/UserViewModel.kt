@@ -21,7 +21,7 @@ class UserViewModel @Inject constructor(
     val login: LiveData<Resource<User>> get() = _login
 
     private var _user = MutableLiveData<Resource<User>>()
-    val user: LiveData<Resource<User>> get() = _login
+    val user: LiveData<Resource<User>> get() = _user
 
     fun login(user: User) {
         _login.postValue(Resource.loading())

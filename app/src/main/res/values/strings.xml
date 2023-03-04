@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Memorize Vocabulary</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="str_hello">Hello Full Name</string>
+    <string name="str_hello">Hello</string>
     <string name="str_username">Username</string>
     <string name="str_zero">0</string>
     <string name="str_all_lessons">All lessons</string>

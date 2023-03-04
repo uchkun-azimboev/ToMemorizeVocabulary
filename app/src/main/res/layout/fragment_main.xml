@@ -26,7 +26,7 @@
                 android:adjustViewBounds="true"
                 android:padding="3dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/image_man"
+                android:src="@drawable/img_placeholder"
                 app:shapeAppearanceOverlay="@style/rounded_corner"
                 app:strokeColor="@color/green"
                 app:strokeWidth="3dp" />
@@ -53,7 +53,6 @@
                     style="@style/NormalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_username"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 
