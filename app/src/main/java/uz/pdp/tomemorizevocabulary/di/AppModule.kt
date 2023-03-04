@@ -1,6 +1,7 @@
 package uz.pdp.tomemorizevocabulary.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,15 +10,20 @@ import dagger.hilt.components.SingletonComponent
 import uz.pdp.tomemorizevocabulary.data.local.dao.WordDao
 import uz.pdp.tomemorizevocabulary.data.local.AppDatabase
 import uz.pdp.tomemorizevocabulary.data.local.dao.CategoryDao
-import uz.pdp.tomemorizevocabulary.repository.CategoryRepository
-import uz.pdp.tomemorizevocabulary.repository.CategoryRepositoryImp
-import uz.pdp.tomemorizevocabulary.repository.WordRepository
-import uz.pdp.tomemorizevocabulary.repository.WordRepositoryImp
+import uz.pdp.tomemorizevocabulary.data.local.dao.UserDao
+import uz.pdp.tomemorizevocabulary.repository.*
+import uz.pdp.tomemorizevocabulary.utils.Constants.LOCAL_SHARED_PREF
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
 object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideSharedPrefs(@ApplicationContext context: Context): SharedPreferences {
+        return context.getSharedPreferences(LOCAL_SHARED_PREF, Context.MODE_PRIVATE)
+    }
 
     @Singleton
     @Provides
@@ -39,6 +45,12 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun provideUserDao(appDatabase: AppDatabase): UserDao {
+        return appDatabase.userDao()
+    }
+
+    @Singleton
+    @Provides
     fun provideWordRepository(wordDao: WordDao): WordRepository {
         return WordRepositoryImp(wordDao)
     }
@@ -49,5 +61,13 @@ object AppModule {
         return CategoryRepositoryImp(categoryDao)
     }
 
+    @Singleton
+    @Provides
+    fun provideUserRepository(
+        userDao: UserDao,
+        sharedPreferences: SharedPreferences
+    ): UserRepository {
+        return UserRepositoryImp(userDao, sharedPreferences)
+    }
 
 }

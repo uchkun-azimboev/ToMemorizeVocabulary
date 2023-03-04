@@ -2,8 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/app_nav_graph.xml"
-    app:startDestination="@id/mainFragment">
+    android:id="@+id/app_nav_graph"
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/mainFragment"
@@ -65,4 +65,15 @@
         android:name="uz.pdp.tomemorizevocabulary.ui.category.play.PlayFragment"
         android:label="fragment_play"
         tools:layout="@layout/fragment_play" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="uz.pdp.tomemorizevocabulary.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/app_nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

@@ -89,10 +89,10 @@ class PlayFragment : Fragment() {
 
                 override fun onCardSwiped(direction: Direction?) {
                     if (direction == Direction.Right) {
-                        toast("I know")
+                        toast(getString(R.string.str_i_know), 1)
                         rightView.setBackgroundResource(R.color.dark)
                     } else if (direction == Direction.Left) {
-                        toast("I don't know")
+                        toast(getString(R.string.str_i_dont_know), 0)
                         leftView.setBackgroundResource(R.color.dark)
                     }
                 }

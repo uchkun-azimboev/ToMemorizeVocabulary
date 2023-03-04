@@ -7,8 +7,9 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
-import android.widget.Toast
+import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.RequestManager
 import com.google.android.material.snackbar.Snackbar
@@ -37,11 +38,15 @@ object Extensions {
     }
 
     @SuppressLint("ResourceAsColor")
-    fun Fragment.toast(msg: String) {
-        Snackbar.make(requireView(), msg, Snackbar.LENGTH_SHORT).apply {
-//            setBackgroundTint(R.color.yellow)
+    fun Fragment.toast(msg: String, color: Int = 0) {
+        Snackbar.make(requireParentFragment().requireView(), msg, Snackbar.LENGTH_SHORT).apply {
+            view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text).apply {
+                typeface =
+                    ResourcesCompat.getFont(requireActivity().applicationContext, R.font.poppins)
+                setTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
+            }
+            view.setBackgroundResource(if (color == 0) R.drawable.rounded_background_orange else R.drawable.rounded_background_green)
         }.show()
-//        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
     }
 
     fun Fragment.hideSoftKeyboard(

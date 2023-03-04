@@ -7,4 +7,10 @@ object Constants {
 
     const val CATEGORY = "category"
     const val WORD_DATABASE = "word_database"
+
+    const val LOCAL_SHARED_PREF = "local_shared_pref"
+
+    const val USER_NONE = "user_none"
+    const val USER_STATE = "user_state"
+    const val USERNAME = "username"
 }

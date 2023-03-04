@@ -48,6 +48,15 @@
     <string name="str_drag">Drag left or right.</string>
     <string name="str_question_title_picture">Do you know what is in the picture?</string>
     <string name="str_that_s_all">That\'s all</string>
+    <string name="str_what_name">What is your name ?</string>
+    <string name="str_enter_username">Enter username</string>
+    <string name="str_firstname_lastname">Firstname Lastname</string>
+    <string name="str_yourusername">yourusername</string>
+    <string name="str_hi">Hi ! \nWelcome to our app !</string>
+    <string name="str_let_s_go">Let\'s go</string>
+    <string name="str_i_know">I know</string>
+    <string name="str_i_dont_know">I don\'t know</string>
+    <string name="str_incorrect_username">Incorrect username, enter again!</string>
 
     <string-array name="part_of_speech">
 
