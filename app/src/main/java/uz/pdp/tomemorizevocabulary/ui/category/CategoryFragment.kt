@@ -14,6 +14,7 @@ import uz.pdp.tomemorizevocabulary.databinding.FragmentCategoryBinding
 import uz.pdp.tomemorizevocabulary.utils.Constants
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
+import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource.Status
 import uz.pdp.tomemorizevocabulary.viewmodel.WordViewModel
@@ -49,7 +50,6 @@ class CategoryFragment : Fragment() {
 
     private fun initViews() = binding.apply {
 
-
         rvWords.adapter = wordAdapter
 
         ivBack click { requireActivity().onBackPressed() }
@@ -59,7 +59,9 @@ class CategoryFragment : Fragment() {
         }
 
         frameGame click {
-            findNavController().navigate(R.id.action_lessonFragment_to_playFragment, arguments)
+            if (rvWords.adapter!!.itemCount > 0)
+                findNavController().navigate(R.id.action_lessonFragment_to_playFragment, arguments)
+            else toast(getString(R.string.str_dont_word))
         }
     }
 

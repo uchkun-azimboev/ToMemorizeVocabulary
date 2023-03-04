@@ -91,7 +91,7 @@ class LoginFragment : Fragment() {
                 }
                 Resource.Status.SUCCESS -> {
                     bn.progressbar.gone()
-                    openMainFragment(it.data!!.username)
+                    openMainFragment()
                 }
                 Resource.Status.ERROR -> {
                     bn.progressbar.gone()
@@ -104,16 +104,13 @@ class LoginFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val username = userViewModel.getState()
-        if (username != USER_NONE) {
-            openMainFragment(username)
+        if (userViewModel.getState() != USER_NONE) {
+            openMainFragment()
         }
     }
 
-    private fun openMainFragment(username: String) {
-        val args = Bundle()
-        args.putString(USERNAME, username)
-        findNavController().navigate(R.id.action_loginFragment_to_mainFragment, args)
+    private fun openMainFragment() {
+        findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
     }
 
     override fun onDestroy() {

@@ -47,9 +47,7 @@ class MainFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         categoryViewModel.getAllCategory()
-        if (arguments != null) {
-            userViewModel.getUser(arguments?.getString(USERNAME)!!)
-        }
+        userViewModel.getUser(userViewModel.getState())
     }
 
     private fun initViews() = binding.apply {
