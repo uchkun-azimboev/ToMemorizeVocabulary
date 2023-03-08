@@ -37,6 +37,14 @@ class WordViewModel @Inject constructor(
         wordRepository.incrementWordCount(title)
     }
 
+    fun incrementSuccessCount(id: Int) = viewModelScope.launch {
+        wordRepository.incrementSuccessCount(id)
+    }
+
+    fun incrementAllCount(id: Int) = viewModelScope.launch {
+        wordRepository.incrementAllCount(id)
+    }
+
     fun getWords(category: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _words.postValue(Resource.loading())

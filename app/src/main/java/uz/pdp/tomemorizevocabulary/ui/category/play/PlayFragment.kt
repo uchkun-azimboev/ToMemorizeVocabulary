@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,9 +70,17 @@ class PlayFragment : Fragment() {
             CardStackLayoutManager(requireContext(), object : CardStackListener {
 
                 var isDrag = false
+                var cardDirection = Direction.Left
 
                 @SuppressLint("ResourceAsColor")
                 override fun onCardDragging(direction: Direction?, ratio: Float) {
+
+                    cardDirection = if (direction == Direction.Right) {
+                        Direction.Right
+                    } else {
+                        Direction.Left
+                    }
+
                     if (ratio > 0.75f) {
                         isDrag = true
                         if (direction == Direction.Left) {
@@ -84,10 +93,12 @@ class PlayFragment : Fragment() {
                         leftView.setBackgroundResource(R.color.dark)
                         rightView.setBackgroundResource(R.color.dark)
                     }
-
                 }
 
                 override fun onCardSwiped(direction: Direction?) {
+
+                    Log.d("PlayFragment", "onCardSwiped")
+
                     if (direction == Direction.Right) {
                         toast(getString(R.string.str_i_know), 1)
                         rightView.setBackgroundResource(R.color.dark)
@@ -107,10 +118,19 @@ class PlayFragment : Fragment() {
 
                 override fun onCardAppeared(view: View?, position: Int) {
                     tvStats.text = getStats(position + 1, itemCount)
+                    Log.d("PlayFragment", "onCardAppeared : $position")
                 }
 
                 override fun onCardDisappeared(view: View?, position: Int) {
+
+                    wordViewModel.incrementAllCount(rvAdapter.currentList[position].id!!)
+
+                    if (cardDirection == Direction.Right) {
+                        wordViewModel.incrementSuccessCount(rvAdapter.currentList[position].id!!)
+                    }
+
                     if (position == itemCount - 1) bn.tvInfo.visible()
+                    Log.d("PlayFragment", "onCardDisappeared : $position")
                 }
 
             }).apply {

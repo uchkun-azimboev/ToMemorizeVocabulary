@@ -7,4 +7,6 @@ interface WordRepository {
     suspend fun incrementWordCount(title: String)
     suspend fun getWords(category: String): List<Word>
     suspend fun getSearchWord(text: String): List<Word>
+    suspend fun incrementSuccessCount(id: Int)
+    suspend fun incrementAllCount(id: Int)
 }

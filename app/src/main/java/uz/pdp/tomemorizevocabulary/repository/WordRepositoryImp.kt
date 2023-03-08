@@ -20,4 +20,12 @@ class WordRepositoryImp(private val wordDao: WordDao) : WordRepository {
     override suspend fun getSearchWord(text: String): List<Word> {
         return wordDao.getSearchWord(text)
     }
+
+    override suspend fun incrementSuccessCount(id: Int) {
+        wordDao.incrementSuccessCount(id)
+    }
+
+    override suspend fun incrementAllCount(id: Int) {
+        wordDao.incrementALlCount(id)
+    }
 }

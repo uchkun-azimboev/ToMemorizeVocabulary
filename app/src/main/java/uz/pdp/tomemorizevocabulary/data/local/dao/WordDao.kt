@@ -18,6 +18,12 @@ interface WordDao {
     @Query("update category set word_count = word_count + 1 where title = :title")
     suspend fun incrementWordCount(title: String)
 
+    @Query("update word set success_count = success_count + 1 where id = :id")
+    suspend fun incrementSuccessCount(id: Int)
+
+    @Query("update word set all_count = all_count + 1 where id = :id")
+    suspend fun incrementALlCount(id: Int)
+
     @Query("select * from word where word.phrase like :text || '%'")
     suspend fun getSearchWord(text: String): List<Word>
 }
