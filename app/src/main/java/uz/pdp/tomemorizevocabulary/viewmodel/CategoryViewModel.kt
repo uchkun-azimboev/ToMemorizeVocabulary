@@ -41,4 +41,11 @@ class CategoryViewModel @Inject constructor(
         }
     }
 
+    fun incrementWordCount(title: String) = viewModelScope.launch {
+        categoryRepository.incrementWordCount(title)
+    }
+
+    fun decrementWordCount(title: String) = viewModelScope.launch {
+        categoryRepository.decrementWordCount(title)
+    }
 }

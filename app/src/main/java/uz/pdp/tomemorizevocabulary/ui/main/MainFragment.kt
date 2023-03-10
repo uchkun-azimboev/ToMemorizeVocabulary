@@ -65,6 +65,10 @@ class MainFragment : Fragment() {
         frameSearch click {
             findNavController().navigate(R.id.action_mainFragment_to_searchFragment)
         }
+
+        frameGame click {
+            toast(getString(R.string.str_sorry))
+        }
     }
 
     private fun setUpRv(list: List<Category>?) {

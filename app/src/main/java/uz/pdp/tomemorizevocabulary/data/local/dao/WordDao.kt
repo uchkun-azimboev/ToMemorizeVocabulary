@@ -15,9 +15,6 @@ interface WordDao {
     @Query("select * from word where category_title = :title order by all_count - success_count desc")
     suspend fun getWords(title: String): List<Word>
 
-    @Query("update category set word_count = word_count + 1 where title = :title")
-    suspend fun incrementWordCount(title: String)
-
     @Query("update word set success_count = success_count + 1 where id = :id")
     suspend fun incrementSuccessCount(id: Int)
 

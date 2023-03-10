@@ -8,8 +8,7 @@ import uz.pdp.tomemorizevocabulary.utils.Constants.USER_STATE
 import javax.inject.Inject
 
 class UserRepositoryImp @Inject constructor(
-    private val userDao: UserDao,
-    private val sharedPreferences: SharedPreferences
+    private val userDao: UserDao, private val sharedPreferences: SharedPreferences
 ) : UserRepository {
 
     override suspend fun login(user: User) {
@@ -19,6 +18,18 @@ class UserRepositoryImp @Inject constructor(
 
     override suspend fun getUser(username: String): User {
         return userDao.getUser(username)
+    }
+
+    override suspend fun incrementAllCategories(username: String) {
+        userDao.incrementAllCategories(username)
+    }
+
+    override suspend fun decrementAllCategories(username: String) {
+        userDao.decrementAllCategories(username)
+    }
+
+    override suspend fun incrementCompleted(username: String) {
+        userDao.incrementCompleted(username)
     }
 
     override fun logout() {

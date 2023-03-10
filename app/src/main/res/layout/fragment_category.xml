@@ -36,7 +36,7 @@
                 android:fontFamily="@font/poppins_bold"
                 android:maxLines="1"
                 android:paddingHorizontal="30dp"
-                android:text="@string/str_lessons"
+                android:text="@string/str_category"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -62,7 +62,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <FrameLayout
+                <!--<FrameLayout
                     android:id="@+id/frame_edit"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -94,7 +94,7 @@
                 <LinearLayout
                     android:layout_width="10dp"
                     android:layout_height="match_parent"
-                    android:background="@color/dark" />
+                    android:background="@color/dark" />-->
 
                 <FrameLayout
                     android:id="@+id/frame_create"

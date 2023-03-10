@@ -58,6 +58,8 @@
     <string name="str_i_dont_know">I don\'t know</string>
     <string name="str_incorrect_username">Incorrect username, enter again!</string>
     <string name="str_dont_word">You don\'t have any word</string>
+    <string name="str_sorry">Sorry, this feature will be added in future versions!</string>
+    <string name="str_category">Category</string>
 
     <string-array name="part_of_speech">
 

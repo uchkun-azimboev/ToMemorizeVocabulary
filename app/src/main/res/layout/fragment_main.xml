@@ -24,12 +24,9 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:adjustViewBounds="true"
-                android:padding="3dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_placeholder"
-                app:shapeAppearanceOverlay="@style/rounded_corner"
-                app:strokeColor="@color/green"
-                app:strokeWidth="3dp" />
+                android:src="@drawable/img_smile"
+                app:shapeAppearanceOverlay="@style/rounded_corner" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/str_lessons"
+                    android:text="@string/str_categories"
                     android:textColor="@color/gray"
                     android:textSize="14sp" />
 
@@ -282,7 +279,7 @@
                 android:layout_marginVertical="50dp"
                 android:indeterminate="true"
                 android:indeterminateTint="@color/blue"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/tv_none_info"

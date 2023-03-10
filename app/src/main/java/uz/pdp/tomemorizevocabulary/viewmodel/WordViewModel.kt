@@ -33,10 +33,6 @@ class WordViewModel @Inject constructor(
         wordRepository.insert(word)
     }
 
-    fun incrementWordCount(title: String) = viewModelScope.launch {
-        wordRepository.incrementWordCount(title)
-    }
-
     fun incrementSuccessCount(id: Int) = viewModelScope.launch {
         wordRepository.incrementSuccessCount(id)
     }

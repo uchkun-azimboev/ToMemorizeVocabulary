@@ -50,6 +50,8 @@ class CategoryFragment : Fragment() {
 
     private fun initViews() = binding.apply {
 
+        tvTitle.text = arguments?.getString(Constants.CATEGORY)
+
         rvWords.adapter = wordAdapter
 
         ivBack click { requireActivity().onBackPressed() }

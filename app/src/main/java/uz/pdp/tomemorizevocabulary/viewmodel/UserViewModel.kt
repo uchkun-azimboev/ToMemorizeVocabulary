@@ -47,6 +47,18 @@ class UserViewModel @Inject constructor(
         }
     }
 
+    fun incrementAllCategories(username: String) = viewModelScope.launch {
+        userRepository.incrementAllCategories(username)
+    }
+
+    fun decrementAllCategories(username: String) = viewModelScope.launch {
+        userRepository.decrementAllCategories(username)
+    }
+
+    fun incrementCompleted(username: String) = viewModelScope.launch {
+        userRepository.incrementCompleted(username)
+    }
+
     fun logout() = userRepository.logout()
     fun getState() = userRepository.getState()
 }

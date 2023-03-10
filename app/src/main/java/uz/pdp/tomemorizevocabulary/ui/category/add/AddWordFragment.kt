@@ -19,8 +19,8 @@ import com.sangcomz.fishbun.FishBun
 import com.sangcomz.fishbun.adapter.image.impl.GlideAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import uz.pdp.tomemorizevocabulary.R
-import uz.pdp.tomemorizevocabulary.databinding.FragmentAddWordBinding
 import uz.pdp.tomemorizevocabulary.data.local.entity.Word
+import uz.pdp.tomemorizevocabulary.databinding.FragmentAddWordBinding
 import uz.pdp.tomemorizevocabulary.model.photos.Photo
 import uz.pdp.tomemorizevocabulary.model.photos.ThreePhoto
 import uz.pdp.tomemorizevocabulary.utils.Constants
@@ -29,6 +29,7 @@ import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
 import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource
+import uz.pdp.tomemorizevocabulary.viewmodel.CategoryViewModel
 import uz.pdp.tomemorizevocabulary.viewmodel.PhotoViewModel
 import uz.pdp.tomemorizevocabulary.viewmodel.WordViewModel
 
@@ -42,8 +43,9 @@ class AddWordFragment : Fragment() {
     private var _bn: FragmentAddWordBinding? = null
     private val bn get() = _bn!!
 
-    private val viewModel: WordViewModel by viewModels()
+    private val wordViewModel: WordViewModel by viewModels()
     private val photoViewModel: PhotoViewModel by viewModels()
+    private val categoryViewModel: CategoryViewModel by viewModels()
 
     private val rvAdapter = PhotoAdapter()
 
@@ -74,7 +76,10 @@ class AddWordFragment : Fragment() {
         }
 
         btnSearch click {
-            photoViewModel.getPhotos(1, etTitle.text.toString())
+
+            toast(getString(R.string.str_sorry))
+
+//            photoViewModel.getPhotos(1, etTitle.text.toString())
         }
 
         btnLocal click {
@@ -117,7 +122,7 @@ class AddWordFragment : Fragment() {
 
             val title = arguments?.getString(Constants.CATEGORY)!!
 
-            viewModel.insertWordToRoom(
+            wordViewModel.insertWordToRoom(
                 Word(
                     phrase = bn.etTitle.text.toString().lowercase(),
                     meaning = bn.etDescription.text.toString().lowercase(),
@@ -127,7 +132,7 @@ class AddWordFragment : Fragment() {
                 )
             )
 
-            viewModel.incrementWordCount(title)
+            categoryViewModel.incrementWordCount(title)
 
             findNavController().navigate(R.id.action_addWordFragment_to_lessonFragment, arguments)
 
