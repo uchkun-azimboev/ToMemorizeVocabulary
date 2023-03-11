@@ -33,6 +33,10 @@ class WordViewModel @Inject constructor(
         wordRepository.insert(word)
     }
 
+    fun deleteWord(word: Word) = viewModelScope.launch {
+        wordRepository.deleteWord(word)
+    }
+
     fun incrementSuccessCount(id: Int) = viewModelScope.launch {
         wordRepository.incrementSuccessCount(id)
     }

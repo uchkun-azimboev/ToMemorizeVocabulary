@@ -8,4 +8,5 @@ interface CategoryRepository {
     suspend fun getAllCategory(): List<Category>
     suspend fun incrementWordCount(title: String)
     suspend fun decrementWordCount(title: String)
+    suspend fun deleteCategory(category: Category)
 }

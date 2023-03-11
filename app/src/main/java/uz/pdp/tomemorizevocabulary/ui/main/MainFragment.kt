@@ -15,11 +15,14 @@ import uz.pdp.tomemorizevocabulary.utils.Constants
 import uz.pdp.tomemorizevocabulary.utils.Constants.USERNAME
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
+import uz.pdp.tomemorizevocabulary.utils.Extensions.makeDialog
+import uz.pdp.tomemorizevocabulary.utils.Extensions.setItemTouchHelper
 import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource
 import uz.pdp.tomemorizevocabulary.viewmodel.CategoryViewModel
 import uz.pdp.tomemorizevocabulary.viewmodel.UserViewModel
+import java.text.FieldPosition
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -30,6 +33,8 @@ class MainFragment : Fragment() {
     private val categoryViewModel: CategoryViewModel by viewModels()
     private val userViewModel: UserViewModel by viewModels()
     private val categoryAdapter = CategoryAdapter()
+
+    private lateinit var username: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -46,8 +51,9 @@ class MainFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        username = userViewModel.getState()
+        userViewModel.getUser(username)
         categoryViewModel.getAllCategory()
-        userViewModel.getUser(userViewModel.getState())
     }
 
     private fun initViews() = binding.apply {
@@ -57,6 +63,19 @@ class MainFragment : Fragment() {
                 openAddWordFragment(it)
             }
         }
+        rvLessons.setItemTouchHelper(
+            swipeLeft = {
+                makeDialog(
+                    getString(R.string.str_delete),
+                    getString(R.string.str_delete_category)
+                ) {
+                    deleteCategory(it)
+                }
+            },
+            swipeRight = {
+                // EDIT
+            }
+        )
 
         frameCreate click {
             findNavController().navigate(R.id.action_mainFragment_to_lessonCreateFragment)
@@ -128,6 +147,13 @@ class MainFragment : Fragment() {
         val args = Bundle()
         args.putString(Constants.CATEGORY, it.title)
         findNavController().navigate(R.id.action_mainFragment_to_lessonFragment, args)
+    }
+
+    private fun deleteCategory(position: Int) {
+        categoryViewModel.deleteCategory(categoryAdapter.currentList[position])
+        categoryViewModel.getAllCategory()
+        userViewModel.decrementAllCategories(username)
+        userViewModel.getUser(username)
     }
 
     override fun onDestroyView() {

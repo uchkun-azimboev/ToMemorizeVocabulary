@@ -1,8 +1,13 @@
 package uz.pdp.tomemorizevocabulary.utils
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.Dialog
+import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.util.TypedValue
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
@@ -11,10 +16,17 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.google.android.material.snackbar.Snackbar
+import com.saadahmedsoft.popupdialog.PopupDialog
+import com.saadahmedsoft.popupdialog.Styles
+import com.saadahmedsoft.popupdialog.listener.OnDialogButtonClickListener
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.model.photos.Photo
+import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 
 
 object Extensions {
@@ -35,6 +47,21 @@ object Extensions {
             startAnimation(AnimationUtils.loadAnimation(context, R.anim.photo_item_click))
             click()
         }
+    }
+
+    fun Fragment.makeDialog(title: String, msg: String, click: () -> Unit) {
+        PopupDialog.getInstance(requireContext())
+            .setStyle(Styles.IOS)
+            .setHeading(title)
+            .setDescription(msg)
+            .setCancelable(false)
+            .setPositiveButtonText(getString(R.string.str_allow))
+            .showDialog(object : OnDialogButtonClickListener() {
+                override fun onPositiveClicked(dialog: Dialog?) {
+                    click.invoke()
+                    dialog?.dismiss()
+                }
+            })
     }
 
     @SuppressLint("ResourceAsColor")
@@ -71,5 +98,71 @@ object Extensions {
 
     fun View.invisible() {
         visibility = View.INVISIBLE
+    }
+
+    fun RecyclerView.setItemTouchHelper(swipeLeft: (Int) -> Unit, swipeRight: (Int) -> Unit) {
+        val callback: ItemTouchHelper.SimpleCallback =
+            object :
+                ItemTouchHelper.SimpleCallback(
+                    0, /*ItemTouchHelper.RIGHT or */
+                    ItemTouchHelper.LEFT
+                ) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                    val position = viewHolder.bindingAdapterPosition
+                    adapter?.notifyItemChanged(position)
+
+                    if (direction == ItemTouchHelper.RIGHT) {
+                        swipeRight.invoke(position)
+                    } else {
+                        swipeLeft.invoke(position)
+                    }
+                }
+
+                override fun onChildDraw(
+                    c: Canvas,
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    dX: Float,
+                    dY: Float,
+                    actionState: Int,
+                    isCurrentlyActive: Boolean
+                ) {
+
+                    val green = ContextCompat.getColor(context, R.color.green)
+                    val orange = ContextCompat.getColor(context, R.color.orange)
+
+                    RecyclerViewSwipeDecorator.Builder(
+                        c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive
+                    )
+                        .addSwipeLeftBackgroundColor(orange)
+                        .addSwipeRightBackgroundColor(green)
+                        .addSwipeLeftActionIcon(R.drawable.ic_delete)
+                        .addSwipeRightActionIcon(R.drawable.ic_edit)
+                        .addSwipeLeftLabel(context.getString(R.string.str_delete).uppercase())
+                        .addSwipeRightLabel(context.getString(R.string.str_edit).uppercase())
+                        .setSwipeLeftLabelColor(Color.WHITE)
+                        .setSwipeRightLabelColor(Color.WHITE)
+                        .setSwipeLeftActionIconTint(Color.WHITE)
+                        .setSwipeRightActionIconTint(Color.WHITE)
+                        .addCornerRadius(TypedValue.COMPLEX_UNIT_DIP, 10)
+                        .create()
+                        .decorate()
+
+                    super.onChildDraw(
+                        c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive
+                    )
+                }
+            }
+
+        ItemTouchHelper(callback).attachToRecyclerView(this)
     }
 }

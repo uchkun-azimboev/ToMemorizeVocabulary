@@ -48,4 +48,8 @@ class CategoryViewModel @Inject constructor(
     fun decrementWordCount(title: String) = viewModelScope.launch {
         categoryRepository.decrementWordCount(title)
     }
+
+    fun deleteCategory(category: Category) = viewModelScope.launch {
+        categoryRepository.deleteCategory(category)
+    }
 }

@@ -8,4 +8,5 @@ interface WordRepository {
     suspend fun getSearchWord(text: String): List<Word>
     suspend fun incrementSuccessCount(id: Int)
     suspend fun incrementAllCount(id: Int)
+    suspend fun deleteWord(word: Word)
 }

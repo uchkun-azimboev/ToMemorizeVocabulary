@@ -19,4 +19,8 @@ class CategoryRepositoryImp(private val categoryDao: CategoryDao) : CategoryRepo
     override suspend fun decrementWordCount(title: String) {
         categoryDao.decrementWordCount(title)
     }
+
+    override suspend fun deleteCategory(category: Category) {
+        categoryDao.deleteCategory(category)
+    }
 }

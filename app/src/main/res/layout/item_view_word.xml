@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="15dp"
-    android:background="@color/dark"
+    android:background="@drawable/shape_corner_rounded"
+    android:backgroundTint="@color/dark"
     android:gravity="top"
     android:orientation="horizontal">
 
@@ -71,6 +72,7 @@
         style="@style/MediumText"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
+        android:layout_marginEnd="10dp"
         android:gravity="center"
         android:text="@string/str_stats"
         android:textColor="@color/yellow"

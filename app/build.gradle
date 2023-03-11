@@ -94,4 +94,10 @@ dependencies {
 
     // CardStackView
     implementation 'com.github.yuyakaido:cardstackview:2.3.4'
+
+    // SwipeDecorator
+    implementation 'it.xabaras.android:recyclerview-swipedecorator:1.4'
+
+    // Popup Dialog
+    implementation 'com.saadahmedev.popup-dialog:popup-dialog:1.0.2'
 }

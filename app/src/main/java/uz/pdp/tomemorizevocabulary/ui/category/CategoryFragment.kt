@@ -1,22 +1,33 @@
 package uz.pdp.tomemorizevocabulary.ui.category
 
+import android.graphics.Canvas
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 import uz.pdp.tomemorizevocabulary.databinding.FragmentCategoryBinding
 import uz.pdp.tomemorizevocabulary.utils.Constants
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
+import uz.pdp.tomemorizevocabulary.utils.Extensions.makeDialog
+import uz.pdp.tomemorizevocabulary.utils.Extensions.setItemTouchHelper
 import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource.Status
+import uz.pdp.tomemorizevocabulary.viewmodel.CategoryViewModel
 import uz.pdp.tomemorizevocabulary.viewmodel.WordViewModel
 
 @AndroidEntryPoint
@@ -26,7 +37,15 @@ class CategoryFragment : Fragment() {
     private val binding get() = _bn!!
 
     private val wordViewModel: WordViewModel by viewModels()
+    private val categoryViewModel: CategoryViewModel by viewModels()
     private val wordAdapter = WordAdapter()
+
+    private lateinit var categoryTitle: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        categoryTitle = arguments?.getString(Constants.CATEGORY) ?: ""
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,14 +64,12 @@ class CategoryFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        wordViewModel.getWords(arguments?.getString(Constants.CATEGORY) ?: "")
+        wordViewModel.getWords(categoryTitle)
     }
 
     private fun initViews() = binding.apply {
 
-        tvTitle.text = arguments?.getString(Constants.CATEGORY)
-
-        rvWords.adapter = wordAdapter
+        tvTitle.text = categoryTitle
 
         ivBack click { requireActivity().onBackPressed() }
 
@@ -65,6 +82,19 @@ class CategoryFragment : Fragment() {
                 findNavController().navigate(R.id.action_lessonFragment_to_playFragment, arguments)
             else toast(getString(R.string.str_dont_word))
         }
+
+        rvWords.adapter = wordAdapter
+        rvWords.setItemTouchHelper(
+            swipeLeft = {
+                // DELETE
+                makeDialog(getString(R.string.str_delete), getString(R.string.str_delete_word)) {
+                    deleteWord(it)
+                }
+            },
+            swipeRight = {
+                // EDIT
+            }
+        )
     }
 
     private fun setUpRv(list: List<Word>?) {
@@ -105,5 +135,11 @@ class CategoryFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _bn = null
+    }
+
+    private fun deleteWord(position: Int) {
+        wordViewModel.deleteWord(wordAdapter.currentList[position])
+        categoryViewModel.decrementWordCount(categoryTitle)
+        wordViewModel.getWords(categoryTitle)
     }
 }
