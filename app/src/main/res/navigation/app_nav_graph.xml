@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_mainFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_editCategoryFragment"
+            app:destination="@id/editCategoryFragment" />
     </fragment>
 
     <fragment
@@ -43,6 +46,9 @@
         <action
             android:id="@+id/action_lessonFragment_to_playFragment"
             app:destination="@id/playFragment" />
+        <action
+            android:id="@+id/action_lessonFragment_to_editWordFragment"
+            app:destination="@id/editWordFragment" />
     </fragment>
     <fragment
         android:id="@+id/addWordFragment"
@@ -74,6 +80,28 @@
             android:id="@+id/action_loginFragment_to_mainFragment"
             app:destination="@id/mainFragment"
             app:popUpTo="@id/app_nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/editCategoryFragment"
+        android:name="uz.pdp.tomemorizevocabulary.ui.edit.EditCategoryFragment"
+        android:label="fragment_edit_category"
+        tools:layout="@layout/fragment_edit_category">
+        <action
+            android:id="@+id/action_editCategoryFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/app_nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/editWordFragment"
+        android:name="uz.pdp.tomemorizevocabulary.ui.edit.EditWordFragment"
+        android:label="fragment_edit_word"
+        tools:layout="@layout/fragment_edit_word">
+        <action
+            android:id="@+id/action_editWordFragment_to_lessonFragment"
+            app:destination="@id/lessonFragment"
+            app:popUpTo="@id/lessonFragment"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>

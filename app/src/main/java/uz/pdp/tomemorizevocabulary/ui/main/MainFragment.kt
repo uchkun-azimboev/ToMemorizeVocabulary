@@ -1,6 +1,7 @@
 package uz.pdp.tomemorizevocabulary.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.internal.wait
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.databinding.FragmentMainBinding
 import uz.pdp.tomemorizevocabulary.data.local.entity.Category
@@ -52,8 +54,7 @@ class MainFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         username = userViewModel.getState()
-        userViewModel.getUser(username)
-        categoryViewModel.getAllCategory()
+        loadData()
     }
 
     private fun initViews() = binding.apply {
@@ -63,19 +64,17 @@ class MainFragment : Fragment() {
                 openAddWordFragment(it)
             }
         }
-        rvLessons.setItemTouchHelper(
-            swipeLeft = {
-                makeDialog(
-                    getString(R.string.str_delete),
-                    getString(R.string.str_delete_category)
-                ) {
-                    deleteCategory(it)
-                }
-            },
-            swipeRight = {
-                // EDIT
+
+        rvLessons.setItemTouchHelper(swipeLeft = {
+            makeDialog(
+                getString(R.string.str_delete), getString(R.string.str_delete_category)
+            ) {
+                deleteCategory(it)
+                loadData()
             }
-        )
+        }, swipeRight = {
+            openEditCategoryFragment(it)
+        })
 
         frameCreate click {
             findNavController().navigate(R.id.action_mainFragment_to_lessonCreateFragment)
@@ -88,6 +87,15 @@ class MainFragment : Fragment() {
         frameGame click {
             toast(getString(R.string.str_sorry))
         }
+    }
+
+    private fun openEditCategoryFragment(position: Int) {
+        findNavController().navigate(R.id.action_mainFragment_to_editCategoryFragment,
+            Bundle().apply {
+                putSerializable(
+                    getString(R.string.str_category), categoryAdapter.currentList[position]
+                )
+            })
     }
 
     private fun setUpRv(list: List<Category>?) {
@@ -108,6 +116,7 @@ class MainFragment : Fragment() {
     }
 
     private fun observer() {
+
         categoryViewModel.categories.observe(viewLifecycleOwner) {
             when (it.status) {
                 Resource.Status.LOADING -> {
@@ -126,7 +135,10 @@ class MainFragment : Fragment() {
             when (it.status) {
                 Resource.Status.LOADING -> {}
                 Resource.Status.SUCCESS -> {
+
+
                     val user = it.data!!
+                    Log.d("TEST_WORK", "getUserSuccess : $user")
                     binding.apply {
                         tvHello.text =
                             getString(R.string.str_hello).plus(" ").plus(user.name).plus(" !")
@@ -151,8 +163,11 @@ class MainFragment : Fragment() {
 
     private fun deleteCategory(position: Int) {
         categoryViewModel.deleteCategory(categoryAdapter.currentList[position])
-        categoryViewModel.getAllCategory()
         userViewModel.decrementAllCategories(username)
+    }
+
+    private fun loadData() {
+        categoryViewModel.getAllCategory()
         userViewModel.getUser(username)
     }
 

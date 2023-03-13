@@ -3,6 +3,7 @@ package uz.pdp.tomemorizevocabulary.data.local.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "word")
 data class Word(
@@ -15,4 +16,4 @@ data class Word(
     var part: String? = null,
     @ColumnInfo(name = "category_title")
     var categoryTitle: String
-)
+) : Serializable

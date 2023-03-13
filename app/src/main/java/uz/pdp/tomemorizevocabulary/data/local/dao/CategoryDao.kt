@@ -18,6 +18,9 @@ interface CategoryDao {
     @Query("update category set word_count = word_count - 1 where title = :title")
     suspend fun decrementWordCount(title: String)
 
+    @Query("update category set title = :newTitle, description = :description  where title = :title")
+    suspend fun updateCategory(title: String, newTitle: String, description: String)
+
     @Delete
     suspend fun deleteCategory(category: Category)
 }

@@ -93,8 +93,17 @@ class CategoryFragment : Fragment() {
             },
             swipeRight = {
                 // EDIT
+                openEditWordFragment(it)
             }
         )
+    }
+
+    private fun openEditWordFragment(position: Int) {
+        findNavController().navigate(
+            R.id.action_lessonFragment_to_editWordFragment,
+            Bundle().apply {
+                putSerializable(getString(R.string.str_word), wordAdapter.currentList[position])
+            })
     }
 
     private fun setUpRv(list: List<Word>?) {

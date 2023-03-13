@@ -64,6 +64,7 @@
     <string name="str_delete_word">Do you wont delete the word ?</string>
     <string name="str_allow">Allow</string>
     <string name="str_delete_category">Do you wont delete the category ?</string>
+    <string name="str_word">Word</string>
 
     <string-array name="part_of_speech">
 

@@ -7,9 +7,11 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import uz.pdp.tomemorizevocabulary.model.photos.ResponsePhotos
 import uz.pdp.tomemorizevocabulary.repository.PhotoRepository
 import uz.pdp.tomemorizevocabulary.utils.Resource
+import uz.pdp.tomemorizevocabulary.utils.SingleLiveEvent
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,22 +19,24 @@ class PhotoViewModel @Inject constructor(
     private val photoRepository: PhotoRepository
 ) : ViewModel() {
 
-    private var _photos = MutableLiveData<Resource<ResponsePhotos>>()
+    private var _photos = SingleLiveEvent<Resource<ResponsePhotos>>()
     val photos: LiveData<Resource<ResponsePhotos>> get() = _photos
 
     fun getPhotos(page: Int, query: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                _photos.postValue(Resource.loading())
-                photoRepository.getPhotos(page, query).let {
-                    if (it.isSuccessful) {
-                        _photos.postValue(Resource.success(it.body()!!))
-                    } else {
-                        _photos.postValue(Resource.error(it.errorBody().toString()))
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    _photos.postValue(Resource.loading())
+                    photoRepository.getPhotos(page, query).let {
+                        if (it.isSuccessful) {
+                            _photos.postValue(Resource.success(it.body()!!))
+                        } else {
+                            _photos.postValue(Resource.error(it.errorBody().toString()))
+                        }
                     }
+                } catch (e: Exception) {
+                    _photos.postValue(Resource.error(e.localizedMessage ?: "Error"))
                 }
-            } catch (e: Exception) {
-                _photos.postValue(Resource.error(e.localizedMessage ?: "Error"))
             }
         }
     }

@@ -96,9 +96,6 @@ class PlayFragment : Fragment() {
                 }
 
                 override fun onCardSwiped(direction: Direction?) {
-
-                    Log.d("PlayFragment", "onCardSwiped")
-
                     if (direction == Direction.Right) {
                         toast(getString(R.string.str_i_know), 1)
                         rightView.setBackgroundResource(R.color.dark)

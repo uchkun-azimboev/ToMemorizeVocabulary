@@ -104,8 +104,7 @@ object Extensions {
         val callback: ItemTouchHelper.SimpleCallback =
             object :
                 ItemTouchHelper.SimpleCallback(
-                    0, /*ItemTouchHelper.RIGHT or */
-                    ItemTouchHelper.LEFT
+                    0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT
                 ) {
                 override fun onMove(
                     recyclerView: RecyclerView,

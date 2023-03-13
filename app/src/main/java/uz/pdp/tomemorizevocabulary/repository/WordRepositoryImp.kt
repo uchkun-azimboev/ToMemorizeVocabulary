@@ -25,6 +25,10 @@ class WordRepositoryImp(private val wordDao: WordDao) : WordRepository {
         wordDao.incrementALlCount(id)
     }
 
+    override suspend fun updateWord(word: Word) {
+        wordDao.updateWord(word)
+    }
+
     override suspend fun deleteWord(word: Word) {
         wordDao.deleteWord(word)
     }

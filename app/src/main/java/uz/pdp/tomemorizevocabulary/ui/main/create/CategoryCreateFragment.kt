@@ -70,8 +70,8 @@ class CategoryCreateFragment : Fragment() {
 
             categoryViewModel.insertCategory(
                 Category(
-                    title = binding.etTitle.text.toString(),
-                    description = binding.etDescription.text.toString(),
+                    title = binding.etTitle.text.toString().trim(),
+                    description = binding.etDescription.text.toString().trim(),
                     createDate = getCurrentDate(),
                     color = pickColor
                 )
