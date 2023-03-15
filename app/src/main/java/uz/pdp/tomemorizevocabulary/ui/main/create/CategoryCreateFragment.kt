@@ -14,8 +14,6 @@ import uz.pdp.tomemorizevocabulary.databinding.FragmentCategoryCreateBinding
 import uz.pdp.tomemorizevocabulary.data.local.entity.Category
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
-import uz.pdp.tomemorizevocabulary.viewmodel.CategoryViewModel
-import uz.pdp.tomemorizevocabulary.viewmodel.UserViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -29,8 +27,7 @@ class CategoryCreateFragment : Fragment() {
     private lateinit var colorList: ArrayList<ShapeableImageView>
     private var pickColor: Int = R.color.pure_gray
 
-    private val categoryViewModel: CategoryViewModel by viewModels()
-    private val userViewModel: UserViewModel by viewModels()
+    private val createCategoryViewModel: CreateCategoryViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -68,7 +65,7 @@ class CategoryCreateFragment : Fragment() {
     private fun createCategory() {
         if (isValidCategory()) {
 
-            categoryViewModel.insertCategory(
+            createCategoryViewModel.insertCategory(
                 Category(
                     title = binding.etTitle.text.toString().trim(),
                     description = binding.etDescription.text.toString().trim(),
@@ -76,8 +73,6 @@ class CategoryCreateFragment : Fragment() {
                     color = pickColor
                 )
             )
-
-            userViewModel.incrementAllCategories(userViewModel.getState())
 
             findNavController().navigate(R.id.action_lessonCreateFragment_to_mainFragment)
 

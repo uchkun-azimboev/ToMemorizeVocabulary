@@ -1,7 +1,6 @@
-package uz.pdp.tomemorizevocabulary.ui.main
+package uz.pdp.tomemorizevocabulary.ui.main.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.internal.wait
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.databinding.FragmentMainBinding
 import uz.pdp.tomemorizevocabulary.data.local.entity.Category
 import uz.pdp.tomemorizevocabulary.utils.Constants
-import uz.pdp.tomemorizevocabulary.utils.Constants.USERNAME
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
 import uz.pdp.tomemorizevocabulary.utils.Extensions.makeDialog
@@ -22,9 +19,6 @@ import uz.pdp.tomemorizevocabulary.utils.Extensions.setItemTouchHelper
 import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource
-import uz.pdp.tomemorizevocabulary.viewmodel.CategoryViewModel
-import uz.pdp.tomemorizevocabulary.viewmodel.UserViewModel
-import java.text.FieldPosition
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -32,8 +26,7 @@ class MainFragment : Fragment() {
     private var _bn: FragmentMainBinding? = null
     private val binding get() = _bn!!
 
-    private val categoryViewModel: CategoryViewModel by viewModels()
-    private val userViewModel: UserViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
     private val categoryAdapter = CategoryAdapter()
 
     private lateinit var username: String
@@ -53,8 +46,8 @@ class MainFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        username = userViewModel.getState()
-        loadData()
+        username = mainViewModel.getState()
+        mainViewModel.loadData(username)
     }
 
     private fun initViews() = binding.apply {
@@ -70,7 +63,6 @@ class MainFragment : Fragment() {
                 getString(R.string.str_delete), getString(R.string.str_delete_category)
             ) {
                 deleteCategory(it)
-                loadData()
             }
         }, swipeRight = {
             openEditCategoryFragment(it)
@@ -116,8 +108,7 @@ class MainFragment : Fragment() {
     }
 
     private fun observer() {
-
-        categoryViewModel.categories.observe(viewLifecycleOwner) {
+        mainViewModel.categories.observe(viewLifecycleOwner) {
             when (it.status) {
                 Resource.Status.LOADING -> {
                     binding.progressbar.visible()
@@ -131,14 +122,11 @@ class MainFragment : Fragment() {
             }
         }
 
-        userViewModel.user.observe(viewLifecycleOwner) {
+        mainViewModel.user.observe(viewLifecycleOwner) {
             when (it.status) {
                 Resource.Status.LOADING -> {}
                 Resource.Status.SUCCESS -> {
-
-
                     val user = it.data!!
-                    Log.d("TEST_WORK", "getUserSuccess : $user")
                     binding.apply {
                         tvHello.text =
                             getString(R.string.str_hello).plus(" ").plus(user.name).plus(" !")
@@ -162,13 +150,7 @@ class MainFragment : Fragment() {
     }
 
     private fun deleteCategory(position: Int) {
-        categoryViewModel.deleteCategory(categoryAdapter.currentList[position])
-        userViewModel.decrementAllCategories(username)
-    }
-
-    private fun loadData() {
-        categoryViewModel.getAllCategory()
-        userViewModel.getUser(username)
+        mainViewModel.deleteCategory(categoryAdapter.currentList[position], username)
     }
 
     override fun onDestroyView() {

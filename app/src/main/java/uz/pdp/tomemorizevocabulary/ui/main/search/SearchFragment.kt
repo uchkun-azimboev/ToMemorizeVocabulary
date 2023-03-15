@@ -13,13 +13,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 import uz.pdp.tomemorizevocabulary.databinding.FragmentSearchBinding
-import uz.pdp.tomemorizevocabulary.ui.category.WordAdapter
+import uz.pdp.tomemorizevocabulary.ui.category.main.WordAdapter
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
 import uz.pdp.tomemorizevocabulary.utils.Extensions.hideSoftKeyboard
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource
-import uz.pdp.tomemorizevocabulary.viewmodel.WordViewModel
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
@@ -27,8 +26,8 @@ class SearchFragment : Fragment() {
     private var _bn: FragmentSearchBinding? = null
     private val bn get() = _bn!!
 
+    private val searchViewModel: SearchViewModel by viewModels()
     private val rvAdapter = WordAdapter()
-    private val viewModel: WordViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,7 +51,7 @@ class SearchFragment : Fragment() {
         etSearch.apply {
             addTextChangedListener {
                 if (!it.isNullOrEmpty()) {
-                    viewModel.getSearchWords(it.toString().trim().lowercase())
+                    searchViewModel.getSearchWords(it.toString().trim().lowercase())
                 } else {
                     setUpRv(null)
                 }
@@ -69,7 +68,7 @@ class SearchFragment : Fragment() {
 
 
     private fun observer() {
-        viewModel.searchWords.observe(viewLifecycleOwner) {
+        searchViewModel.searchWords.observe(viewLifecycleOwner) {
             when (it.status) {
                 Resource.Status.LOADING -> {
                     bn.progressbar.visible()

@@ -2,25 +2,19 @@ package uz.pdp.tomemorizevocabulary.ui.category.play
 
 
 import android.annotation.SuppressLint
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.android.material.snackbar.Snackbar
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.CardStackListener
 import com.yuyakaido.android.cardstackview.Direction
 import com.yuyakaido.android.cardstackview.StackFrom
 import dagger.hilt.android.AndroidEntryPoint
 import uz.pdp.tomemorizevocabulary.R
-import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 import uz.pdp.tomemorizevocabulary.databinding.FragmentPlayBinding
 import uz.pdp.tomemorizevocabulary.utils.Constants
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
@@ -28,7 +22,6 @@ import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
 import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource
-import uz.pdp.tomemorizevocabulary.viewmodel.WordViewModel
 
 @AndroidEntryPoint
 class PlayFragment : Fragment() {
@@ -36,10 +29,8 @@ class PlayFragment : Fragment() {
     private var _bn: FragmentPlayBinding? = null
     private val bn: FragmentPlayBinding get() = _bn!!
 
-    private val wordViewModel: WordViewModel by viewModels()
-
+    private val playViewModel: PlayViewModel by viewModels()
     private val rvAdapter = CardGameAdapter()
-
     private var itemCount = 0
 
     override fun onCreateView(
@@ -57,7 +48,7 @@ class PlayFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        wordViewModel.getRandomWords(arguments?.getString(Constants.CATEGORY) ?: "")
+        playViewModel.getRandomWords(arguments?.getString(Constants.CATEGORY) ?: "")
     }
 
     private fun initViews() = bn.apply {
@@ -120,10 +111,10 @@ class PlayFragment : Fragment() {
 
                 override fun onCardDisappeared(view: View?, position: Int) {
 
-                    wordViewModel.incrementAllCount(rvAdapter.currentList[position].id!!)
+                    playViewModel.incrementAllCount(rvAdapter.currentList[position].id!!)
 
                     if (cardDirection == Direction.Right) {
-                        wordViewModel.incrementSuccessCount(rvAdapter.currentList[position].id!!)
+                        playViewModel.incrementSuccessCount(rvAdapter.currentList[position].id!!)
                     }
 
                     if (position == itemCount - 1) bn.tvInfo.visible()
@@ -138,7 +129,7 @@ class PlayFragment : Fragment() {
     }
 
     private fun observer() {
-        wordViewModel.randomWords.observe(viewLifecycleOwner) {
+        playViewModel.randomWords.observe(viewLifecycleOwner) {
             when (it.status) {
                 Resource.Status.LOADING -> {
                     bn.progressbar.visible()

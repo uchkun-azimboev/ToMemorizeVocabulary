@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark"
-    tools:context=".ui.edit.EditWordFragment">
+    tools:context=".ui.edit.word.EditWordFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -85,36 +85,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-
-                <TextView
-                    style="@style/MediumText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingVertical="10dp"
-                    android:text="@string/str_enter_part_of_speech"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/textInputStyleMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:boxStrokeColor="@color/yellow"
-                    app:endIconTint="@color/yellow">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/et_type"
-                        style="@style/MediumText"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/str_hint_part"
-                        android:inputType="none"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/gray" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
                 <TextView
                     style="@style/MediumText"
                     android:layout_width="wrap_content"
@@ -146,6 +116,35 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
+                    style="@style/MediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingVertical="10dp"
+                    android:text="@string/str_enter_part_of_speech"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/textInputStyleMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeColor="@color/yellow"
+                    app:endIconTint="@color/yellow">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/et_type"
+                        style="@style/MediumText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/str_hint_part"
+                        android:inputType="none"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/gray" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--<TextView
                     style="@style/MediumText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -210,7 +209,6 @@
 
                 </LinearLayout>
 
-
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -236,7 +234,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/item_view_photo" />
 
-                </FrameLayout>
+                </FrameLayout>-->
 
             </LinearLayout>
 

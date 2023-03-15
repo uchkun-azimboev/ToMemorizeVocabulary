@@ -1,4 +1,4 @@
-package uz.pdp.tomemorizevocabulary.ui.main
+package uz.pdp.tomemorizevocabulary.ui.main.main
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

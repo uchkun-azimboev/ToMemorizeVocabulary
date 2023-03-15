@@ -1,8 +1,7 @@
-package uz.pdp.tomemorizevocabulary.viewmodel
+package uz.pdp.tomemorizevocabulary.ui.main.main
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,31 +9,26 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import uz.pdp.tomemorizevocabulary.data.local.entity.Category
+import uz.pdp.tomemorizevocabulary.data.local.entity.User
 import uz.pdp.tomemorizevocabulary.repository.CategoryRepository
+import uz.pdp.tomemorizevocabulary.repository.UserRepository
 import uz.pdp.tomemorizevocabulary.utils.Resource
 import uz.pdp.tomemorizevocabulary.utils.SingleLiveEvent
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoryViewModel @Inject constructor(
-    private val categoryRepository: CategoryRepository
+class MainViewModel @Inject constructor(
+    private val categoryRepository: CategoryRepository,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private var _categories = SingleLiveEvent<Resource<List<Category>>>()
     val categories: LiveData<Resource<List<Category>>> get() = _categories
 
-    fun insertCategory(category: Category) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                categoryRepository.insert(category)
-            }
-        }
-    }
+    private var _user = SingleLiveEvent<Resource<User>>()
+    val user: LiveData<Resource<User>> get() = _user
 
-    fun getAllCategory() {
-
-        Log.d("TEST_WORK", "getAllCategory")
-
+    private fun getAllCategory() {
         _categories.postValue(Resource.loading())
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -48,38 +42,43 @@ class CategoryViewModel @Inject constructor(
         }
     }
 
-    fun incrementWordCount(title: String) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                categoryRepository.incrementWordCount(title)
-            }
-        }
-    }
-
-    fun decrementWordCount(title: String) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                categoryRepository.decrementWordCount(title)
-            }
-        }
-    }
-
-    fun updateCategory(title: String, newTitle: String, description: String) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                categoryRepository.updateCategory(title, newTitle, description)
-            }
-        }
-    }
-
-    fun deleteCategory(category: Category) {
-
-        Log.d("TEST_WORK", "deleteCategory")
-
+    fun deleteCategory(category: Category, username: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 categoryRepository.deleteCategory(category)
+                userRepository.decrementAllCategories(username)
+            }
+        }.invokeOnCompletion {
+            loadData(username)
+        }
+    }
+
+    private fun getUser(username: String) {
+        _user.postValue(Resource.loading())
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    val response = userRepository.getUser(username)
+                    _user.postValue(Resource.success(response))
+                } catch (e: Exception) {
+                    _user.postValue(Resource.error(e.localizedMessage))
+                }
             }
         }
     }
+
+    fun getState() = userRepository.getState()
+
+    fun loadData(username: String) {
+        getAllCategory()
+        getUser(username)
+    }
+
+    /*fun decrementAllCategories(username: String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                userRepository.decrementAllCategories(username)
+            }
+        }
+    }*/
 }

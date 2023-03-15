@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="uz.pdp.tomemorizevocabulary.ui.main.MainFragment"
+        android:name="uz.pdp.tomemorizevocabulary.ui.main.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/lessonFragment"
-        android:name="uz.pdp.tomemorizevocabulary.ui.category.CategoryFragment"
+        android:name="uz.pdp.tomemorizevocabulary.ui.category.main.CategoryFragment"
         android:label="fragment_lesson"
         tools:layout="@layout/fragment_category">
         <action
@@ -84,7 +84,7 @@
     </fragment>
     <fragment
         android:id="@+id/editCategoryFragment"
-        android:name="uz.pdp.tomemorizevocabulary.ui.edit.EditCategoryFragment"
+        android:name="uz.pdp.tomemorizevocabulary.ui.edit.category.EditCategoryFragment"
         android:label="fragment_edit_category"
         tools:layout="@layout/fragment_edit_category">
         <action
@@ -95,7 +95,7 @@
     </fragment>
     <fragment
         android:id="@+id/editWordFragment"
-        android:name="uz.pdp.tomemorizevocabulary.ui.edit.EditWordFragment"
+        android:name="uz.pdp.tomemorizevocabulary.ui.edit.word.EditWordFragment"
         android:label="fragment_edit_word"
         tools:layout="@layout/fragment_edit_word">
         <action

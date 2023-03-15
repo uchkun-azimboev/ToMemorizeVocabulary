@@ -1,21 +1,13 @@
-package uz.pdp.tomemorizevocabulary.ui.category
+package uz.pdp.tomemorizevocabulary.ui.category.main
 
-import android.graphics.Canvas
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 import uz.pdp.tomemorizevocabulary.databinding.FragmentCategoryBinding
@@ -27,8 +19,6 @@ import uz.pdp.tomemorizevocabulary.utils.Extensions.setItemTouchHelper
 import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource.Status
-import uz.pdp.tomemorizevocabulary.viewmodel.CategoryViewModel
-import uz.pdp.tomemorizevocabulary.viewmodel.WordViewModel
 
 @AndroidEntryPoint
 class CategoryFragment : Fragment() {
@@ -36,10 +26,8 @@ class CategoryFragment : Fragment() {
     private var _bn: FragmentCategoryBinding? = null
     private val binding get() = _bn!!
 
-    private val wordViewModel: WordViewModel by viewModels()
     private val categoryViewModel: CategoryViewModel by viewModels()
     private val wordAdapter = WordAdapter()
-
     private lateinit var categoryTitle: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +52,7 @@ class CategoryFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        wordViewModel.getWords(categoryTitle)
+        categoryViewModel.getWords(categoryTitle)
     }
 
     private fun initViews() = binding.apply {
@@ -72,27 +60,24 @@ class CategoryFragment : Fragment() {
         tvTitle.text = categoryTitle
 
         ivBack click { requireActivity().onBackPressed() }
-
         frameCreate click {
             findNavController().navigate(R.id.action_lessonFragment_to_addWordFragment, arguments)
         }
-
         frameGame click {
             if (rvWords.adapter!!.itemCount > 0)
                 findNavController().navigate(R.id.action_lessonFragment_to_playFragment, arguments)
             else toast(getString(R.string.str_dont_word))
         }
 
+
         rvWords.adapter = wordAdapter
         rvWords.setItemTouchHelper(
             swipeLeft = {
-                // DELETE
                 makeDialog(getString(R.string.str_delete), getString(R.string.str_delete_word)) {
                     deleteWord(it)
                 }
             },
             swipeRight = {
-                // EDIT
                 openEditWordFragment(it)
             }
         )
@@ -126,7 +111,7 @@ class CategoryFragment : Fragment() {
     }
 
     private fun observer() {
-        wordViewModel.words.observe(viewLifecycleOwner) {
+        categoryViewModel.words.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressbar.visible()
@@ -147,8 +132,6 @@ class CategoryFragment : Fragment() {
     }
 
     private fun deleteWord(position: Int) {
-        wordViewModel.deleteWord(wordAdapter.currentList[position])
-        categoryViewModel.decrementWordCount(categoryTitle)
-        wordViewModel.getWords(categoryTitle)
+        categoryViewModel.deleteWord(wordAdapter.currentList[position], categoryTitle)
     }
 }

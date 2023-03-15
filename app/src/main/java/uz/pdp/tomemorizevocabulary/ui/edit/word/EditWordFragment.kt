@@ -1,4 +1,4 @@
-package uz.pdp.tomemorizevocabulary.ui.edit
+package uz.pdp.tomemorizevocabulary.ui.edit.word
 
 import android.app.Activity
 import android.net.Uri
@@ -23,7 +23,6 @@ import uz.pdp.tomemorizevocabulary.databinding.FragmentEditWordBinding
 import uz.pdp.tomemorizevocabulary.utils.Constants
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
-import uz.pdp.tomemorizevocabulary.viewmodel.WordViewModel
 
 @AndroidEntryPoint
 @RequiresApi(Build.VERSION_CODES.M)
@@ -32,7 +31,7 @@ class EditWordFragment : Fragment() {
     private var _bn: FragmentEditWordBinding? = null
     private val bn get() = _bn!!
 
-    private val wordViewModel: WordViewModel by viewModels()
+    private val editWordViewModel: EditWordViewModel by viewModels()
 
     private lateinit var theWord: Word
 
@@ -63,8 +62,8 @@ class EditWordFragment : Fragment() {
         etDescription.setText(theWord.meaning)
         etType.setText(theWord.part)
 
-        if (theWord.image != null)
-            Glide.with(this@EditWordFragment).load(theWord.image).into(ivPhoto)
+        /*if (theWord.image != null)
+            Glide.with(this@EditWordFragment).load(theWord.image).into(ivPhoto)*/
 
         etType.apply {
             setAdapter(
@@ -79,8 +78,8 @@ class EditWordFragment : Fragment() {
 
         ivBack click { requireActivity().onBackPressed() }
         btnCancel click { requireActivity().onBackPressed() }
-        btnSearch click { toast(getString(R.string.str_sorry)) }
-        btnLocal click { pickPhoto() }
+        /*btnSearch click { toast(getString(R.string.str_sorry)) }
+        btnLocal click { pickPhoto() }*/
         btnEdit click { editWord() }
     }
 
@@ -92,7 +91,7 @@ class EditWordFragment : Fragment() {
             theWord.part = bn.etType.text.toString().lowercase()
             theWord.image = pickedImage
 
-            wordViewModel.updateWord(theWord)
+            editWordViewModel.updateWord(theWord)
 
             findNavController().navigate(
                 R.id.action_editWordFragment_to_lessonFragment,
@@ -131,7 +130,7 @@ class EditWordFragment : Fragment() {
                 pickedImage =
                     it.data!!.getParcelableArrayListExtra<Uri>(FishBun.INTENT_PATH)?.get(0)
                         .toString()
-                Glide.with(this).load(pickedImage).into(bn.ivPhoto)
+//                Glide.with(this).load(pickedImage).into(bn.ivPhoto)
             }
         }
 

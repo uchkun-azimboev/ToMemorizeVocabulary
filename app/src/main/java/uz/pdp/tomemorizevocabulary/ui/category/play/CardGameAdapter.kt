@@ -3,14 +3,11 @@ package uz.pdp.tomemorizevocabulary.ui.category.play
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 import uz.pdp.tomemorizevocabulary.databinding.ItemViewCardBinding
-import uz.pdp.tomemorizevocabulary.ui.category.WordAdapter
+import uz.pdp.tomemorizevocabulary.ui.category.main.WordAdapter
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible

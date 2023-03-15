@@ -11,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.data.local.entity.User
 import uz.pdp.tomemorizevocabulary.databinding.FragmentLoginBinding
-import uz.pdp.tomemorizevocabulary.utils.Constants.USERNAME
 import uz.pdp.tomemorizevocabulary.utils.Constants.USER_NONE
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
@@ -19,7 +18,6 @@ import uz.pdp.tomemorizevocabulary.utils.Extensions.invisible
 import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource
-import uz.pdp.tomemorizevocabulary.viewmodel.UserViewModel
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -27,7 +25,7 @@ class LoginFragment : Fragment() {
     private var _bn: FragmentLoginBinding? = null
     private val bn get() = _bn!!
 
-    private val userViewModel: UserViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,7 +46,7 @@ class LoginFragment : Fragment() {
 
         btnLetsGo click {
             if (isValidUser()) {
-                userViewModel.login(
+                loginViewModel.login(
                     User(
                         name = etName.text.toString().trim(),
                         username = etUsername.text.toString().trim()
@@ -83,7 +81,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun observer() {
-        userViewModel.login.observe(viewLifecycleOwner) {
+        loginViewModel.login.observe(viewLifecycleOwner) {
             when (it.status) {
                 Resource.Status.LOADING -> {
                     bn.progressbar.visible()
@@ -104,7 +102,7 @@ class LoginFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        if (userViewModel.getState() != USER_NONE) {
+        if (loginViewModel.getState() != USER_NONE) {
             openMainFragment()
         }
     }

@@ -29,26 +29,17 @@ import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
 import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource
-import uz.pdp.tomemorizevocabulary.viewmodel.CategoryViewModel
-import uz.pdp.tomemorizevocabulary.viewmodel.PhotoViewModel
-import uz.pdp.tomemorizevocabulary.viewmodel.WordViewModel
-
 
 @AndroidEntryPoint
 @RequiresApi(Build.VERSION_CODES.M)
 class AddWordFragment : Fragment() {
 
-    private val tag = "AddWordFragment"
-
     private var _bn: FragmentAddWordBinding? = null
     private val bn get() = _bn!!
 
-    private val wordViewModel: WordViewModel by viewModels()
-    private val photoViewModel: PhotoViewModel by viewModels()
-    private val categoryViewModel: CategoryViewModel by viewModels()
+    private val addWordViewModel: AddWordViewModel by viewModels()
 
     private val rvAdapter = PhotoAdapter()
-
     private var pickedImage: String? = null
 
     override fun onCreateView(
@@ -67,7 +58,7 @@ class AddWordFragment : Fragment() {
 
     private fun initViews() = bn.apply {
 
-        rvPhotos.adapter = rvAdapter.apply {
+      /*  rvPhotos.adapter = rvAdapter.apply {
             itemClick = { photo ->
                 pickedImage = photo.src.medium
                 Glide.with(this@AddWordFragment).load(pickedImage)
@@ -76,15 +67,13 @@ class AddWordFragment : Fragment() {
         }
 
         btnSearch click {
-
             toast(getString(R.string.str_sorry))
-
-//            photoViewModel.getPhotos(1, etTitle.text.toString())
+//            addWordViewModel.getPhotos(1, etTitle.text.toString())
         }
 
         btnLocal click {
             pickPhoto()
-        }
+        }*/
 
         btnCancel click {
             requireActivity().onBackPressed()
@@ -122,8 +111,9 @@ class AddWordFragment : Fragment() {
 
             val title = arguments?.getString(Constants.CATEGORY)!!
 
-            wordViewModel.insertWordToRoom(
-                Word(
+            addWordViewModel.insertWordToRoom(
+                title = title,
+                word = Word(
                     phrase = bn.etTitle.text.toString().lowercase(),
                     meaning = bn.etDescription.text.toString().lowercase(),
                     part = bn.etType.text.toString().lowercase(),
@@ -131,8 +121,6 @@ class AddWordFragment : Fragment() {
                     categoryTitle = title
                 )
             )
-
-            categoryViewModel.incrementWordCount(title)
 
             findNavController().navigate(R.id.action_addWordFragment_to_lessonFragment, arguments)
 
@@ -161,13 +149,13 @@ class AddWordFragment : Fragment() {
                 pickedImage =
                     it.data!!.getParcelableArrayListExtra<Uri>(FishBun.INTENT_PATH)?.get(0)
                         .toString()
-                Glide.with(this).load(pickedImage).into(bn.ivPhoto)
+//                Glide.with(this).load(pickedImage).into(bn.ivPhoto)
             }
         }
 
 
     private fun observer() {
-        photoViewModel.photos.observe(viewLifecycleOwner) {
+       /* addWordViewModel.photos.observe(viewLifecycleOwner) {
             when (it.status) {
                 Resource.Status.LOADING -> {
                     bn.progressbar.visible()
@@ -183,7 +171,7 @@ class AddWordFragment : Fragment() {
                     Log.d(tag, "${it.message}")
                 }
             }
-        }
+        }*/
     }
 
     private fun getThreePhotos(photos: ArrayList<Photo>?): MutableList<ThreePhoto>? {

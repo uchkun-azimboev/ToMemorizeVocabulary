@@ -1,4 +1,4 @@
-package uz.pdp.tomemorizevocabulary.ui.edit
+package uz.pdp.tomemorizevocabulary.ui.edit.category
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,7 +13,6 @@ import uz.pdp.tomemorizevocabulary.data.local.entity.Category
 import uz.pdp.tomemorizevocabulary.databinding.FragmentEditCategoryBinding
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
-import uz.pdp.tomemorizevocabulary.viewmodel.CategoryViewModel
 
 @AndroidEntryPoint
 class EditCategoryFragment : Fragment() {
@@ -21,8 +20,7 @@ class EditCategoryFragment : Fragment() {
     private var _bn: FragmentEditCategoryBinding? = null
     private val bn get() = _bn!!
 
-    private val categoryViewModel: CategoryViewModel by viewModels()
-
+    private val editCategoryViewModel: EditCategoryViewModel by viewModels()
     private lateinit var theCategory: Category
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +55,7 @@ class EditCategoryFragment : Fragment() {
     private fun updateCategory() {
         if (isValidCategory()) {
 
-            categoryViewModel.updateCategory(
+            editCategoryViewModel.updateCategory(
                 theCategory.title,
                 bn.etTitle.text.toString().trim(),
                 bn.etDescription.text.toString().trim()
