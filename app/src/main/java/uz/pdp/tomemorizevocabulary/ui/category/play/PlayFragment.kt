@@ -48,7 +48,10 @@ class PlayFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        playViewModel.getRandomWords(arguments?.getString(Constants.CATEGORY) ?: "")
+
+        if (itemCount == 0) {
+            playViewModel.getRandomWords(arguments?.getString(Constants.CATEGORY) ?: "")
+        }
     }
 
     private fun initViews() = bn.apply {
