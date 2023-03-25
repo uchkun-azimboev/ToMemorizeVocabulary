@@ -3,6 +3,7 @@ package uz.pdp.tomemorizevocabulary.ui.category.play
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -22,9 +23,10 @@ import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
 import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource
+import java.util.*
 
 @AndroidEntryPoint
-class PlayFragment : Fragment() {
+class PlayFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private var _bn: FragmentPlayBinding? = null
     private val bn: FragmentPlayBinding get() = _bn!!
@@ -33,10 +35,13 @@ class PlayFragment : Fragment() {
     private val rvAdapter = CardGameAdapter()
     private var itemCount = 0
 
+    private lateinit var textToSpeech: TextToSpeech
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _bn = FragmentPlayBinding.inflate(inflater, container, false)
+        textToSpeech = TextToSpeech(requireActivity(), this)
         return bn.root
     }
 
@@ -58,7 +63,11 @@ class PlayFragment : Fragment() {
 
         ivBack click { requireActivity().onBackPressed() }
 
-        cardStackView.adapter = rvAdapter
+        cardStackView.adapter = rvAdapter.apply {
+            soundClick = {
+                textToSpeech.speak(it, TextToSpeech.QUEUE_FLUSH, null, null)
+            }
+        }
 
         cardStackView.layoutManager =
             CardStackLayoutManager(requireContext(), object : CardStackListener {
@@ -153,7 +162,18 @@ class PlayFragment : Fragment() {
     }
 
     override fun onDestroy() {
+        if (textToSpeech.isSpeaking) {
+            textToSpeech.stop()
+        }
+        textToSpeech.shutdown()
         super.onDestroy()
         _bn = null
+    }
+
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            // Set the language for the TTS engine
+            textToSpeech.language = Locale.US
+        }
     }
 }

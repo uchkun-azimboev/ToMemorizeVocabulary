@@ -85,6 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:backgroundTint="@color/yellow"
+        android:visibility="gone"
         app:cardCornerRadius="10dp"
         app:strokeColor="@color/pure_gray"
         app:strokeWidth="1dp">
@@ -95,6 +96,16 @@
             android:layout_margin="15dp"
             android:backgroundTint="@color/pure_gray"
             app:cardCornerRadius="10dp">
+
+            <ImageView
+                android:id="@+id/iv_voice"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:src="@drawable/ic_sound_24px"
+                app:tint="@color/white" />
 
             <TextView
                 android:id="@+id/tv_answer"

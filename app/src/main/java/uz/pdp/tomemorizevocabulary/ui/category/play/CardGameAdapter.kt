@@ -16,9 +16,11 @@ import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 class CardGameAdapter :
     ListAdapter<Word, CardGameAdapter.CardGameViewHolder>(WordAdapter.WordDiffCallBack()) {
 
+    var soundClick: ((String) -> Unit)? = null
+
     class CardGameViewHolder(private val binding: ItemViewCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(word: Word) = binding.apply {
+        fun onBind(word: Word, soundClick: ((String) -> Unit)?) = binding.apply {
 
             word.apply {
                 tvAnswer.text = phrase
@@ -30,6 +32,10 @@ class CardGameAdapter :
                      Glide.with(root.context).load(image).placeholder(R.drawable.img_placeholder)
                          .into(ivImage)
                  }*/
+            }
+
+            ivVoice click {
+                soundClick?.invoke(word.phrase)
             }
 
             root click {
@@ -59,7 +65,7 @@ class CardGameAdapter :
     }
 
     override fun onBindViewHolder(holder: CardGameViewHolder, position: Int) {
-        holder.onBind(getItem(position))
+        holder.onBind(getItem(position), soundClick)
     }
 }
 
