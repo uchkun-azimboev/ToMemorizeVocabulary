@@ -17,6 +17,7 @@ import com.yuyakaido.android.cardstackview.StackFrom
 import dagger.hilt.android.AndroidEntryPoint
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.databinding.FragmentPlayBinding
+import uz.pdp.tomemorizevocabulary.ui.TTSFragment
 import uz.pdp.tomemorizevocabulary.utils.Constants
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
@@ -26,7 +27,7 @@ import uz.pdp.tomemorizevocabulary.utils.Resource
 import java.util.*
 
 @AndroidEntryPoint
-class PlayFragment : Fragment(), TextToSpeech.OnInitListener {
+class PlayFragment : TTSFragment() {
 
     private var _bn: FragmentPlayBinding? = null
     private val bn: FragmentPlayBinding get() = _bn!!
@@ -35,13 +36,13 @@ class PlayFragment : Fragment(), TextToSpeech.OnInitListener {
     private val rvAdapter = CardGameAdapter()
     private var itemCount = 0
 
-    private lateinit var textToSpeech: TextToSpeech
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
+
         _bn = FragmentPlayBinding.inflate(inflater, container, false)
-        textToSpeech = TextToSpeech(requireActivity(), this)
+        setUpTTS()
+
         return bn.root
     }
 
@@ -64,9 +65,7 @@ class PlayFragment : Fragment(), TextToSpeech.OnInitListener {
         ivBack click { requireActivity().onBackPressed() }
 
         cardStackView.adapter = rvAdapter.apply {
-            soundClick = {
-                textToSpeech.speak(it, TextToSpeech.QUEUE_FLUSH, null, null)
-            }
+            soundClick = { speakText(it) }
         }
 
         cardStackView.layoutManager =
@@ -118,7 +117,6 @@ class PlayFragment : Fragment(), TextToSpeech.OnInitListener {
 
                 override fun onCardAppeared(view: View?, position: Int) {
                     tvStats.text = getStats(position + 1, itemCount)
-                    Log.d("PlayFragment", "onCardAppeared : $position")
                 }
 
                 override fun onCardDisappeared(view: View?, position: Int) {
@@ -130,7 +128,6 @@ class PlayFragment : Fragment(), TextToSpeech.OnInitListener {
                     }
 
                     if (position == itemCount - 1) bn.tvInfo.visible()
-                    Log.d("PlayFragment", "onCardDisappeared : $position")
                 }
 
             }).apply {
@@ -162,18 +159,7 @@ class PlayFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
     override fun onDestroy() {
-        if (textToSpeech.isSpeaking) {
-            textToSpeech.stop()
-        }
-        textToSpeech.shutdown()
         super.onDestroy()
         _bn = null
-    }
-
-    override fun onInit(status: Int) {
-        if (status == TextToSpeech.SUCCESS) {
-            // Set the language for the TTS engine
-            textToSpeech.language = Locale.US
-        }
     }
 }

@@ -22,6 +22,10 @@
         <item name="cornerSize">10dp</item>
     </style>
 
+    <style name="circle_corner">
+        <item name="cornerSize">50%</item>
+    </style>
+
     <style name="textInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxCornerRadiusBottomEnd">10dp</item>
         <item name="boxCornerRadiusBottomStart">10dp</item>

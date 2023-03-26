@@ -10,4 +10,5 @@ interface WordRepository {
     suspend fun incrementAllCount(id: Int)
     suspend fun updateWord(word: Word)
     suspend fun deleteWord(word: Word)
+    suspend fun deleteWordByTitle(title: String)
 }

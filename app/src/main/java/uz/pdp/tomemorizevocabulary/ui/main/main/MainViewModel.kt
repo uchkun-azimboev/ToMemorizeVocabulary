@@ -12,6 +12,7 @@ import uz.pdp.tomemorizevocabulary.data.local.entity.Category
 import uz.pdp.tomemorizevocabulary.data.local.entity.User
 import uz.pdp.tomemorizevocabulary.repository.CategoryRepository
 import uz.pdp.tomemorizevocabulary.repository.UserRepository
+import uz.pdp.tomemorizevocabulary.repository.WordRepository
 import uz.pdp.tomemorizevocabulary.utils.Resource
 import uz.pdp.tomemorizevocabulary.utils.SingleLiveEvent
 import javax.inject.Inject
@@ -19,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val wordRepository: WordRepository
 ) : ViewModel() {
 
     private var _categories = SingleLiveEvent<Resource<List<Category>>>()
@@ -47,6 +49,7 @@ class MainViewModel @Inject constructor(
             withContext(Dispatchers.IO) {
                 categoryRepository.deleteCategory(category)
                 userRepository.decrementAllCategories(username)
+                wordRepository.deleteWordByTitle(category.title)
             }
         }.invokeOnCompletion {
             loadData(username)

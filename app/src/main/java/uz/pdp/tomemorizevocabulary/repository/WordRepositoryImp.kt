@@ -32,4 +32,8 @@ class WordRepositoryImp(private val wordDao: WordDao) : WordRepository {
     override suspend fun deleteWord(word: Word) {
         wordDao.deleteWord(word)
     }
+
+    override suspend fun deleteWordByTitle(title: String) {
+        wordDao.deleteWordsByTitle(title)
+    }
 }

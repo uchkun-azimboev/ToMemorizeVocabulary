@@ -9,15 +9,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import uz.pdp.tomemorizevocabulary.databinding.ItemViewWordBinding
 import uz.pdp.tomemorizevocabulary.data.local.entity.Word
+import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 
 class WordAdapter : ListAdapter<Word, WordAdapter.WordViewHolder>(WordDiffCallBack()) {
+
+    var soundClick: ((String) -> Unit)? = null
 
     inner class WordViewHolder(private val binding: ItemViewWordBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(word: Word) = binding.apply {
+        fun bind(word: Word, soundClick: ((String) -> Unit)?) = binding.apply {
             word.apply {
 
                 if (image != null)
@@ -32,6 +35,10 @@ class WordAdapter : ListAdapter<Word, WordAdapter.WordViewHolder>(WordDiffCallBa
                 tvTrans.text = meaning
                 tvStats.text = "$successCount/$allCount"
                 tvType.text = part
+            }
+
+            ivVoice click {
+                soundClick?.invoke(word.phrase)
             }
         }
     }
@@ -51,6 +58,6 @@ class WordAdapter : ListAdapter<Word, WordAdapter.WordViewHolder>(WordDiffCallBa
         )
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), soundClick)
     }
 }

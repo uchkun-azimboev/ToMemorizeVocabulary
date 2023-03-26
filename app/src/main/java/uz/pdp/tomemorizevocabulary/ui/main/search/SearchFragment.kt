@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 import uz.pdp.tomemorizevocabulary.databinding.FragmentSearchBinding
+import uz.pdp.tomemorizevocabulary.ui.TTSFragment
 import uz.pdp.tomemorizevocabulary.ui.category.main.WordAdapter
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
@@ -21,7 +22,7 @@ import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource
 
 @AndroidEntryPoint
-class SearchFragment : Fragment() {
+class SearchFragment : TTSFragment() {
 
     private var _bn: FragmentSearchBinding? = null
     private val bn get() = _bn!!
@@ -35,6 +36,8 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _bn = FragmentSearchBinding.inflate(inflater, container, false)
+        setUpTTS()
+
         return bn.root
     }
 
@@ -45,7 +48,11 @@ class SearchFragment : Fragment() {
     }
 
     private fun initViews() = bn.apply {
-        rvSearch.adapter = rvAdapter
+
+        rvSearch.adapter = rvAdapter.apply {
+            soundClick = { speakText(it) }
+        }
+
         ivBack click { requireActivity().onBackPressed() }
 
         etSearch.apply {

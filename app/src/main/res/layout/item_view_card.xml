@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:backgroundTint="@color/blue"
+        android:visibility="visible"
         app:cardCornerRadius="10dp"
         app:strokeColor="@color/pure_gray"
         app:strokeWidth="1dp">
@@ -97,14 +98,17 @@
             android:backgroundTint="@color/pure_gray"
             app:cardCornerRadius="10dp">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_voice"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_gravity="top|end"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
+                android:background="@color/gray"
                 android:src="@drawable/ic_sound_24px"
+                app:contentPadding="10dp"
+                app:shapeAppearanceOverlay="@style/circle_corner"
                 app:tint="@color/white" />
 
             <TextView

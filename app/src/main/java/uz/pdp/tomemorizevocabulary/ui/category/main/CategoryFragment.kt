@@ -11,6 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 import uz.pdp.tomemorizevocabulary.databinding.FragmentCategoryBinding
+import uz.pdp.tomemorizevocabulary.ui.TTSFragment
 import uz.pdp.tomemorizevocabulary.utils.Constants
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
@@ -21,7 +22,7 @@ import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource.Status
 
 @AndroidEntryPoint
-class CategoryFragment : Fragment() {
+class CategoryFragment : TTSFragment() {
 
     private var _bn: FragmentCategoryBinding? = null
     private val binding get() = _bn!!
@@ -40,7 +41,10 @@ class CategoryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _bn = FragmentCategoryBinding.inflate(inflater, container, false)
+        setUpTTS()
+
         return binding.root
     }
 
@@ -70,7 +74,9 @@ class CategoryFragment : Fragment() {
         }
 
 
-        rvWords.adapter = wordAdapter
+        rvWords.adapter = wordAdapter.apply {
+            soundClick = { speakText(it) }
+        }
         rvWords.setItemTouchHelper(
             swipeLeft = {
                 makeDialog(getString(R.string.str_delete), getString(R.string.str_delete_word)) {

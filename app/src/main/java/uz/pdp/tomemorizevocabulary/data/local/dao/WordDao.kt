@@ -21,6 +21,9 @@ interface WordDao {
     @Query("select * from word where word.phrase like :text || '%'")
     suspend fun getSearchWord(text: String): List<Word>
 
+    @Query("delete from word where category_title = :title")
+    suspend fun deleteWordsByTitle(title: String)
+
     @Update
     suspend fun updateWord(word: Word)
 
