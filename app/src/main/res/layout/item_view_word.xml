@@ -64,7 +64,7 @@
                 android:layout_marginStart="10dp"
                 android:background="?android:attr/selectableItemBackground"
                 android:src="@drawable/ic_sound_24px"
-                app:contentPadding="5dp"
+                app:contentPadding="3dp"
                 app:shapeAppearanceOverlay="@style/circle_corner"
                 app:tint="@color/white" />
 

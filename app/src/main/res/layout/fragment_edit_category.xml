@@ -19,10 +19,13 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/dark">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_back"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="?android:attr/selectableItemBackground"
+                app:contentPadding="3dp"
+                app:shapeAppearanceOverlay="@style/circle_corner"
                 android:layout_gravity="start|center_vertical"
                 android:src="@drawable/ic_arrow_back"
                 app:tint="@color/white" />
