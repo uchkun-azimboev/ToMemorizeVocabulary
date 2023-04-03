@@ -23,12 +23,12 @@ class CategoryViewModel @Inject constructor(
     private var _words = SingleLiveEvent<Resource<List<Word>>>()
     val words: LiveData<Resource<List<Word>>> get() = _words
 
-    fun getWords(category: String) {
+    fun getWords(categoryId: Int) {
         _words.postValue(Resource.loading())
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    val response = wordRepository.getWords(category)
+                    val response = wordRepository.getWords(categoryId)
                     _words.postValue(Resource.success(response))
                 } catch (e: Exception) {
                     _words.postValue(Resource.error(e.localizedMessage))
@@ -37,14 +37,14 @@ class CategoryViewModel @Inject constructor(
         }
     }
 
-    fun deleteWord(word: Word, title: String) {
+    fun deleteWord(word: Word, categoryId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 wordRepository.deleteWord(word)
-                categoryRepository.decrementWordCount(title)
+                categoryRepository.decrementWordCount(categoryId)
             }
         }.invokeOnCompletion {
-            getWords(title)
+            getWords(categoryId)
         }
     }
 

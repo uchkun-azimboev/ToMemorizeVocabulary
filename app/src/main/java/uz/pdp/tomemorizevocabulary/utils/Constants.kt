@@ -6,6 +6,7 @@ object Constants {
     const val AUTHORIZATION = "Authorization"
 
     const val CATEGORY = "category"
+    const val CATEGORY_ID = "category_id"
     const val WORD_DATABASE = "word_database"
 
     const val LOCAL_SHARED_PREF = "local_shared_pref"

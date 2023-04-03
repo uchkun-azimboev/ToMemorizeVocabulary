@@ -29,11 +29,14 @@ class CategoryFragment : TTSFragment() {
 
     private val categoryViewModel: CategoryViewModel by viewModels()
     private val wordAdapter = WordAdapter()
+
     private lateinit var categoryTitle: String
+    private var categoryId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         categoryTitle = arguments?.getString(Constants.CATEGORY) ?: ""
+        categoryId = arguments?.getInt(Constants.CATEGORY_ID) ?: 0
     }
 
     override fun onCreateView(
@@ -56,7 +59,7 @@ class CategoryFragment : TTSFragment() {
 
     override fun onStart() {
         super.onStart()
-        categoryViewModel.getWords(categoryTitle)
+        categoryViewModel.getWords(categoryId)
     }
 
     private fun initViews() = binding.apply {
@@ -138,6 +141,6 @@ class CategoryFragment : TTSFragment() {
     }
 
     private fun deleteWord(position: Int) {
-        categoryViewModel.deleteWord(wordAdapter.currentList[position], categoryTitle)
+        categoryViewModel.deleteWord(wordAdapter.currentList[position], categoryId)
     }
 }

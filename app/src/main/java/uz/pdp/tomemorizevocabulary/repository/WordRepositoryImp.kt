@@ -9,8 +9,8 @@ class WordRepositoryImp(private val wordDao: WordDao) : WordRepository {
         wordDao.insert(word)
     }
 
-    override suspend fun getWords(category: String): List<Word> {
-        return wordDao.getWords(category)
+    override suspend fun getWords(categoryId: Int): List<Word> {
+        return wordDao.getWords(categoryId)
     }
 
     override suspend fun getSearchWord(text: String): List<Word> {
@@ -33,7 +33,7 @@ class WordRepositoryImp(private val wordDao: WordDao) : WordRepository {
         wordDao.deleteWord(word)
     }
 
-    override suspend fun deleteWordByTitle(title: String) {
-        wordDao.deleteWordsByTitle(title)
+    override suspend fun deleteWordsById(categoryId: Int) {
+        wordDao.deleteWordsById(categoryId)
     }
 }

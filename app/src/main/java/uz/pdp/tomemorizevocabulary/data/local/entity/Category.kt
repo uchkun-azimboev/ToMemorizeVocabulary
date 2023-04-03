@@ -7,7 +7,8 @@ import java.io.Serializable
 
 @Entity(tableName = "category")
 data class Category(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0,
     var title: String,
     var description: String,
     @ColumnInfo(name = "word_count")

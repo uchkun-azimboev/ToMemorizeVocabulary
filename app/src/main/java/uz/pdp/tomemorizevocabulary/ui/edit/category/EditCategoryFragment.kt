@@ -56,7 +56,7 @@ class EditCategoryFragment : Fragment() {
         if (isValidCategory()) {
 
             editCategoryViewModel.updateCategory(
-                theCategory.title,
+                theCategory.id,
                 bn.etTitle.text.toString().trim(),
                 bn.etDescription.text.toString().trim()
             )

@@ -56,7 +56,7 @@ class PlayFragment : TTSFragment() {
         super.onStart()
 
         if (itemCount == 0) {
-            playViewModel.getRandomWords(arguments?.getString(Constants.CATEGORY) ?: "")
+            playViewModel.getRandomWords(arguments?.getInt(Constants.CATEGORY_ID) ?: 0)
         }
     }
 

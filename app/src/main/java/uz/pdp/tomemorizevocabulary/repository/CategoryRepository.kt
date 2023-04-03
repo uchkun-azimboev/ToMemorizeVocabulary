@@ -6,8 +6,8 @@ import uz.pdp.tomemorizevocabulary.data.local.entity.Category
 interface CategoryRepository {
     suspend fun insert(category: Category)
     suspend fun getAllCategory(): List<Category>
-    suspend fun incrementWordCount(title: String)
-    suspend fun decrementWordCount(title: String)
-    suspend fun updateCategory(title: String, newTitle: String, description: String)
+    suspend fun incrementWordCount(id: Int)
+    suspend fun decrementWordCount(id: Int)
+    suspend fun updateCategory(id: Int, newTitle: String, description: String)
     suspend fun deleteCategory(category: Category)
 }

@@ -146,6 +146,7 @@ class MainFragment : Fragment() {
     private fun openAddWordFragment(it: Category) {
         val args = Bundle()
         args.putString(Constants.CATEGORY, it.title)
+        args.putInt(Constants.CATEGORY_ID, it.id)
         findNavController().navigate(R.id.action_mainFragment_to_lessonFragment, args)
     }
 

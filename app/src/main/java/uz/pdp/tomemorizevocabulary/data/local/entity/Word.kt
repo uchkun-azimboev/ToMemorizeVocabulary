@@ -15,5 +15,7 @@ data class Word(
     @ColumnInfo(name = "all_count") var allCount: Int = 0,
     var part: String? = null,
     @ColumnInfo(name = "category_title")
-    var categoryTitle: String
+    var categoryTitle: String,
+    @ColumnInfo(name = "category_id")
+    var categoryId: Int
 ) : Serializable

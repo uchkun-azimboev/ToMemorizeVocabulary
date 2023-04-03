@@ -14,10 +14,10 @@ class EditCategoryViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository
 ) : ViewModel() {
 
-    fun updateCategory(title: String, newTitle: String, description: String) {
+    fun updateCategory(id: Int, newTitle: String, description: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                categoryRepository.updateCategory(title, newTitle, description)
+                categoryRepository.updateCategory(id, newTitle, description)
             }
         }
     }

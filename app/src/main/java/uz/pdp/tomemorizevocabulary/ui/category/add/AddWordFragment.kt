@@ -58,22 +58,22 @@ class AddWordFragment : Fragment() {
 
     private fun initViews() = bn.apply {
 
-      /*  rvPhotos.adapter = rvAdapter.apply {
-            itemClick = { photo ->
-                pickedImage = photo.src.medium
-                Glide.with(this@AddWordFragment).load(pickedImage)
-                    .into(ivPhoto)
-            }
-        }
+        /*  rvPhotos.adapter = rvAdapter.apply {
+              itemClick = { photo ->
+                  pickedImage = photo.src.medium
+                  Glide.with(this@AddWordFragment).load(pickedImage)
+                      .into(ivPhoto)
+              }
+          }
 
-        btnSearch click {
-            toast(getString(R.string.str_sorry))
-//            addWordViewModel.getPhotos(1, etTitle.text.toString())
-        }
+          btnSearch click {
+              toast(getString(R.string.str_sorry))
+  //            addWordViewModel.getPhotos(1, etTitle.text.toString())
+          }
 
-        btnLocal click {
-            pickPhoto()
-        }*/
+          btnLocal click {
+              pickPhoto()
+          }*/
 
         btnCancel click {
             requireActivity().onBackPressed()
@@ -109,16 +109,18 @@ class AddWordFragment : Fragment() {
     private fun createWord() {
         if (isValidWord()) {
 
-            val title = arguments?.getString(Constants.CATEGORY)!!
+            val categoryId = arguments?.getInt(Constants.CATEGORY_ID)!!
+            val categoryTitle = arguments?.getString(Constants.CATEGORY)!!
 
             addWordViewModel.insertWordToRoom(
-                title = title,
+                id = categoryId,
                 word = Word(
                     phrase = bn.etTitle.text.toString().lowercase(),
                     meaning = bn.etDescription.text.toString().lowercase(),
                     part = bn.etType.text.toString().lowercase(),
                     image = pickedImage,
-                    categoryTitle = title
+                    categoryTitle = categoryTitle,
+                    categoryId = categoryId
                 )
             )
 
@@ -155,23 +157,23 @@ class AddWordFragment : Fragment() {
 
 
     private fun observer() {
-       /* addWordViewModel.photos.observe(viewLifecycleOwner) {
-            when (it.status) {
-                Resource.Status.LOADING -> {
-                    bn.progressbar.visible()
-                    bn.rvPhotos.gone()
-                }
-                Resource.Status.SUCCESS -> {
-                    bn.progressbar.gone()
-                    bn.rvPhotos.visible()
-                    rvAdapter.submitList(getThreePhotos(it.data?.photos))
-                }
-                Resource.Status.ERROR -> {
-                    bn.progressbar.gone()
-                    Log.d(tag, "${it.message}")
-                }
-            }
-        }*/
+        /* addWordViewModel.photos.observe(viewLifecycleOwner) {
+             when (it.status) {
+                 Resource.Status.LOADING -> {
+                     bn.progressbar.visible()
+                     bn.rvPhotos.gone()
+                 }
+                 Resource.Status.SUCCESS -> {
+                     bn.progressbar.gone()
+                     bn.rvPhotos.visible()
+                     rvAdapter.submitList(getThreePhotos(it.data?.photos))
+                 }
+                 Resource.Status.ERROR -> {
+                     bn.progressbar.gone()
+                     Log.d(tag, "${it.message}")
+                 }
+             }
+         }*/
     }
 
     private fun getThreePhotos(photos: ArrayList<Photo>?): MutableList<ThreePhoto>? {

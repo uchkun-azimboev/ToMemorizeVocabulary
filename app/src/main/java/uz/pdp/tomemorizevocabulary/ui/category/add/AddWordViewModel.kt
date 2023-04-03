@@ -26,11 +26,11 @@ class AddWordViewModel @Inject constructor(
     private var _photos = SingleLiveEvent<Resource<ResponsePhotos>>()
     val photos: LiveData<Resource<ResponsePhotos>> get() = _photos
 
-    fun insertWordToRoom(word: Word, title: String) {
+    fun insertWordToRoom(word: Word, id: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 wordRepository.insert(word)
-                categoryRepository.incrementWordCount(title)
+                categoryRepository.incrementWordCount(id)
             }
         }
     }

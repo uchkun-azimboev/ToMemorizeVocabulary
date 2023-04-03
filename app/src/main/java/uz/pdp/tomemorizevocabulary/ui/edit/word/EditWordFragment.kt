@@ -97,6 +97,7 @@ class EditWordFragment : Fragment() {
                 R.id.action_editWordFragment_to_lessonFragment,
                 Bundle().apply {
                     putString(Constants.CATEGORY, theWord.categoryTitle)
+                    putInt(Constants.CATEGORY_ID, theWord.categoryId)
                 })
 
         } else {

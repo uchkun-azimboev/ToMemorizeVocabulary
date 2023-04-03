@@ -9,8 +9,8 @@ interface WordDao {
     @Insert
     suspend fun insert(word: Word)
 
-    @Query("select * from word where category_title = :title order by all_count - success_count desc")
-    suspend fun getWords(title: String): List<Word>
+    @Query("select * from word where category_id = :categoryId order by all_count - success_count desc")
+    suspend fun getWords(categoryId: Int): List<Word>
 
     @Query("update word set success_count = success_count + 1 where id = :id")
     suspend fun incrementSuccessCount(id: Int)
@@ -21,8 +21,8 @@ interface WordDao {
     @Query("select * from word where word.phrase like :text || '%'")
     suspend fun getSearchWord(text: String): List<Word>
 
-    @Query("delete from word where category_title = :title")
-    suspend fun deleteWordsByTitle(title: String)
+    @Query("delete from word where category_id = :id")
+    suspend fun deleteWordsById(id: Int)
 
     @Update
     suspend fun updateWord(word: Word)

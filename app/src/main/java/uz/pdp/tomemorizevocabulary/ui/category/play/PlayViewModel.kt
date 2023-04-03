@@ -21,12 +21,12 @@ class PlayViewModel @Inject constructor(
     private var _randomWords = SingleLiveEvent<Resource<List<Word>>>()
     val randomWords: LiveData<Resource<List<Word>>> get() = _randomWords
 
-    fun getRandomWords(category: String) {
+    fun getRandomWords(categoryId: Int) {
         _randomWords.postValue(Resource.loading())
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    val response = wordRepository.getWords(category)
+                    val response = wordRepository.getWords(categoryId)
                     _randomWords.postValue(Resource.success(response.shuffled()))
                 } catch (e: Exception) {
                     _randomWords.postValue(Resource.error(e.localizedMessage))

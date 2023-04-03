@@ -12,14 +12,14 @@ interface CategoryDao {
     @Query("SELECT * FROM category")
     suspend fun getAllCategory(): List<Category>
 
-    @Query("update category set word_count = word_count + 1 where title = :title")
-    suspend fun incrementWordCount(title: String)
+    @Query("update category set word_count = word_count + 1 where id = :id")
+    suspend fun incrementWordCount(id: Int)
 
-    @Query("update category set word_count = word_count - 1 where title = :title")
-    suspend fun decrementWordCount(title: String)
+    @Query("update category set word_count = word_count - 1 where id = :id")
+    suspend fun decrementWordCount(id: Int)
 
-    @Query("update category set title = :newTitle, description = :description  where title = :title")
-    suspend fun updateCategory(title: String, newTitle: String, description: String)
+    @Query("update category set title = :newTitle, description = :description where id = :id")
+    suspend fun updateCategory(id: Int, newTitle: String, description: String)
 
     @Delete
     suspend fun deleteCategory(category: Category)

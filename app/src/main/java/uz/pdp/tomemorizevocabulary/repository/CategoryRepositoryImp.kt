@@ -12,16 +12,16 @@ class CategoryRepositoryImp(private val categoryDao: CategoryDao) : CategoryRepo
         return categoryDao.getAllCategory()
     }
 
-    override suspend fun incrementWordCount(title: String) {
-        categoryDao.incrementWordCount(title)
+    override suspend fun incrementWordCount(id: Int) {
+        categoryDao.incrementWordCount(id)
     }
 
-    override suspend fun decrementWordCount(title: String) {
-        categoryDao.decrementWordCount(title)
+    override suspend fun decrementWordCount(id: Int) {
+        categoryDao.decrementWordCount(id)
     }
 
-    override suspend fun updateCategory(title: String, newTitle: String, description: String) {
-        categoryDao.updateCategory(title, newTitle, description)
+    override suspend fun updateCategory(id: Int, newTitle: String, description: String) {
+        categoryDao.updateCategory(id, newTitle, description)
     }
 
     override suspend fun deleteCategory(category: Category) {

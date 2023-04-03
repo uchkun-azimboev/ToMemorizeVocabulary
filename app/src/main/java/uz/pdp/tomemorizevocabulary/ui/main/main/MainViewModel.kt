@@ -49,7 +49,7 @@ class MainViewModel @Inject constructor(
             withContext(Dispatchers.IO) {
                 categoryRepository.deleteCategory(category)
                 userRepository.decrementAllCategories(username)
-                wordRepository.deleteWordByTitle(category.title)
+                wordRepository.deleteWordsById(category.id)
             }
         }.invokeOnCompletion {
             loadData(username)
