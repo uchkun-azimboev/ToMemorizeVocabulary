@@ -15,5 +15,5 @@ data class Category(
     var wordCount: Int = 0,
     @ColumnInfo(name = "create_date")
     var createDate: String,
-    var color: Int
+    var color: Int = 1
 ) : Serializable

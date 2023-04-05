@@ -12,8 +12,20 @@ class CategoryRepositoryImp(private val categoryDao: CategoryDao) : CategoryRepo
         return categoryDao.getAllCategory()
     }
 
+    override suspend fun getCategoryById(id: Int): Category {
+        return categoryDao.getCategoryById(id)
+    }
+
     override suspend fun incrementWordCount(id: Int) {
         categoryDao.incrementWordCount(id)
+    }
+
+    override suspend fun incrementColor(id: Int) {
+        categoryDao.incrementColor(id)
+    }
+
+    override suspend fun setDefaultColor(id: Int) {
+        categoryDao.setDefaultColor(id)
     }
 
     override suspend fun decrementWordCount(id: Int) {

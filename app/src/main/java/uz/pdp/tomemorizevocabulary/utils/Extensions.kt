@@ -136,14 +136,16 @@ object Extensions {
                     isCurrentlyActive: Boolean
                 ) {
 
-                    val green = ContextCompat.getColor(context, R.color.green)
-                    val orange = ContextCompat.getColor(context, R.color.orange)
+                    /*  val green = ContextCompat.getColor(context, R.color.green)
+                      val orange = ContextCompat.getColor(context, R.color.orange)*/
+                    val gray = ContextCompat.getColor(context, R.color.gray)
+
 
                     RecyclerViewSwipeDecorator.Builder(
                         c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive
                     )
-                        .addSwipeLeftBackgroundColor(orange)
-                        .addSwipeRightBackgroundColor(green)
+                        .addSwipeLeftBackgroundColor(gray)
+                        .addSwipeRightBackgroundColor(gray)
                         .addSwipeLeftActionIcon(R.drawable.ic_delete)
                         .addSwipeRightActionIcon(R.drawable.ic_edit)
                         .addSwipeLeftLabel(context.getString(R.string.str_delete).uppercase())

@@ -8,8 +8,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.CardStackListener
 import com.yuyakaido.android.cardstackview.Direction
@@ -35,14 +37,19 @@ class PlayFragment : TTSFragment() {
     private val playViewModel: PlayViewModel by viewModels()
     private val rvAdapter = CardGameAdapter()
     private var itemCount = 0
+    private var success = 0
+    private var categoryId: Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        categoryId = arguments?.getInt(Constants.CATEGORY_ID) ?: 0
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-
         _bn = FragmentPlayBinding.inflate(inflater, container, false)
         setUpTTS()
-
         return bn.root
     }
 
@@ -56,13 +63,20 @@ class PlayFragment : TTSFragment() {
         super.onStart()
 
         if (itemCount == 0) {
-            playViewModel.getRandomWords(arguments?.getInt(Constants.CATEGORY_ID) ?: 0)
+            playViewModel.getRandomWords(categoryId)
         }
     }
 
     private fun initViews() = bn.apply {
 
         ivBack click { requireActivity().onBackPressed() }
+
+        btnOk click {
+            findNavController().navigate(
+                R.id.action_playFragment_to_lessonFragment,
+                arguments
+            )
+        }
 
         cardStackView.adapter = rvAdapter.apply {
             soundClick = { speakText(it) }
@@ -99,10 +113,8 @@ class PlayFragment : TTSFragment() {
 
                 override fun onCardSwiped(direction: Direction?) {
                     if (direction == Direction.Right) {
-                        toast(getString(R.string.str_i_know), 1)
                         rightView.setBackgroundResource(R.color.dark)
                     } else if (direction == Direction.Left) {
-                        toast(getString(R.string.str_i_dont_know), 0)
                         leftView.setBackgroundResource(R.color.dark)
                     }
                 }
@@ -124,10 +136,13 @@ class PlayFragment : TTSFragment() {
                     playViewModel.incrementAllCount(rvAdapter.currentList[position].id!!)
 
                     if (cardDirection == Direction.Right) {
+                        success++
                         playViewModel.incrementSuccessCount(rvAdapter.currentList[position].id!!)
                     }
 
-                    if (position == itemCount - 1) bn.tvInfo.visible()
+                    if (position == itemCount - 1) {
+                        showResult()
+                    }
                 }
 
             }).apply {
@@ -135,6 +150,46 @@ class PlayFragment : TTSFragment() {
                 setMaxDegree(0.0f)
                 setStackFrom(StackFrom.Bottom)
             }
+    }
+
+    private fun showResult() {
+        bn.apply {
+            flMain.gone()
+            llResult.visible()
+            val stats: Int = (success.toFloat() / itemCount * 100).toInt()
+            setCategoryColor(stats)
+            tvScore.text = stats.toString().plus("%")
+            tvScore.setTextColor(getScoreColor(stats))
+            tvInfo.text = getString(getScoreTitle(stats))
+            tvInfo.setTextColor(getScoreColor(stats))
+        }
+    }
+
+    private fun setCategoryColor(stats: Int) {
+        if (stats > 84) {
+            playViewModel.incrementColor(categoryId)
+        }
+    }
+
+    private fun getScoreColor(stats: Int): Int {
+        return ContextCompat.getColor(
+            requireContext(),
+            when (stats) {
+                in 0..54 -> R.color.gray
+                in 55..70 -> R.color.orange
+                in 71..85 -> R.color.blue
+                else -> R.color.green
+            }
+        )
+    }
+
+    private fun getScoreTitle(stats: Int): Int {
+        return when (stats) {
+            in 0..54 -> R.string.str_unsatisfactory
+            in 55..70 -> R.string.str_satisfactory
+            in 71..85 -> R.string.str_good
+            else -> R.string.str_excellent
+        }
     }
 
     private fun observer() {

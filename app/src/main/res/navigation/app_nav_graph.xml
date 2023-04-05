@@ -70,7 +70,13 @@
         android:id="@+id/playFragment"
         android:name="uz.pdp.tomemorizevocabulary.ui.category.play.PlayFragment"
         android:label="fragment_play"
-        tools:layout="@layout/fragment_play" />
+        tools:layout="@layout/fragment_play">
+        <action
+            android:id="@+id/action_playFragment_to_lessonFragment"
+            app:destination="@id/lessonFragment"
+            app:popUpTo="@id/lessonFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="uz.pdp.tomemorizevocabulary.ui.login.LoginFragment"

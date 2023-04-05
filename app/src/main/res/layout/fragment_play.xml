@@ -23,11 +23,11 @@
                 android:id="@+id/iv_back"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_gravity="start|center_vertical"
                 android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_arrow_back"
                 app:contentPadding="3dp"
                 app:shapeAppearanceOverlay="@style/circle_corner"
-                android:layout_gravity="start|center_vertical"
-                android:src="@drawable/ic_arrow_back"
                 app:tint="@color/white" />
 
             <TextView
@@ -48,6 +48,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
+        android:id="@+id/fl_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -131,16 +132,6 @@
                     android:indeterminateTint="@color/blue"
                     android:visibility="visible" />
 
-                <TextView
-                    android:id="@+id/tv_info"
-                    style="@style/NormalText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/str_that_s_all"
-                    android:textColor="@color/green"
-                    android:visibility="gone" />
-
                 <com.yuyakaido.android.cardstackview.CardStackView
                     android:id="@+id/card_stack_view"
                     android:layout_width="match_parent"
@@ -158,5 +149,43 @@
         </LinearLayout>
 
     </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/tv_score"
+            style="@style/BoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50sp" />
+
+        <TextView
+            android:id="@+id/tv_info"
+            style="@style/MediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_ok"
+            style="@style/MediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@color/yellow"
+            android:text="@string/str_ok"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:cornerRadius="10dp" />
+
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

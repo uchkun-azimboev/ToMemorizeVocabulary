@@ -65,6 +65,12 @@
     <string name="str_allow">Allow</string>
     <string name="str_delete_category">Do you wont delete the category ?</string>
     <string name="str_word">Word</string>
+    <string name="str_ok">OK</string>
+    <string name="str_unsatisfactory">Unsatisfactory.</string>
+    <string name="str_satisfactory">Satisfactory!</string>
+    <string name="str_good">Good!!</string>
+    <string name="str_excellent">Excellent!!!</string>
+    <string name="str_words">words</string>
 
     <string-array name="part_of_speech">
 

@@ -24,9 +24,6 @@ class CategoryCreateFragment : Fragment() {
     private var _bn: FragmentCategoryCreateBinding? = null
     private val binding get() = _bn!!
 
-    private lateinit var colorList: ArrayList<ShapeableImageView>
-    private var pickColor: Int = R.color.pure_gray
-
     private val createCategoryViewModel: CreateCategoryViewModel by viewModels()
 
     override fun onCreateView(
@@ -42,7 +39,6 @@ class CategoryCreateFragment : Fragment() {
     }
 
     private fun initViews() = binding.apply {
-        colorList = arrayListOf(ivOrange, ivGreen, ivBlue, ivPureGray)
 
         ivBack click {
             requireActivity().onBackPressed()
@@ -51,11 +47,6 @@ class CategoryCreateFragment : Fragment() {
         btnCancel click {
             requireActivity().onBackPressed()
         }
-
-        ivOrange click { chooseColor(ivOrange, R.color.orange) }
-        ivBlue click { chooseColor(ivBlue, R.color.blue) }
-        ivPureGray click { chooseColor(ivPureGray, R.color.pure_gray) }
-        ivGreen click { chooseColor(ivGreen, R.color.green) }
 
         btnCreate click {
             createCategory()
@@ -69,8 +60,7 @@ class CategoryCreateFragment : Fragment() {
                 Category(
                     title = binding.etTitle.text.toString().trim(),
                     description = binding.etDescription.text.toString().trim(),
-                    createDate = getCurrentDate(),
-                    color = pickColor
+                    createDate = getCurrentDate()
                 )
             )
 
@@ -92,13 +82,6 @@ class CategoryCreateFragment : Fragment() {
             if (etDescription.text!!.toString().trim().isEmpty()) return false
         }
         return true
-    }
-
-    private fun chooseColor(ivColor: ShapeableImageView, color: Int) = binding.apply {
-        for (view in colorList)
-            view.setStrokeColorResource(R.color.dark)
-        ivColor.setStrokeColorResource(R.color.yellow)
-        pickColor = color
     }
 
     override fun onDestroyView() {

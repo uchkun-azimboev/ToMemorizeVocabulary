@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.databinding.ItemViewCategoryBinding
 import uz.pdp.tomemorizevocabulary.data.local.entity.Category
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
@@ -19,17 +20,31 @@ class CategoryAdapter :
     inner class LessonViewHolder(private val binding: ItemViewCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SetTextI18n")
         fun bind(category: Category) = binding.apply {
             category.apply {
-                backCard.setCardBackgroundColor(ContextCompat.getColor(root.context, color))
+                backCard.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        root.context,
+                        getColor(color)
+                    )
+                )
                 tvTitle.text = title
                 tvCreateDate.text = createDate
                 tvDescription.text = description
-                tvWordCount.text = "$wordCount words"
+                tvWordCount.text =
+                    wordCount.toString().plus(" ").plus(root.context.getString(R.string.str_words))
             }
 
             root click { itemClick?.invoke(category) }
+        }
+
+        private fun getColor(color: Int): Int {
+            return when (color) {
+                1 -> R.color.pure_gray
+                2 -> R.color.orange
+                3 -> R.color.blue
+                else -> R.color.green
+            }
         }
     }
 
