@@ -11,6 +11,7 @@ import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.databinding.ItemViewCategoryBinding
 import uz.pdp.tomemorizevocabulary.data.local.entity.Category
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
+import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 
 class CategoryAdapter :
     ListAdapter<Category, CategoryAdapter.LessonViewHolder>(LessonDiffCallBack()) {
@@ -33,6 +34,12 @@ class CategoryAdapter :
                 tvDescription.text = description
                 tvWordCount.text =
                     wordCount.toString().plus(" ").plus(root.context.getString(R.string.str_words))
+
+                when (category.color) {
+                    1 -> tvNew.visible()
+                    in 2..3 -> tvProgress.visible()
+                    else -> tvSuccessful.visible()
+                }
             }
 
             root click { itemClick?.invoke(category) }
