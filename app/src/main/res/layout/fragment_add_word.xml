@@ -23,11 +23,11 @@
                 android:id="@+id/iv_back"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_gravity="start|center_vertical"
                 android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_arrow_back"
                 app:contentPadding="3dp"
                 app:shapeAppearanceOverlay="@style/circle_corner"
-                android:layout_gravity="start|center_vertical"
-                android:src="@drawable/ic_arrow_back"
                 app:tint="@color/white" />
 
             <TextView
@@ -112,6 +112,37 @@
                         android:layout_height="match_parent"
                         android:hint="@string/str_what_mean"
                         android:inputType="text"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/gray"
+                        android:textCursorDrawable="@drawable/shape_cursor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    style="@style/MediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingVertical="10dp"
+                    android:text="@string/str_enter_example"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/textInputStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/str_description"
+                    app:boxStrokeColor="@color/blue">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_example"
+                        style="@style/MediumText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/str_how_use"
+                        android:inputType="textMultiLine"
                         android:textColor="@color/white"
                         android:textColorHint="@color/gray"
                         android:textCursorDrawable="@drawable/shape_cursor" />

@@ -71,10 +71,12 @@
     <string name="str_good">Good!!</string>
     <string name="str_excellent">Excellent!!!</string>
     <string name="str_words">words</string>
-    <string name="str_in_progress">In Progress</string>
-    <string name="str_new">New</string>
+    <string name="str_in_progress">Doing</string>
+    <string name="str_new">To Do</string>
     <string name="str_successful">Successful</string>
     <string name="str_done">Done</string>
+    <string name="str_enter_example">Enter example (Optional) </string>
+    <string name="str_how_use">How it is used in sentences?</string>
 
     <string-array name="part_of_speech">
 

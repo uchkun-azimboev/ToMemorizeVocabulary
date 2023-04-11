@@ -12,7 +12,7 @@ import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 import uz.pdp.tomemorizevocabulary.data.local.entity.User
 import uz.pdp.tomemorizevocabulary.utils.Constants
 
-@Database(entities = [Word::class, Category::class, User::class], version = 4, exportSchema = false)
+@Database(entities = [Word::class, Category::class, User::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun wordDao(): WordDao

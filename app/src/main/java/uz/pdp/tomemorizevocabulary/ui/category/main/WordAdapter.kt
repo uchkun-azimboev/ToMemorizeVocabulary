@@ -1,12 +1,20 @@
 package uz.pdp.tomemorizevocabulary.ui.category.main
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.databinding.ItemViewWordBinding
 import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
@@ -35,6 +43,39 @@ class WordAdapter : ListAdapter<Word, WordAdapter.WordViewHolder>(WordDiffCallBa
                 tvTrans.text = meaning
                 tvStats.text = "$successCount/$allCount"
                 tvType.text = part
+
+                if (!example.isNullOrEmpty()) {
+
+                    llExample.visible()
+
+                    val text = example!!
+                    val start = text.indexOf("*")
+                    val finish = text.lastIndexOf("*")
+
+                    if (start != finish) {
+                        val spannable = SpannableString(text.replace("*", ""))
+                        spannable.setSpan(
+                            StyleSpan(Typeface.ITALIC),
+                            start,
+                            finish,
+                            Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+                        )
+                        spannable.setSpan(
+                            ForegroundColorSpan(
+                                ContextCompat.getColor(
+                                    root.context,
+                                    R.color.yellow
+                                )
+                            ),
+                            start,
+                            finish,
+                            Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+                        )
+                        tvExample.text = spannable
+                    } else {
+                        tvExample.text = example
+                    }
+                }
             }
 
             ivVoice click {

@@ -39,7 +39,7 @@ class AddWordFragment : Fragment() {
 
     private val addWordViewModel: AddWordViewModel by viewModels()
 
-    private val rvAdapter = PhotoAdapter()
+    //    private val rvAdapter = PhotoAdapter()
     private var pickedImage: String? = null
 
     override fun onCreateView(
@@ -115,12 +115,13 @@ class AddWordFragment : Fragment() {
             addWordViewModel.insertWordToRoom(
                 id = categoryId,
                 word = Word(
-                    phrase = bn.etTitle.text.toString().lowercase(),
-                    meaning = bn.etDescription.text.toString().lowercase(),
+                    phrase = bn.etTitle.text.toString().lowercase().trim(),
+                    meaning = bn.etDescription.text.toString().lowercase().trim(),
                     part = bn.etType.text.toString().lowercase(),
                     image = pickedImage,
                     categoryTitle = categoryTitle,
-                    categoryId = categoryId
+                    categoryId = categoryId,
+                    example = bn.etExample.text.let { it.toString().trim() }
                 )
             )
 

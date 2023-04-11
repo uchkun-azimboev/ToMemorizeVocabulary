@@ -61,6 +61,7 @@ class EditWordFragment : Fragment() {
         etTitle.setText(theWord.phrase)
         etDescription.setText(theWord.meaning)
         etType.setText(theWord.part)
+        etExample.setText(theWord.example)
 
         /*if (theWord.image != null)
             Glide.with(this@EditWordFragment).load(theWord.image).into(ivPhoto)*/
@@ -86,10 +87,11 @@ class EditWordFragment : Fragment() {
     private fun editWord() {
         if (isValidWord()) {
 
-            theWord.phrase = bn.etTitle.text.toString().lowercase()
-            theWord.meaning = bn.etDescription.text.toString().lowercase()
+            theWord.phrase = bn.etTitle.text.toString().lowercase().trim()
+            theWord.meaning = bn.etDescription.text.toString().lowercase().trim()
             theWord.part = bn.etType.text.toString().lowercase()
             theWord.image = pickedImage
+            theWord.example = bn.etExample.text.let { it.toString().trim() }
 
             editWordViewModel.updateWord(theWord)
 
