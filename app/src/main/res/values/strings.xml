@@ -77,9 +77,29 @@
     <string name="str_done">Done</string>
     <string name="str_enter_example">Enter example (Optional) </string>
     <string name="str_how_use">How it is used in sentences?</string>
+    <string name="str_shuffle_all">All in one</string>
+    <string name="str_typing">Typing</string>
+    <string name="str_test">Test</string>
+    <string name="str_speech">Speech</string>
+    <string name="str_hearing">Hearing</string>
+    <string name="str_grammar">Grammar</string>
+    <string name="str_hear_voice">Hear the voice and write!</string>
+    <string name="str_touch_hear_again">Touch the icon to hear again</string>
+    <string name="str_enter_answer">Enter your answer</string>
+    <string name="str_not_understand">Not know</string>
+    <string name="str_right">Right!</string>
+    <string name="str_next">Next</string>
+    <string name="str_prev">Prev</string>
+    <string name="str_close">Close</string>
+    <string name="str_check">Check</string>
+    <string name="str_set_up_game">Set Up Game</string>
+    <string name="str_choose_game_type">Choose game type</string>
+    <string name="str_help_choose_game">in category etc.</string>
+    <string name="str_word_amount">Enter word amount</string>
+    <string name="str_hint_count">20 or more etc.</string>
+    <string name="str_choose_category">Choose category</string>
 
     <string-array name="part_of_speech">
-
         <item>noun</item>
         <item>pronoun</item>
         <item>verb</item>
@@ -88,7 +108,12 @@
         <item>preposition</item>
         <item>conjunction</item>
         <item>interjection</item>
+    </string-array>
 
+    <string-array name="game_types">
+        <item>In categories</item>
+        <item>Random in all words</item>
+        <item>Random in last words</item>
     </string-array>
 
 </resources>

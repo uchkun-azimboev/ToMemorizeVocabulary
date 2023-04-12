@@ -285,7 +285,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/pure_gray"
+                    android:backgroundTint="@color/gray"
                     android:text="@string/str_cancel"
                     android:textAllCaps="false"
                     android:textSize="16sp"

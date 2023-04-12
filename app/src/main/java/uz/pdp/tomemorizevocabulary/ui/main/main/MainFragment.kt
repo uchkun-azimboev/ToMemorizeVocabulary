@@ -30,6 +30,7 @@ class MainFragment : Fragment() {
     private val categoryAdapter = CategoryAdapter()
 
     private lateinit var username: String
+    private var categories = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -77,7 +78,11 @@ class MainFragment : Fragment() {
         }
 
         frameGame click {
-            toast(getString(R.string.str_sorry))
+            if (categories > 0) {
+                findNavController().navigate(R.id.action_mainFragment_to_gameFragment)
+            } else {
+                toast(getString(R.string.str_none_lessons_info))
+            }
         }
     }
 
@@ -134,6 +139,7 @@ class MainFragment : Fragment() {
                         tvNumAll.text = user.allCategories.toString()
                         tvNumCompleted.text = user.completed.toString()
                         tvNumToDo.text = (user.allCategories - user.completed).toString()
+                        categories = user.allCategories
                     }
                 }
                 Resource.Status.ERROR -> {
