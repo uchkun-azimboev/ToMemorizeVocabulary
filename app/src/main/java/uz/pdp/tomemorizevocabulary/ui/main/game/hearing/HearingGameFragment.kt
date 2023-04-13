@@ -21,6 +21,7 @@ import uz.pdp.tomemorizevocabulary.utils.Constants
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.getScoreColor
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
+import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource
 import uz.pdp.tomemorizevocabulary.utils.Utils
@@ -108,9 +109,11 @@ class HearingGameFragment : TTSFragment() {
             if (isVolumeOff) {
                 setVolumeUp()
                 ivVolume.setImageResource(R.drawable.ic_volume_off_24px)
+                toast(getString(R.string.str_sound_on))
             } else {
                 setVolumeOff()
                 ivVolume.setImageResource(R.drawable.ic_sound_24px)
+                toast(getString(R.string.str_sound_off))
             }
         }
     }

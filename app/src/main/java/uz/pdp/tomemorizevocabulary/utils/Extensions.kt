@@ -1,12 +1,10 @@
 package uz.pdp.tomemorizevocabulary.utils
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.app.Dialog
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -26,7 +24,6 @@ import com.saadahmedsoft.popupdialog.listener.OnDialogButtonClickListener
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.model.photos.Photo
-import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 
 
 object Extensions {
@@ -84,7 +81,7 @@ object Extensions {
                     ResourcesCompat.getFont(requireActivity().applicationContext, R.font.poppins)
                 setTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
             }
-            view.setBackgroundResource(if (color == 0) R.drawable.rounded_background_orange else R.drawable.rounded_background_green)
+            view.setBackgroundResource(R.drawable.rounded_background_blue)
         }.show()
     }
 
