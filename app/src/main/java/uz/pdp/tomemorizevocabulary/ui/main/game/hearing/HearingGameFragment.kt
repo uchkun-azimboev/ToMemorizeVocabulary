@@ -39,9 +39,7 @@ class HearingGameFragment : TTSFragment() {
     private var currentItem = -1
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _bn = FragmentHearingGameBinding.inflate(inflater, container, false)
         setUpTTS()
@@ -104,6 +102,16 @@ class HearingGameFragment : TTSFragment() {
 
         ivPlay click {
             startGame()
+        }
+
+        ivVolume click {
+            if (isVolumeOff) {
+                setVolumeUp()
+                ivVolume.setImageResource(R.drawable.ic_volume_off_24px)
+            } else {
+                setVolumeOff()
+                ivVolume.setImageResource(R.drawable.ic_sound_24px)
+            }
         }
     }
 

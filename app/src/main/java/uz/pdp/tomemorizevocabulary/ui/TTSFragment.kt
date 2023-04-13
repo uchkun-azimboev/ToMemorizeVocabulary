@@ -17,6 +17,7 @@ open class TTSFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private lateinit var textToSpeech: TextToSpeech
     private lateinit var mediaPlayer: MediaPlayer
+    protected var isVolumeOff = false
 
     protected fun setUpTTS() {
         textToSpeech = TextToSpeech(requireActivity(), this)
@@ -24,14 +25,24 @@ open class TTSFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private fun setUpMediaPlayer() {
         mediaPlayer = MediaPlayer()
-        val audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-        mediaPlayer.setVolume(maxVolume.toFloat() * 0.25f, maxVolume.toFloat() * 0.25f)
+        setVolumeUp()
     }
 
     protected fun speakText(msg: String) {
         mediaPlayer.stop()
         textToSpeech.speak(msg, TextToSpeech.QUEUE_FLUSH, null, null)
+    }
+
+    protected fun setVolumeUp() {
+        isVolumeOff = false
+        val audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+        mediaPlayer.setVolume(maxVolume.toFloat() * 0.25f, maxVolume.toFloat() * 0.25f)
+    }
+
+    protected fun setVolumeOff() {
+        isVolumeOff = true
+        mediaPlayer.setVolume(0f, 0f)
     }
 
     protected fun playRightSound() {
