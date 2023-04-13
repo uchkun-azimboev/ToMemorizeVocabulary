@@ -138,7 +138,6 @@
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_gravity="center"
-                        android:layout_marginVertical="50dp"
                         android:indeterminate="true"
                         android:indeterminateTint="@color/blue"
                         android:visibility="invisible" />
@@ -147,7 +146,9 @@
                         android:id="@+id/rv_category"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/item_view_category" />
 
 
                 </FrameLayout>
@@ -158,7 +159,7 @@
                 android:id="@+id/view_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginVertical="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:visibility="gone">
 

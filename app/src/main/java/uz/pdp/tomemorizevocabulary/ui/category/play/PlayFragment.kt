@@ -2,6 +2,9 @@ package uz.pdp.tomemorizevocabulary.ui.category.play
 
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.media.AudioManager
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
@@ -22,10 +25,12 @@ import uz.pdp.tomemorizevocabulary.databinding.FragmentPlayBinding
 import uz.pdp.tomemorizevocabulary.ui.TTSFragment
 import uz.pdp.tomemorizevocabulary.utils.Constants
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
+import uz.pdp.tomemorizevocabulary.utils.Extensions.getScoreColor
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
 import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Resource
+import uz.pdp.tomemorizevocabulary.utils.Utils.getScoreTitle
 import java.util.*
 
 @AndroidEntryPoint
@@ -153,11 +158,13 @@ class PlayFragment : TTSFragment() {
     }
 
     private fun showResult() {
+        val stats: Int = (success.toFloat() / itemCount * 100).toInt()
+        setCategoryColor(stats)
+        if (stats >= 75) playRightSound()
+        else playWrongSound()
         bn.apply {
             flMain.gone()
             llResult.visible()
-            val stats: Int = (success.toFloat() / itemCount * 100).toInt()
-            setCategoryColor(stats)
             tvScore.text = stats.toString().plus("%")
             tvScore.setTextColor(getScoreColor(stats))
             tvInfo.text = getString(getScoreTitle(stats))
@@ -168,27 +175,6 @@ class PlayFragment : TTSFragment() {
     private fun setCategoryColor(stats: Int) {
         if (stats > 84) {
             playViewModel.incrementColor(categoryId)
-        }
-    }
-
-    private fun getScoreColor(stats: Int): Int {
-        return ContextCompat.getColor(
-            requireContext(),
-            when (stats) {
-                in 0..54 -> R.color.gray
-                in 55..70 -> R.color.orange
-                in 71..85 -> R.color.blue
-                else -> R.color.green
-            }
-        )
-    }
-
-    private fun getScoreTitle(stats: Int): Int {
-        return when (stats) {
-            in 0..54 -> R.string.str_unsatisfactory
-            in 55..70 -> R.string.str_satisfactory
-            in 71..85 -> R.string.str_good
-            else -> R.string.str_excellent
         }
     }
 

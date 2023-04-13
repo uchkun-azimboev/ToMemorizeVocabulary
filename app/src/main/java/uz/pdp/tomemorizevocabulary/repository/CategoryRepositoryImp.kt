@@ -12,6 +12,10 @@ class CategoryRepositoryImp(private val categoryDao: CategoryDao) : CategoryRepo
         return categoryDao.getAllCategory()
     }
 
+    override suspend fun getAllCategoriesThatHaveWord(): List<Category> {
+        return categoryDao.getAllCategoriesThatHaveWord()
+    }
+
     override suspend fun getCategoryById(id: Int): Category {
         return categoryDao.getCategoryById(id)
     }

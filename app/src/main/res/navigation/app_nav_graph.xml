@@ -153,7 +153,13 @@
         android:id="@+id/hearingGameFragment"
         android:name="uz.pdp.tomemorizevocabulary.ui.main.game.hearing.HearingGameFragment"
         android:label="fragment_hearing_game"
-        tools:layout="@layout/fragment_hearing_game" />
+        tools:layout="@layout/fragment_hearing_game">
+        <action
+            android:id="@+id/action_hearingGameFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <dialog
         android:id="@+id/setGameFragment"
         android:name="uz.pdp.tomemorizevocabulary.ui.main.game.main.SetGameFragment"

@@ -95,10 +95,11 @@ class SetGameFragment : BottomSheetDialogFragment() {
         val game = requireArguments().getString(Constants.GAME_TYPE)
         val gameInfo = GameInfo(
             categoryId = categoryId,
-            gameType = bn.etGameType.text.toString(),
-            wordCount = if (bn.etCount.text.toString().isNotEmpty())
-                bn.etCount.text.toString().toInt() else 0
+            gameType = bn.etGameType.text.toString()
         )
+        if (!bn.etCount.text.isNullOrEmpty()) {
+            gameInfo.wordCount = bn.etCount.text.toString().toInt()
+        }
         val args = Bundle().apply {
             putSerializable(Constants.GAME_INFO, gameInfo)
         }
@@ -146,9 +147,11 @@ class SetGameFragment : BottomSheetDialogFragment() {
                     bn.progressbar.visible()
                 }
                 Resource.Status.SUCCESS -> {
+                    bn.progressbar.gone()
                     categoryAdapter.submitList(it.data)
                 }
                 Resource.Status.ERROR -> {
+                    bn.progressbar.gone()
                     bn.viewButtons.gone()
                     bn.viewCategory.gone()
                 }

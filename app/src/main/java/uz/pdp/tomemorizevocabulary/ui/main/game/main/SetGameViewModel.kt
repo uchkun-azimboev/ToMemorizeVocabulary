@@ -26,7 +26,7 @@ class SetGameViewModel @Inject constructor(
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    val response = categoryRepository.getAllCategory()
+                    val response = categoryRepository.getAllCategoriesThatHaveWord()
                     _categories.postValue(Resource.success(response))
                 } catch (e: Exception) {
                     _categories.postValue(Resource.error(e.localizedMessage))

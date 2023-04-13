@@ -49,6 +49,18 @@ object Extensions {
         }
     }
 
+    fun Fragment.getScoreColor(stats: Int): Int {
+        return ContextCompat.getColor(
+            requireContext(),
+            when (stats) {
+                in 0..54 -> R.color.gray
+                in 55..70 -> R.color.orange
+                in 71..85 -> R.color.blue
+                else -> R.color.green
+            }
+        )
+    }
+
     fun Fragment.makeDialog(title: String, msg: String, click: () -> Unit) {
         PopupDialog.getInstance(requireContext())
             .setStyle(Styles.IOS)

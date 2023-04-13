@@ -13,6 +13,14 @@ class WordRepositoryImp(private val wordDao: WordDao) : WordRepository {
         return wordDao.getWords(categoryId)
     }
 
+    override suspend fun getRandomWords(count: Int): List<Word> {
+        return wordDao.getRandomWords(count)
+    }
+
+    override suspend fun getLastWords(count: Int): List<Word> {
+        return wordDao.getLastWords(count)
+    }
+
     override suspend fun getSearchWord(text: String): List<Word> {
         return wordDao.getSearchWord(text)
     }

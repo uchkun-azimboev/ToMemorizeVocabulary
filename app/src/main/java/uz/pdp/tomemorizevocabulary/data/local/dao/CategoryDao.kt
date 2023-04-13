@@ -12,6 +12,9 @@ interface CategoryDao {
     @Query("SELECT * FROM category order by color")
     suspend fun getAllCategory(): List<Category>
 
+    @Query("SELECT * FROM category where word_count > 0")
+    suspend fun getAllCategoriesThatHaveWord(): List<Category>
+
     @Query("SELECT * FROM category where id = :id")
     suspend fun getCategoryById(id: Int): Category
 

@@ -85,7 +85,7 @@
     <string name="str_grammar">Grammar</string>
     <string name="str_hear_voice">Hear the voice and write!</string>
     <string name="str_touch_hear_again">Touch the icon to hear again</string>
-    <string name="str_enter_answer">Enter your answer</string>
+    <string name="str_enter_answer">Enter your answer in English</string>
     <string name="str_not_understand">Not know</string>
     <string name="str_right">Right!</string>
     <string name="str_next">Next</string>
@@ -98,6 +98,8 @@
     <string name="str_word_amount">Enter word amount</string>
     <string name="str_hint_count">20 or more etc.</string>
     <string name="str_choose_category">Choose category</string>
+    <string name="str_stop">Stop game</string>
+    <string name="str_start_game">Touch the play to start game</string>
 
     <string-array name="part_of_speech">
         <item>noun</item>
