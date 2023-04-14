@@ -18,6 +18,8 @@ import uz.pdp.tomemorizevocabulary.R
 import uz.pdp.tomemorizevocabulary.databinding.ItemViewWordBinding
 import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
+import uz.pdp.tomemorizevocabulary.utils.Extensions.isMinus
+import uz.pdp.tomemorizevocabulary.utils.Extensions.isNotMinus
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 
 class WordAdapter : ListAdapter<Word, WordAdapter.WordViewHolder>(WordDiffCallBack()) {
@@ -48,14 +50,22 @@ class WordAdapter : ListAdapter<Word, WordAdapter.WordViewHolder>(WordDiffCallBa
 
                     llExample.visible()
 
-                    val text = example!!
-                    val start = text.indexOf("*")
-                    val finish = text.lastIndexOf("*")
+                    var text = example!!
 
-                    if (start != finish) {
-                        val spannable = SpannableString(text.replace("*", ""))
+                    var start = text.indexOf("*")
+                    var finish = text.lastIndexOf("*") - 1
+
+                    if (start.isMinus() || finish.isMinus() || start == finish) {
+                        start = text.indexOf(phrase)
+                        finish = start + phrase.length
+                    } else {
+                        text = text.replace("*", "")
+                    }
+
+                    if (start.isNotMinus() && finish.isNotMinus()) {
+                        val spannable = SpannableString(text)
                         spannable.setSpan(
-                            StyleSpan(Typeface.ITALIC),
+                            StyleSpan(Typeface.BOLD),
                             start,
                             finish,
                             Spannable.SPAN_INCLUSIVE_EXCLUSIVE

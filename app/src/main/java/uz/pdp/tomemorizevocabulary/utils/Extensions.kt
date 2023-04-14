@@ -28,6 +28,14 @@ import uz.pdp.tomemorizevocabulary.model.photos.Photo
 
 object Extensions {
 
+    fun Int.isNotMinus(): Boolean {
+        return this > 0
+    }
+
+    fun Int.isMinus(): Boolean {
+        return this < 0
+    }
+
     fun RequestManager.setup(photo: Photo, view: ImageView) {
         load(photo.src.medium).placeholder(ColorDrawable(Color.parseColor(photo.avg_color)))
             .into(view)
