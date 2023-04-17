@@ -16,33 +16,40 @@ import java.util.*
 open class TTSFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private lateinit var textToSpeech: TextToSpeech
-    private lateinit var mediaPlayer: MediaPlayer
-    protected var isVolumeOff = false
+    protected lateinit var mediaPlayer: MediaPlayer
+
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            // Set the language for the TTS engine
+            textToSpeech.language = Locale.ENGLISH
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpMediaPlayer()
+    }
+
+    override fun onDestroy() {
+        if (textToSpeech.isSpeaking) {
+            textToSpeech.stop()
+        }
+        textToSpeech.shutdown()
+        mediaPlayer.stop()
+        super.onDestroy()
+    }
+
+    private fun setUpMediaPlayer() {
+        mediaPlayer = MediaPlayer()
+    }
 
     protected fun setUpTTS() {
         textToSpeech = TextToSpeech(requireActivity(), this)
     }
 
-    private fun setUpMediaPlayer() {
-        mediaPlayer = MediaPlayer()
-        setVolumeUp()
-    }
-
     protected fun speakText(msg: String) {
         mediaPlayer.stop()
         textToSpeech.speak(msg, TextToSpeech.QUEUE_FLUSH, null, null)
-    }
-
-    protected fun setVolumeUp() {
-        isVolumeOff = false
-        val audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-        mediaPlayer.setVolume(maxVolume.toFloat() * 0.25f, maxVolume.toFloat() * 0.25f)
-    }
-
-    protected fun setVolumeOff() {
-        isVolumeOff = true
-        mediaPlayer.setVolume(0f, 0f)
     }
 
     protected fun playRightSound() {
@@ -65,26 +72,5 @@ open class TTSFragment : Fragment(), TextToSpeech.OnInitListener {
         )
         mediaPlayer.prepare()
         mediaPlayer.start()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setUpMediaPlayer()
-    }
-
-    override fun onDestroy() {
-        if (textToSpeech.isSpeaking) {
-            textToSpeech.stop()
-        }
-        textToSpeech.shutdown()
-        mediaPlayer.stop()
-        super.onDestroy()
-    }
-
-    override fun onInit(status: Int) {
-        if (status == TextToSpeech.SUCCESS) {
-            // Set the language for the TTS engine
-            textToSpeech.language = Locale.ENGLISH
-        }
     }
 }

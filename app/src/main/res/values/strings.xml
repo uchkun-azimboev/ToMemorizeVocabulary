@@ -102,6 +102,7 @@
     <string name="str_start_game">Touch the play to start game</string>
     <string name="str_sound_on">Sound was turned on</string>
     <string name="str_sound_off">Sound was turned off</string>
+    <string name="str_finish">Finish</string>
 
     <string-array name="part_of_speech">
         <item>noun</item>

@@ -1,43 +1,29 @@
 package uz.pdp.tomemorizevocabulary.ui.main.game.hearing
 
-import android.content.Context
-import android.media.AudioAttributes
-import android.media.AudioManager
-import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import dagger.hilt.android.AndroidEntryPoint
+import androidx.recyclerview.widget.LinearLayoutManager
 import uz.pdp.tomemorizevocabulary.R
-import uz.pdp.tomemorizevocabulary.data.local.entity.Word
 import uz.pdp.tomemorizevocabulary.databinding.FragmentHearingGameBinding
 import uz.pdp.tomemorizevocabulary.model.GameInfo
-import uz.pdp.tomemorizevocabulary.ui.TTSFragment
+import uz.pdp.tomemorizevocabulary.ui.main.game.GameBaseFragment
 import uz.pdp.tomemorizevocabulary.utils.Constants
 import uz.pdp.tomemorizevocabulary.utils.Extensions.click
 import uz.pdp.tomemorizevocabulary.utils.Extensions.getScoreColor
 import uz.pdp.tomemorizevocabulary.utils.Extensions.gone
 import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
-import uz.pdp.tomemorizevocabulary.utils.Resource
 import uz.pdp.tomemorizevocabulary.utils.Utils
 
-
-@AndroidEntryPoint
-class HearingGameFragment : TTSFragment() {
+class HearingGameFragment : GameBaseFragment() {
 
     private var _bn: FragmentHearingGameBinding? = null
     private val bn get() = _bn!!
 
-    private val hearingViewModel: HearingViewModel by viewModels()
-    private val wordList = ArrayList<Word>()
-    private var itemCount = 0
-    private var correctItem = 0
-    private var currentItem = -1
+    private val hearingGameAdapter = HearingGameAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -47,54 +33,61 @@ class HearingGameFragment : TTSFragment() {
         return bn.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (itemCount == 0) {
-            val gameInfo = requireArguments().getSerializable(Constants.GAME_INFO) as GameInfo
-            when (gameInfo.gameType) {
-                Constants.IN_CATEGORY -> {
-                    hearingViewModel.getRandomWordsByCategory(gameInfo.categoryId)
-                }
-                Constants.ALL_WORDS -> {
-                    hearingViewModel.getRandomWords(gameInfo.wordCount)
-                }
-                Constants.LAST_WORDS -> {
-                    hearingViewModel.getLastWords(gameInfo.wordCount)
-                }
-            }
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        observer()
+
+        observer(onLoading = {
+            bn.progressbar.visible()
+        }, onSuccess = {
+            bn.progressbar.gone()
+            bn.viewPlay.visible()
+        }, onError = {
+            bn.progressbar.gone()
+        })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setUpGame(requireArguments().getSerializable(Constants.GAME_INFO) as GameInfo)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _bn = null
     }
 
     private fun initViews() = bn.apply {
+
+        rvGame.layoutManager =
+            object : LinearLayoutManager(requireContext(), HORIZONTAL, false) {
+                override fun canScrollHorizontally(): Boolean {
+                    return true
+                }
+            }
+
+        rvGame.adapter = hearingGameAdapter
+
         ivBack click { requireActivity().onBackPressed() }
 
-        ivVoice click {
-            speakText(wordList[currentItem].phrase)
-        }
-
-        btnCheck click {
-            if (!etAnswer.text.isNullOrEmpty()) {
-                val text = etAnswer.text.toString()
-                openAnswer(text)
+        hearingGameAdapter.apply {
+            ivVoiceClick = {
+                speakText(it.phrase)
             }
-        }
-
-        btnNotKnow click {
-            openAnswer("")
-        }
-
-        btnStop click {
-            showResult()
-        }
-
-        btnNext click {
-            nextWord()
+            btnStopClick = {
+                showResult()
+            }
+            rightAnswer = {
+                correctItem++
+                playRightSound()
+            }
+            wrongAnswer = {
+                playWrongSound()
+            }
+            nextWord = {
+                tvStats.text = getStats(it)
+                rvGame.scrollToPosition(it)
+            }
         }
 
         btnOk click {
@@ -107,12 +100,12 @@ class HearingGameFragment : TTSFragment() {
 
         ivVolume click {
             if (isVolumeOff) {
-                setVolumeUp()
-                ivVolume.setImageResource(R.drawable.ic_volume_off_24px)
+                setVolumeOn()
+                ivVolume.setImageResource(R.drawable.ic_sound_24px)
                 toast(getString(R.string.str_sound_on))
             } else {
                 setVolumeOff()
-                ivVolume.setImageResource(R.drawable.ic_sound_24px)
+                ivVolume.setImageResource(R.drawable.ic_volume_off_24px)
                 toast(getString(R.string.str_sound_off))
             }
         }
@@ -124,7 +117,9 @@ class HearingGameFragment : TTSFragment() {
             viewStart.gone()
             viewGame.visible()
         }
-        nextWord()
+
+        hearingGameAdapter.submitList(wordList)
+        bn.tvStats.text = getStats(0)
     }
 
     private fun showResult() {
@@ -139,70 +134,5 @@ class HearingGameFragment : TTSFragment() {
             tvInfo.text = getString(Utils.getScoreTitle(stats))
             tvInfo.setTextColor(getScoreColor(stats))
         }
-    }
-
-    private fun openAnswer(text: String) {
-        val answer = wordList[currentItem].phrase
-        bn.apply {
-            frameQuestion.gone()
-            frameAnswer.visible()
-
-            if (answer == text) {
-                correctItem++
-                playRightSound()
-                tvRight.visible()
-                tvWrong.gone()
-            } else {
-                playWrongSound()
-                tvRight.gone()
-                tvWrong.visible()
-            }
-
-            tvCorrect.text = answer.plus("\n(${wordList[currentItem].meaning})")
-            tvYourAnswer.text = text
-        }
-    }
-
-    private fun nextWord() {
-        currentItem++
-        if (currentItem < itemCount) {
-            bn.apply {
-                bn.tvStats.text = getStats()
-                etAnswer.text = null
-                frameQuestion.visible()
-                frameAnswer.gone()
-            }
-            speakText(wordList[currentItem].phrase)
-        } else {
-            showResult()
-        }
-    }
-
-    private fun observer() {
-        hearingViewModel.randomWords.observe(viewLifecycleOwner) {
-            when (it.status) {
-                Resource.Status.LOADING -> {
-                    bn.progressbar.visible()
-                }
-                Resource.Status.SUCCESS -> {
-                    itemCount = it.data?.size ?: 0
-                    wordList.addAll(it.data ?: arrayListOf())
-                    bn.progressbar.gone()
-                    bn.viewPlay.visible()
-                }
-                Resource.Status.ERROR -> {
-                    bn.progressbar.gone()
-                }
-            }
-        }
-    }
-
-    private fun getStats(a: Int = currentItem + 1, b: Int = itemCount): String {
-        return "$a/$b"
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _bn = null
     }
 }

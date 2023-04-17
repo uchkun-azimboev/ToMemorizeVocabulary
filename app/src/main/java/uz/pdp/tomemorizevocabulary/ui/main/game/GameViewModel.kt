@@ -1,4 +1,4 @@
-package uz.pdp.tomemorizevocabulary.ui.main.game.hearing
+package uz.pdp.tomemorizevocabulary.ui.main.game
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +14,7 @@ import uz.pdp.tomemorizevocabulary.utils.SingleLiveEvent
 import javax.inject.Inject
 
 @HiltViewModel
-class HearingViewModel @Inject constructor(
+class GameViewModel @Inject constructor(
     private val wordRepository: WordRepository
 ) : ViewModel() {
 
