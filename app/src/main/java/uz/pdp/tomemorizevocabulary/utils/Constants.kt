@@ -16,12 +16,12 @@ object Constants {
     const val USERNAME = "username"
 
     const val GAME_TYPE = "game_type"
-    const val GAME_TYPING = "typing_game"
-    const val GAME_HEARING = "hearing_game"
-    const val GAME_SPEECH = "game_speech"
-    const val GAME_TEST = "game_test"
-    const val GAME_GRAMMAR = "game_grammar"
-    const val GAME_SHUFFLE = "game_shuffle"
+    const val GAME_TYPING = "Typing"
+    const val GAME_HEARING = "Hearing"
+    const val GAME_SPEECH = "Speech"
+    const val GAME_TEST = "Test"
+    const val GAME_GRAMMAR = "Grammar"
+    const val GAME_SHUFFLE = "All in one"
 
     const val GAME_INFO = "game_info"
     const val IN_CATEGORY = "In categories"

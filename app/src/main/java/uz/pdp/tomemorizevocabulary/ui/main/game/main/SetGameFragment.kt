@@ -92,8 +92,8 @@ class SetGameFragment : BottomSheetDialogFragment() {
     }
 
     private fun playGame() {
-        val game = requireArguments().getString(Constants.GAME_TYPE)
         val gameInfo = GameInfo(
+            game = requireArguments().getString(Constants.GAME_TYPE)!!,
             categoryId = categoryId,
             gameType = bn.etGameType.text.toString()
         )
@@ -103,41 +103,7 @@ class SetGameFragment : BottomSheetDialogFragment() {
         val args = Bundle().apply {
             putSerializable(Constants.GAME_INFO, gameInfo)
         }
-        when (game) {
-            Constants.GAME_TYPING -> {
-                findNavController().navigate(
-                    R.id.action_setGameFragment_to_typingGameFragment,
-                    args
-                )
-            }
-            Constants.GAME_TEST -> {
-                findNavController().navigate(R.id.action_setGameFragment_to_testGameFragment, args)
-            }
-            Constants.GAME_HEARING -> {
-                findNavController().navigate(
-                    R.id.action_setGameFragment_to_hearingGameFragment,
-                    args
-                )
-            }
-            Constants.GAME_SPEECH -> {
-                findNavController().navigate(
-                    R.id.action_setGameFragment_to_speechGameFragment,
-                    args
-                )
-            }
-            Constants.GAME_SHUFFLE -> {
-                findNavController().navigate(
-                    R.id.action_setGameFragment_to_shuffleGameFragment,
-                    args
-                )
-            }
-            Constants.GAME_GRAMMAR -> {
-                findNavController().navigate(
-                    R.id.action_setGameFragment_to_grammarGameFragment,
-                    args
-                )
-            }
-        }
+        findNavController().navigate(R.id.action_setGameFragment_to_hearingGameFragment, args)
     }
 
     private fun observer() {
@@ -146,10 +112,12 @@ class SetGameFragment : BottomSheetDialogFragment() {
                 Resource.Status.LOADING -> {
                     bn.progressbar.visible()
                 }
+
                 Resource.Status.SUCCESS -> {
                     bn.progressbar.gone()
                     categoryAdapter.submitList(it.data)
                 }
+
                 Resource.Status.ERROR -> {
                     bn.progressbar.gone()
                     bn.viewButtons.gone()

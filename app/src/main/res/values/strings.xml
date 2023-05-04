@@ -103,6 +103,10 @@
     <string name="str_sound_on">Sound was turned on</string>
     <string name="str_sound_off">Sound was turned off</string>
     <string name="str_finish">Finish</string>
+    <string name="str_a">A</string>
+    <string name="str_b">B</string>
+    <string name="str_c">C</string>
+    <string name="str_d">D</string>
 
     <string-array name="part_of_speech">
         <item>noun</item>

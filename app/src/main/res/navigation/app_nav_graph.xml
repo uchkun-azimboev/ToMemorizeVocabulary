@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_mainFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_setGameFragment"
+            app:destination="@id/setGameFragment" />
     </fragment>
 
     <fragment
@@ -125,35 +128,10 @@
     </dialog>
 
     <fragment
-        android:id="@+id/grammarGameFragment"
-        android:name="uz.pdp.tomemorizevocabulary.ui.main.game.grammar.GrammarGameFragment"
-        android:label="fragment_grammar_game"
-        tools:layout="@layout/fragment_grammar_game" />
-    <fragment
-        android:id="@+id/typingGameFragment"
-        android:name="uz.pdp.tomemorizevocabulary.ui.main.game.typing.TypingGameFragment"
-        android:label="fragment_typing_game"
-        tools:layout="@layout/fragment_typing_game" />
-    <fragment
-        android:id="@+id/testGameFragment"
-        android:name="uz.pdp.tomemorizevocabulary.ui.main.game.test.TestGameFragment"
-        android:label="fragment_test_game"
-        tools:layout="@layout/fragment_test_game" />
-    <fragment
-        android:id="@+id/speechGameFragment"
-        android:name="uz.pdp.tomemorizevocabulary.ui.main.game.speech.SpeechGameFragment"
-        android:label="fragment_speech_game"
-        tools:layout="@layout/fragment_speech_game" />
-    <fragment
-        android:id="@+id/shuffleGameFragment"
-        android:name="uz.pdp.tomemorizevocabulary.ui.main.game.shuffle.ShuffleGameFragment"
-        android:label="fragment_shuffle_game"
-        tools:layout="@layout/fragment_shuffle_game" />
-    <fragment
         android:id="@+id/hearingGameFragment"
-        android:name="uz.pdp.tomemorizevocabulary.ui.main.game.hearing.HearingGameFragment"
+        android:name="uz.pdp.tomemorizevocabulary.ui.main.game.playing.PlayingGameFragment"
         android:label="fragment_hearing_game"
-        tools:layout="@layout/fragment_hearing_game">
+        tools:layout="@layout/fragment_playing_game">
         <action
             android:id="@+id/action_hearingGameFragment_to_mainFragment"
             app:destination="@id/mainFragment"
@@ -165,21 +143,6 @@
         android:name="uz.pdp.tomemorizevocabulary.ui.main.game.main.SetGameFragment"
         android:label="fragment_set_game"
         tools:layout="@layout/fragment_set_game">
-        <action
-            android:id="@+id/action_setGameFragment_to_grammarGameFragment"
-            app:destination="@id/grammarGameFragment" />
-        <action
-            android:id="@+id/action_setGameFragment_to_typingGameFragment"
-            app:destination="@id/typingGameFragment" />
-        <action
-            android:id="@+id/action_setGameFragment_to_testGameFragment"
-            app:destination="@id/testGameFragment" />
-        <action
-            android:id="@+id/action_setGameFragment_to_speechGameFragment"
-            app:destination="@id/speechGameFragment" />
-        <action
-            android:id="@+id/action_setGameFragment_to_shuffleGameFragment"
-            app:destination="@id/shuffleGameFragment" />
         <action
             android:id="@+id/action_setGameFragment_to_hearingGameFragment"
             app:destination="@id/hearingGameFragment" />

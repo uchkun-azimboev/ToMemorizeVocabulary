@@ -1,4 +1,4 @@
-package uz.pdp.tomemorizevocabulary.ui.main.game.hearing
+package uz.pdp.tomemorizevocabulary.ui.main.game.playing
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import uz.pdp.tomemorizevocabulary.R
-import uz.pdp.tomemorizevocabulary.databinding.FragmentHearingGameBinding
+import uz.pdp.tomemorizevocabulary.databinding.FragmentPlayingGameBinding
 import uz.pdp.tomemorizevocabulary.model.GameInfo
 import uz.pdp.tomemorizevocabulary.ui.main.game.GameBaseFragment
 import uz.pdp.tomemorizevocabulary.utils.Constants
@@ -18,9 +18,9 @@ import uz.pdp.tomemorizevocabulary.utils.Extensions.toast
 import uz.pdp.tomemorizevocabulary.utils.Extensions.visible
 import uz.pdp.tomemorizevocabulary.utils.Utils
 
-class HearingGameFragment : GameBaseFragment() {
+class PlayingGameFragment : GameBaseFragment() {
 
-    private var _bn: FragmentHearingGameBinding? = null
+    private var _bn: FragmentPlayingGameBinding? = null
     private val bn get() = _bn!!
 
     private val hearingGameAdapter = HearingGameAdapter()
@@ -28,7 +28,7 @@ class HearingGameFragment : GameBaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _bn = FragmentHearingGameBinding.inflate(inflater, container, false)
+        _bn = FragmentPlayingGameBinding.inflate(inflater, container, false)
         setUpTTS()
         return bn.root
     }

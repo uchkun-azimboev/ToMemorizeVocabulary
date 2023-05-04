@@ -1,4 +1,4 @@
-package uz.pdp.tomemorizevocabulary.ui.main.game.hearing
+package uz.pdp.tomemorizevocabulary.ui.main.game.playing
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

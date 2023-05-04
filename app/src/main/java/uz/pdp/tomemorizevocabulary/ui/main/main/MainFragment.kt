@@ -79,7 +79,12 @@ class MainFragment : Fragment() {
 
         frameGame click {
             if (categories > 0) {
-                findNavController().navigate(R.id.action_mainFragment_to_gameFragment)
+
+                findNavController().navigate(R.id.action_mainFragment_to_setGameFragment, Bundle().apply {
+                    putString(Constants.GAME_TYPE, Constants.GAME_HEARING)
+                })
+
+//                findNavController().navigate(R.id.action_mainFragment_to_gameFragment)
             } else {
                 toast(getString(R.string.str_none_lessons_info))
             }

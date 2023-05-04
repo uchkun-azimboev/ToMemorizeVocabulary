@@ -56,7 +56,7 @@ class WordAdapter : ListAdapter<Word, WordAdapter.WordViewHolder>(WordDiffCallBa
                     var finish = text.lastIndexOf("*") - 1
 
                     if (start.isMinus() || finish.isMinus() || start == finish) {
-                        start = text.indexOf(phrase)
+                        start = text.lowercase().indexOf(phrase)
                         finish = start + phrase.length
                     } else {
                         text = text.replace("*", "")

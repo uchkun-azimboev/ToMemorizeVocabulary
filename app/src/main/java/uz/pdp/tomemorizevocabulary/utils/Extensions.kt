@@ -29,7 +29,7 @@ import uz.pdp.tomemorizevocabulary.model.photos.Photo
 object Extensions {
 
     fun Int.isNotMinus(): Boolean {
-        return this > 0
+        return this >= 0
     }
 
     fun Int.isMinus(): Boolean {
